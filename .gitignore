@@ -1,23 +1,50 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+/.awcache/
+/.cache/
+/node_modules/
+/build/
+/build_storybook/
+/stats/
+npm-debug.log
+yarn-*.log
+uploads
+manifest
+vars.sh
+unset-vars.sh
+dev-vars.sh
+.env
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+### Intellij ###
 
-# testing
-/coverage
-
-# production
-/build
-
-# misc
+*.iml
+.idea
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+## File-based project format:
+*.iws
+
+## Plugin-specific files:
+
+# IntelliJ
+/out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# babel-plugin-react-intl
+src/i18n/src/*
+src/i18n/translations.pot
+
+#vscode, typings
+.vs/
+.vscode/
+jsconfig.json
+typings.json
+typings/
+
+# blukit's componentsIndex.js file for examples app
+examples/componentsIndex.js
+
+
+### Eclipse ###
+.project
+.settings
