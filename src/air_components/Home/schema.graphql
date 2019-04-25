@@ -1,0 +1,10 @@
+query SensorList {
+    sensors {
+        id
+        code
+        latitude
+        longitude
+        altitude
+        web
+    }
+}

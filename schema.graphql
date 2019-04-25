@@ -1,0 +1,49 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+}
+
+type Provider {
+    abbr: String
+    id: String!
+    name: String
+    sensors: [Sensor]
+    web: String
+}
+
+type Query {
+    provider(id: String): Provider
+    providers: [Provider]
+    providersCount: Long
+    sensor(id: String): Sensor
+    sensorByCode(code: String): Sensor
+    sensorData(from: OffsetDateTime, sensorId: String, to: OffsetDateTime): [SensorData]
+    sensors: [Sensor]
+    sensorsCount: Long
+}
+
+type Sensor {
+    altitude: Float
+    code: String
+    id: String!
+    latitude: Float
+    longitude: Float
+    provider: Provider
+    sensorData(from: OffsetDateTime, to: OffsetDateTime): [SensorData]
+    web: String
+}
+
+type SensorData {
+    from: OffsetDateTime
+    id: String!
+    pm10: Float
+    pm2_5: Float
+    to: OffsetDateTime
+}
+
+
+scalar OffsetDateTime
+
+"Long type"
+scalar Long
