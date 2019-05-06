@@ -12,7 +12,10 @@ const httpLink = createHttpLink({
   uri: "http://william.multimediatech.cz:8081/air2day-test/graphql",
   headers: {
     authorization: `fb4c1cd7-e219-48ef-be8f-5e31f125e64f`
-  }
+  },
+  // fetchOptions: {
+  //   mode: 'no-cors',
+  // },
 });
 const client = new ApolloClient({
   link: httpLink,

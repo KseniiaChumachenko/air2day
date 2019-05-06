@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import NavBar from "./air_components/Navbar";
-import Locations from "./air_components/Locations";
+import { Locations } from "./air_components/Locations";
 import ContactUs from "./air_components/ContactUs";
 import Home from "./air_components/Home";
 

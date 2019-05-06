@@ -74,14 +74,42 @@ export type SensorData = {
 export type SensorListQueryVariables = {};
 
 export type SensorListQuery = { __typename?: "Query" } & {
-  sensors: Maybe<Array<Maybe<{ __typename?: "Sensor" } & Pick<Sensor,
-    "id" | "code" | "latitude" | "longitude" | "altitude" | "web">>>>;
+  sensors: Maybe<
+    Array<
+      Maybe<
+        { __typename?: "Sensor" } & Pick<
+          Sensor,
+          "id" | "code" | "latitude" | "longitude" | "altitude" | "web"
+        >
+      >
+    >
+  >;
+};
+
+export type SensorsQueryVariables = {};
+
+export type SensorsQuery = { __typename?: "Query" } & {
+  sensors: Maybe<
+    Array<
+      Maybe<
+        { __typename?: "Sensor" } & Pick<
+          Sensor,
+          | "code"
+          | "altitude"
+          | "latitude"
+          | "longitude"
+          | "altitude"
+          | "web"
+          | "id"
+        >
+      >
+    >
+  >;
 };
 
 import gql from "graphql-tag";
 import * as React from "react";
 import * as ReactApollo from "react-apollo";
-
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export const SensorListDocument = gql`
@@ -98,9 +126,13 @@ export const SensorListDocument = gql`
 `;
 
 export const SensorListComponent = (
-  props: Omit<Omit<ReactApollo.QueryProps<SensorListQuery, SensorListQueryVariables>,
-    "query">,
-    "variables"> & { variables?: SensorListQueryVariables }
+  props: Omit<
+    Omit<
+      ReactApollo.QueryProps<SensorListQuery, SensorListQueryVariables>,
+      "query"
+    >,
+    "variables"
+  > & { variables?: SensorListQueryVariables }
 ) => (
   <ReactApollo.Query<SensorListQuery, SensorListQueryVariables>
     query={SensorListDocument}
@@ -108,19 +140,67 @@ export const SensorListComponent = (
   />
 );
 
-export type SensorListProps<TChildProps = {}> =
-  Partial<ReactApollo.DataProps<SensorListQuery, SensorListQueryVariables>>
-  &
+export type SensorListProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<SensorListQuery, SensorListQueryVariables>
+> &
   TChildProps;
-
 export function withSensorList<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<TProps,
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
     SensorListQuery,
     SensorListQueryVariables,
-    SensorListProps<TChildProps>>
+    SensorListProps<TChildProps>
+  >
 ) {
-  return ReactApollo.withQuery<TProps,
+  return ReactApollo.withQuery<
+    TProps,
     SensorListQuery,
     SensorListQueryVariables,
-    SensorListProps<TChildProps>>(SensorListDocument, operationOptions);
+    SensorListProps<TChildProps>
+  >(SensorListDocument, operationOptions);
+}
+export const SensorsDocument = gql`
+  query Sensors {
+    sensors {
+      code
+      altitude
+      latitude
+      longitude
+      altitude
+      web
+      id
+    }
+  }
+`;
+
+export const SensorsComponent = (
+  props: Omit<
+    Omit<ReactApollo.QueryProps<SensorsQuery, SensorsQueryVariables>, "query">,
+    "variables"
+  > & { variables?: SensorsQueryVariables }
+) => (
+  <ReactApollo.Query<SensorsQuery, SensorsQueryVariables>
+    query={SensorsDocument}
+    {...props}
+  />
+);
+
+export type SensorsProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<SensorsQuery, SensorsQueryVariables>
+> &
+  TChildProps;
+export function withSensors<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    SensorsQuery,
+    SensorsQueryVariables,
+    SensorsProps<TChildProps>
+  >
+) {
+  return ReactApollo.withQuery<
+    TProps,
+    SensorsQuery,
+    SensorsQueryVariables,
+    SensorsProps<TChildProps>
+  >(SensorsDocument, operationOptions);
 }

@@ -1,0 +1,11 @@
+query Sensors {
+    sensors {
+        code
+        altitude
+        latitude
+        longitude
+        altitude
+        web
+        id
+    }
+}
