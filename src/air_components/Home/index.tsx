@@ -1,9 +1,6 @@
 import React from "react";
-import { SensorListComponent } from "../../generated/graphql";
-import { Loading } from "../components";
-import ErrorBanner from "../components/ErrorBanner";
 import { ScreenWrapper } from "../components/ScreenWrapper";
-import { createStyles, Typography, withStyles } from "@material-ui/core";
+import { createStyles, withStyles } from "@material-ui/core";
 
 const svg = (
   <svg
@@ -32,15 +29,15 @@ const svg = (
 
 const styles = () =>
   createStyles({
-    container:{
-      width: '100%',
-      height: '100%',
-      display:'flex',
-      flexDirection: 'column',
+    container: {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      flexDirection: "column"
     },
     title: {
-      marginTop: '63px',
-      marginLeft: '45px',
+      marginTop: "63px",
+      marginLeft: "45px",
 
       fontFamily: "Varela Round",
       fontStyle: "normal",
@@ -54,8 +51,8 @@ const styles = () =>
       color: "#FF4081"
     },
     subtitle: {
-      marginLeft: '130px',
-      marginTop: '15px',
+      marginLeft: "130px",
+      marginTop: "15px",
 
       fontFamily: "Varela Round",
       fontStyle: "normal",
@@ -71,7 +68,7 @@ const styles = () =>
       width: "605px",
       height: "243px",
       marginTop: "15px",
-      marginLeft: '250px',
+      marginLeft: "250px",
 
       fontFamily: "Varela Round",
       fontStyle: "normal",
@@ -81,7 +78,7 @@ const styles = () =>
       letterSpacing: "0.05em"
     },
     svgContainer: {
-      marginTop: '-20px',
+      marginTop: "-20px"
     }
   });
 
@@ -102,20 +99,7 @@ const HomeIntro = withStyles(styles)(({ classes }: any) => (
 
 const Home = () => (
   <ScreenWrapper>
-    <SensorListComponent>
-      {({ data, loading, error }) => {
-        if (loading) {
-          return <Loading />;
-        }
-        if (error) {
-          return <ErrorBanner />;
-        }
-        if (data) {
-          //const { sensors } = data;
-          return <HomeIntro />;
-        }
-      }}
-    </SensorListComponent>
+    <HomeIntro />
   </ScreenWrapper>
 );
 
