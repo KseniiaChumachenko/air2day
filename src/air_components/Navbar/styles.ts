@@ -16,7 +16,7 @@ const styles = (theme: Theme) => createStyles({
     flexGrow: 1
   },
   title: {
-    fontFamily: '"Leckerli One", cursive' as '"Leckerli One", cursive',
+    fontFamily: '"Leckerli One", cursive',
     fontSize: 30,
     display: "none",
     [theme.breakpoints.up("sm")]: {

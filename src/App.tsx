@@ -19,7 +19,7 @@ class App extends Component {
               <NavBar/>
               <Route exact path="/" component={Home}/>
               <Route path="/locations" component={Locations}/>
-              <Route path="/contactus" component={ContactUs}/>
+             {/* <Route path="/contactus" component={ContactUs}/>*/}
             </div>
           </ThemeProvider>
         </BrowserRouter>

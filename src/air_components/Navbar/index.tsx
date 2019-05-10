@@ -57,10 +57,10 @@ class NavBar extends React.PureComponent<NavBarProps> {
               label={<FormattedMessage {...messages.locations} />}
               value="/locations"
             />
-            <Tab
+            {/*<Tab
               label={<FormattedMessage {...messages.contacts} />}
               value="/contactus"
-            />
+            />*/}
           </Tabs>
         </AppBar>
       </div>
