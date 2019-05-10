@@ -4,22 +4,28 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
 import { Theme } from "@material-ui/core/styles";
-import { withStyles, WithStyles } from "@material-ui/core";
+import { withStyles, WithStyles, createStyles } from "@material-ui/core";
 
-const styles = (theme: Theme) => ({
-  container: {
-    maxWidth: "500px",
-    margin: theme.spacing.unit * 6,
-    //display: "flex" as "flex",
-    "& *": {
-      margin: theme.spacing.unit * 3
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      margin: theme.spacing(6),
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      textAlign: "center"
+    },
+    header: {
+      marginTop: theme.spacing(4),
+      marginLeft: theme.spacing(6),
+      marginRight: theme.spacing(6),
+      color: theme.palette.primary.main,
+    },
+    message: {
+      marginBottom: theme.spacing(3)
     }
-  },
-  header: {
-    marginTop: theme.spacing.unit * 3,
-    color: theme.palette.primary.light
-  }
-});
+  });
 
 interface ErrorBannerProps extends WithStyles {}
 
@@ -40,8 +46,8 @@ const ErrorBanner: React.FC<ErrorBannerProps> = ({ classes }) => (
       Sorry, something went wrong...
     </Typography>
     {SVG}
-    <Typography variant="subtitle1">
-      An unexpected error has occurred. Please, try again!
+    <Typography variant="subtitle1" className={classes.message}>
+      An unexpected error has occurred. <br /> Please, try again!
     </Typography>
   </Paper>
 );

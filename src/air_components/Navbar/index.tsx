@@ -47,16 +47,15 @@ class NavBar extends React.PureComponent<NavBarProps> {
               <FormattedMessage {...messages.title} />
             </Link>
           </Typography>
-          <div className={classes.grow}/>
+          <div className={classes.grow} />
           <Tabs
             value={this.context.router.history.location.pathname}
             onChange={this.handleChange}
           >
-            <Tab label={<FormattedMessage {...messages.home} />} value="/"/>
+            <Tab label={<FormattedMessage {...messages.home} />} value="/" />
             <Tab
               label={<FormattedMessage {...messages.locations} />}
               value="/locations"
-
             />
             <Tab
               label={<FormattedMessage {...messages.contacts} />}

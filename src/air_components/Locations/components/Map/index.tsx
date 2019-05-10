@@ -29,10 +29,34 @@ class Map extends React.PureComponent<MapProps> {
           bootstrapURLKeys={{ key: "AIzaSyBhcFB0JFXy8hv4pyQqZh7isVbn3-Tfzxk" }} // TODO: replace with Key provided by CTU
           defaultCenter={center}
           defaultZoom={zoom}
+          onGoogleApiLoaded={({ map, maps }) => {
+            console.log(map, maps);
+            maps.Geocoder(
+              {
+                location: {
+                  lat: 50.09423833333334,
+                  lng: 14.44204888888889
+                }
+              },
+              function(result: any, status: any) {
+                if (status == "OK") {
+                  console.log(result);
+                } else {
+                  console.log("error");
+                }
+              }
+            );
+          }}
+          yesIWantToUseGoogleMapApiInternals
         >
-        {sensors!.map((sensor, key) => (
-          <Marker lat={sensor!.latitude!} lng={sensor!.longitude!} key={key} />
-        ))}</GoogleMapReact>
+          {sensors!.map((sensor, key) => (
+            <Marker
+              lat={sensor!.latitude!}
+              lng={sensor!.longitude!}
+              key={key}
+            />
+          ))}
+        </GoogleMapReact>
       </div>
     );
   }

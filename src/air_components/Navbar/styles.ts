@@ -1,15 +1,15 @@
-import { Theme } from "@material-ui/core/styles";
+import { createStyles, Theme } from "@material-ui/core";
 
-const styles = (theme: Theme) => ({
+const styles = (theme: Theme) => createStyles({
   root: {
-    position: "relative" as "relative",
+    position: "relative",
     zIndex: 3,
     width: "100%",
     backgroundColor: theme.palette.background.default
   },
   appBar: {
-    display: "flex" as "flex",
-    flexDirection: "row" as "row",
+    display: "flex",
+    flexDirection: "row",
     maxHeight: "10vh"
   },
   grow: {
@@ -20,11 +20,11 @@ const styles = (theme: Theme) => ({
     fontSize: 30,
     display: "none",
     [theme.breakpoints.up("sm")]: {
-      display: "flex" as "flex",
-      alignSelf: "center" as "center"
+      display: "flex",
+      alignSelf: "center"
     },
-    marginRight: theme.spacing.unit * 2,
-    marginLeft: theme.spacing.unit * 2
+    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(2)
   }
 });
 
