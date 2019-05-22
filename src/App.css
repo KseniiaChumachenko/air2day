@@ -1,11 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Leckerli+One');
-@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+@import url("https://fonts.googleapis.com/css?family=Leckerli+One");
+@import url("https://fonts.googleapis.com/css?family=Varela+Round");
 
 .App {
   text-align: center;
+  width: 100%;
+  height: 100%;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }

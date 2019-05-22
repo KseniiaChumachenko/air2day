@@ -1,11 +1,12 @@
 import React from "react";
 
 import GoogleMapReact from "google-map-react";
-
-import styles from "./styles";
-import { withStyles, WithStyles } from "@material-ui/core";
-import { Marker } from "../Marker";
 import { SensorsQuery } from "../../../../generated/graphql";
+
+import { withStyles, WithStyles } from "@material-ui/core";
+
+import { Marker } from "./Marker";
+import styles from "./styles";
 
 interface MapProps extends WithStyles<typeof styles> {
   data: SensorsQuery;

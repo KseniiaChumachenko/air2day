@@ -1,18 +1,19 @@
-import React, { ChangeEvent } from "react";
-
+import React from "react";
+import { FormattedMessage } from "react-intl";
+import PropTypes from "prop-types";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 
-import Typography from "@material-ui/core/Typography";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import {
+  Typography,
+  AppBar,
+  Tabs,
+  Tab,
+  WithStyles,
+  withStyles
+} from "@material-ui/core";
 
-import { WithStyles, withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
-
-import { FormattedMessage } from "react-intl";
 import messages from "./messages";
-import PropTypes from "prop-types";
 
 type NavBarProps = RouteComponentProps & WithStyles<typeof styles>;
 
@@ -24,7 +25,7 @@ class NavBar extends React.PureComponent<NavBarProps> {
     value: "/"
   };
 
-  handleChange = (event: ChangeEvent<{}>, value: any) => {
+  handleChange = (event: React.ChangeEvent<{}>, value: any) => {
     this.setState({ value });
     this.context.router.history.push(value);
   };
@@ -57,10 +58,6 @@ class NavBar extends React.PureComponent<NavBarProps> {
               label={<FormattedMessage {...messages.locations} />}
               value="/locations"
             />
-            {/*<Tab
-              label={<FormattedMessage {...messages.contacts} />}
-              value="/contactus"
-            />*/}
           </Tabs>
         </AppBar>
       </div>

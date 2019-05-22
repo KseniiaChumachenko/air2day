@@ -1,10 +1,14 @@
 import React from "react";
 
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import {
+  Paper,
+  Typography,
+  withStyles,
+  WithStyles,
+  createStyles
+} from "@material-ui/core";
 
 import { Theme } from "@material-ui/core/styles";
-import { withStyles, WithStyles, createStyles } from "@material-ui/core";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -20,7 +24,7 @@ const styles = (theme: Theme) =>
       marginTop: theme.spacing(4),
       marginLeft: theme.spacing(6),
       marginRight: theme.spacing(6),
-      color: theme.palette.primary.main,
+      color: theme.palette.primary.main
     },
     message: {
       marginBottom: theme.spacing(3)
@@ -40,16 +44,16 @@ const SVG = (
   </svg>
 );
 
-const ErrorBanner: React.FC<ErrorBannerProps> = ({ classes }) => (
-  <Paper className={classes.container}>
-    <Typography variant="h5" className={classes.header}>
-      Sorry, something went wrong...
-    </Typography>
-    {SVG}
-    <Typography variant="subtitle1" className={classes.message}>
-      An unexpected error has occurred. <br /> Please, try again!
-    </Typography>
-  </Paper>
+export const ErrorBanner = withStyles(styles)(
+  ({ classes }: ErrorBannerProps) => (
+    <Paper className={classes.container}>
+      <Typography variant="h5" className={classes.header}>
+        Sorry, something went wrong...
+      </Typography>
+      {SVG}
+      <Typography variant="subtitle1" className={classes.message}>
+        An unexpected error has occurred. <br /> Please, try again!
+      </Typography>
+    </Paper>
+  )
 );
-
-export default withStyles(styles)(ErrorBanner);

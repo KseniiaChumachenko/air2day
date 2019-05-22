@@ -1,18 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
 import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
+import * as serviceWorker from "./serviceWorker";
+import App from "./App";
+import "./index.css";
+
 const httpLink = createHttpLink({
   uri: "http://william.multimediatech.cz:8081/air2day-test/graphql",
   headers: {
     authorization: `fb4c1cd7-e219-48ef-be8f-5e31f125e64f`
-  },
+  }
   // fetchOptions: {
   //   mode: 'no-cors',
   // },
@@ -24,7 +25,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App/>
+    <App />
   </ApolloProvider>,
   document.getElementById("root")
 );

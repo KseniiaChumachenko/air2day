@@ -1,46 +1,49 @@
 import React from "react";
 
+import {
+  Container,
+  createStyles,
+  withStyles,
+  WithStyles
+} from "@material-ui/core";
+
 import { SensorsComponent } from "../../generated/graphql";
-import { Loading } from "../components";
-import ErrorBanner from "../components/ErrorBanner";
+import { Loading, ErrorBanner } from "../components";
 
-import { SensorsTable } from "./components/Table";
-import Map from "./components/Map";
-import { createStyles, Theme, withStyles, WithStyles } from "@material-ui/core";
-import { ScreenWrapper } from "../components/ScreenWrapper";
 import { List } from "./components/List";
+import Map from "./components/Map";
 
-const styles = (theme: Theme) => createStyles({
-  root: {
-    margin: 0,
-    width: '100%',
-    height: '94vh',
-    display: "flex",
-  }
-});
+const styles = () =>
+  createStyles({
+    root: {
+      margin: 0,
+      width: "100%",
+      height: "94vh",
+      display: "flex"
+    }
+  });
 
-const Provider: React.FC<WithStyles<typeof styles>> = ({ classes }) => (
-  <ScreenWrapper>
-    <SensorsComponent>
-      {({ data, loading, error }) => {
-        if (loading) {
-          return <Loading />;
-        }
-        if (error) {
-          return <ErrorBanner />;
-        }
-        if (data) {
-          return (
-            <div className={classes.root}>
-              <Map data={data} />
-              <List data={data}/>
-              {/*<SensorsTable data={data} />*/}
-            </div>
-          );
-        }
-      }}
-    </SensorsComponent>
-  </ScreenWrapper>
+export const Locations = withStyles(styles)(
+  ({ classes }: WithStyles<typeof styles>) => (
+    <Container>
+      <SensorsComponent>
+        {({ data, loading, error }) => {
+          if (loading) {
+            return <Loading />;
+          }
+          if (error) {
+            return <ErrorBanner />;
+          }
+          if (data) {
+            return (
+              <div className={classes.root}>
+                <Map data={data} />
+                <List data={data} />
+              </div>
+            );
+          }
+        }}
+      </SensorsComponent>
+    </Container>
+  )
 );
-
-export const Locations = withStyles(styles)(Provider);

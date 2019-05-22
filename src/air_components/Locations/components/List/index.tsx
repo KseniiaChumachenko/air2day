@@ -1,35 +1,36 @@
 import React from "react";
 
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import {
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+  Typography,
+  Tabs,
+  Tab,
+  createStyles,
+  Theme,
+  WithStyles,
+  withStyles
+} from "@material-ui/core";
 
-import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import { TableChart, ShowChart } from "@material-ui/icons";
-
-import { createStyles, Theme, WithStyles, withStyles } from "@material-ui/core";
+import { TableChart, ShowChart, ExpandMore } from "@material-ui/icons";
 
 const styles = (theme: Theme) =>
   createStyles({
     root: {
       width: "50%",
       margin: theme.spacing(1),
-      overflow: 'scroll',
+      overflow: "scroll"
     },
-    panel: {
-    },
+    panel: {},
     heading: {
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular,
       marginRight: theme.spacing(4)
     },
     details: {
-      display: 'flex',
-      justifyContent: 'center',
+      display: "flex",
+      justifyContent: "center"
     }
   });
 
@@ -48,7 +49,7 @@ export const List = withStyles(styles)(({ data, classes }: Props) => {
     <div className={classes.root}>
       {data.sensors!.map((sensor: any, key: number) => (
         <ExpansionPanel key={key} className={classes.panel}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
             <Typography className={classes.heading}>{sensor!.code}</Typography>
             <Typography variant={"subtitle2"}>
               lat: {sensor!.latitude} , lng: {sensor!.longitude}
