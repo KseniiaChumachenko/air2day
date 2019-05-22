@@ -21,7 +21,11 @@ const styles = (theme: Theme) =>
       fontSize: 30,
 
       marginRight: theme.spacing(2),
-      marginLeft: theme.spacing(2)
+      marginLeft: theme.spacing(2),
+
+      [theme.breakpoints.down("sm")]: {
+        fontSize: 25
+      }
     }
   });
 

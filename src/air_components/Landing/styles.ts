@@ -4,7 +4,7 @@ import background from "./background.jpg";
 export const styles = (theme: Theme) =>
   createStyles({
     container: {
-      height: '95.2vh',
+      height: '100vh',
       display: "flex",
       overflow: 'scroll',
       flexDirection: "column",
@@ -14,6 +14,10 @@ export const styles = (theme: Theme) =>
 
       background: `url(${background}) no-repeat center center fixed`,
       backgroundSize: "cover",
+
+      [theme.breakpoints.down("sm")]: {
+        background: 'unset',
+      }
     },
 
     gridContainer: {
@@ -33,7 +37,7 @@ export const styles = (theme: Theme) =>
       [theme.breakpoints.down("sm")]: {
         marginTop: theme.spacing(4),
         marginLeft: "auto",
-        fontSize: 28,
+        fontSize: 24,
         textAlign: "center"
       }
     },
@@ -47,7 +51,7 @@ export const styles = (theme: Theme) =>
       color: "#FF79BD",
 
       [theme.breakpoints.down("sm")]: {
-        fontSize: 22,
+        fontSize: 20,
         marginLeft: "auto",
         textAlign: "center"
       }
@@ -68,7 +72,7 @@ export const styles = (theme: Theme) =>
         maxWidth: "90%",
         fontSize: 18,
         marginLeft: "auto",
-        marginRight: "auto"
+        marginRight: "auto",
       }
     },
 
