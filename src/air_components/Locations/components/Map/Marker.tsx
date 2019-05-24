@@ -4,10 +4,12 @@ import { Coords } from "google-map-react";
 import { Tooltip } from "@material-ui/core";
 import { LocationOn } from "@material-ui/icons";
 
-interface MarkerProps extends Coords {}
+interface MarkerProps extends Coords {
+  code: string;
+}
 
 export const Marker: React.FC<MarkerProps> = ({ ...props }) => (
-  <Tooltip title={`lat: ${props.lat}<br/>, lng: ${props.lng}`}>
+  <Tooltip title={`${props.code}, lat: ${props.lat}, lng: ${props.lng}`}>
     <div {...props}>
       <LocationOn color={"error"} />
     </div>

@@ -1,0 +1,9 @@
+query DataTable($from: OffsetDateTime, $to: OffsetDateTime, $sensorId: String) {
+  sensorData(from: $from, to: $to, sensorId: $sensorId) {
+    from
+    to
+    pollutant
+    hourAvg
+    value
+  }
+}

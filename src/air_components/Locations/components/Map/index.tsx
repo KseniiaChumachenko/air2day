@@ -1,6 +1,6 @@
 import React from "react";
 
-import GoogleMapReact from "google-map-react";
+import GoogleMapReact, { Coords } from "google-map-react";
 import { SensorsQuery } from "../../../../generated/graphql";
 
 import { withStyles, WithStyles } from "@material-ui/core";
@@ -10,8 +10,8 @@ import styles from "./styles";
 
 interface MapProps extends WithStyles<typeof styles> {
   data: SensorsQuery;
-  center?: any;
-  zoom?: any;
+  center?: Coords;
+  zoom?: number;
 }
 
 class Map extends React.PureComponent<MapProps> {
@@ -30,28 +30,10 @@ class Map extends React.PureComponent<MapProps> {
           bootstrapURLKeys={{ key: "AIzaSyBhcFB0JFXy8hv4pyQqZh7isVbn3-Tfzxk" }} // TODO: replace with Key provided by CTU
           defaultCenter={center}
           defaultZoom={zoom}
-          onGoogleApiLoaded={({ map, maps }) => {
-            console.log(map, maps);
-            maps.Geocoder(
-              {
-                location: {
-                  lat: 50.09423833333334,
-                  lng: 14.44204888888889
-                }
-              },
-              function(result: any, status: any) {
-                if (status == "OK") {
-                  console.log(result);
-                } else {
-                  console.log("error");
-                }
-              }
-            );
-          }}
-          yesIWantToUseGoogleMapApiInternals
         >
           {sensors!.map((sensor, key) => (
             <Marker
+              code={sensor!.code!}
               lat={sensor!.latitude!}
               lng={sensor!.longitude!}
               key={key}

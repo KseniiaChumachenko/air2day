@@ -1,4 +1,5 @@
 import React from "react";
+import { FormattedHTMLMessage } from "react-intl";
 
 import {
   Paper,
@@ -9,6 +10,8 @@ import {
 } from "@material-ui/core";
 
 import { Theme } from "@material-ui/core/styles";
+
+import messages from './messages'
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -48,12 +51,13 @@ export const ErrorBanner = withStyles(styles)(
   ({ classes }: ErrorBannerProps) => (
     <Paper className={classes.container}>
       <Typography variant="h5" className={classes.header}>
-        Sorry, something went wrong...
+        <FormattedHTMLMessage {...messages.title}/>
       </Typography>
       {SVG}
       <Typography variant="subtitle1" className={classes.message}>
-        An unexpected error has occurred. <br /> Please, try again!
+        <FormattedHTMLMessage {...messages.subtitle}/>
       </Typography>
     </Paper>
   )
 );
+

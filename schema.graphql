@@ -13,14 +13,17 @@ type Provider {
 }
 
 type Query {
+    commonAirQualityIndex(sensorId: String): Int
+    interpolateData(latitude: Float, longitude: Float, time: OffsetDateTime): [SensorData]
+    interpolatedCommonAirQualityIndex(latitude: Float, longitude: Float): Int
     provider(id: String): Provider
     providers: [Provider]
-    providersCount: Long
+    providersCount: Int
     sensor(id: String): Sensor
     sensorByCode(code: String): Sensor
     sensorData(from: OffsetDateTime, sensorId: String, to: OffsetDateTime): [SensorData]
     sensors: [Sensor]
-    sensorsCount: Long
+    sensorsCount: Int
 }
 
 type Sensor {
@@ -36,14 +39,13 @@ type Sensor {
 
 type SensorData {
     from: OffsetDateTime
-    id: String!
-    pm10: Float
-    pm2_5: Float
+    hourAvg: Int
+    id: String
+    pollutant: String
+    sensorIds: [String]
     to: OffsetDateTime
+    value: Float
 }
 
 
 scalar OffsetDateTime
-
-"Long type"
-scalar Long

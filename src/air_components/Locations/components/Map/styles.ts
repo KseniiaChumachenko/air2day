@@ -1,8 +1,13 @@
-import { createStyles } from "@material-ui/core";
+import { createStyles, Theme } from "@material-ui/core";
 
-const styles = () => createStyles({
+const styles = (theme: Theme) => createStyles({
     container: {
         width: '50%',
+
+        [theme.breakpoints.down("sm")]: {
+            width: '100%',
+            height: '40%'
+        },
     },
 })
 
