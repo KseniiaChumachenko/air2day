@@ -46,7 +46,7 @@ const styles = (theme: Theme) =>
       display: "flex",
       alignContent: "center",
       justifyContent: "center",
-      height: 500,
+      height: 300,
       width: '100%'
     },
   });
@@ -72,13 +72,13 @@ export const ChartTab = withStyles(styles)(
           }
           if (data) {
             const lineNO2 = data
-              .sensorData!.filter(item => item!.pollutant === "NO2")
+              .sensorData.filter(item => item!.pollutant === "NO2")
               .map(item => {
-                return { ...item, from: item!.from.slice(0, 16) };
+                return { ...item, from: item!.from.slice(11, 16) };
               });
 
             const linePM10 = data
-              .sensorData!.filter(item => item!.pollutant === "PM10")
+              .sensorData.filter(item => item!.pollutant === "PM10")
               .map(item => {
                 return { ...item, from: item!.from.slice(11, 16) };
               });
@@ -91,8 +91,7 @@ export const ChartTab = withStyles(styles)(
                 <div className={classes.chart}>
                   <ResponsiveContainer>
                     <LineChart
-                      width={400}
-                      height={250}
+                      width={400} height={250}
                       data={lineNO2}
                       margin={{
                         top: 15,
@@ -125,10 +124,7 @@ export const ChartTab = withStyles(styles)(
                 </Typography>
                 <div className={classes.chart}>
                   <ResponsiveContainer>
-                    <LineChart
-                      width={400}
-                      height={250}
-                      data={linePM10}
+                    <LineChart width={400} height={250} data={linePM10}
                       margin={{
                         top: 15,
                         right: 30,
@@ -138,19 +134,15 @@ export const ChartTab = withStyles(styles)(
                     >
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="from" />
-                      <YAxis
-                        label={{
+                      <YAxis label={{
                           value: "[µg/m³]",
                           position: "center",
                           angle: -90
                         }}
                       />
                       <Tooltip />
-                      <Line
-                        type="monotone"
-                        dataKey="value"
-                        stroke="#FF4081"
-                        activeDot={{ r: 2 }}
+                      <Line type="monotone" dataKey="value"
+                        stroke="#FF4081" activeDot={{ r: 2 }}
                       />
                     </LineChart>
                   </ResponsiveContainer>

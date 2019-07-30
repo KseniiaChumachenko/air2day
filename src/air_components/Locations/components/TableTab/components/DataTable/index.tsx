@@ -60,7 +60,7 @@ export const DataTable = withStyles(styles)(
                 </TableHead>
                 <TableBody>
                   {!isEmpty(data.sensorData) ? (
-                    data.sensorData!.map((data, key) => (
+                    data.sensorData.map((data, key) => (
                       <TableRow key={key}>
                         <TableCell>{data!.from.slice(11, 16)}</TableCell>
                         <TableCell>{data!.to.slice(11, 16)}</TableCell>

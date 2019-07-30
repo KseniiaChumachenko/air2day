@@ -53,20 +53,20 @@ export const SensorInfo = ({ id }: { id: string }) => {
                 <Typography>
                   <FormattedMessage {...messages.code} />
                   <Link href={data.sensor!.web as string}>
-                    {data.sensor!.code}
+                    {data.sensor.code}
                   </Link>
                 </Typography>
                 <Typography>
                   <FormattedMessage {...messages.latitude} />
-                  {data.sensor!.latitude}
+                  {data.sensor.latitude}
                 </Typography>
                 <Typography>
                   <FormattedMessage {...messages.longitude} />
-                  {data.sensor!.longitude}
+                  {data.sensor.longitude}
                 </Typography>
                 <Typography>
                   <FormattedMessage {...messages.altitude} />
-                  {data.sensor!.altitude}
+                  {data.sensor.altitude}
                 </Typography>
               </div>
             </Paper>

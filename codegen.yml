@@ -3,10 +3,11 @@ schema: "./schema.graphql"
 documents: "**/*.graphql"
 config:
   noNamespaces: true
+  #TODO: check options it brings
+  withHooks: true
 generates:
   src/generated/graphql.tsx:
     plugins:
       - typescript
       - typescript-operations
       - typescript-react-apollo
-

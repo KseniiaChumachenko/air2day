@@ -98,7 +98,7 @@ export const SelectMenu = withStyles(styles)(
                       onChange={handleChange}
                       inputProps={{ name: "sensor", id: "sensor" }}
                     >
-                      {data.sensors!.map(sensor => (
+                      {data.sensors.map(sensor => (
                         <MenuItem value={sensor!.id}>{sensor!.code}</MenuItem>
                       ))}
                     </Select>
