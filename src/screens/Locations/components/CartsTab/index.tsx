@@ -4,15 +4,6 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
 import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis
-} from "recharts";
 
 import { Error } from "src/components/Error";
 import { Loading } from "src/components/LoadingState";
@@ -20,6 +11,7 @@ import { ChartRepresentationQuery } from "src/generated/graphql";
 import { QueryInterface } from "types/queryInterface";
 
 import messages from "./messages";
+import { Chart } from "./Chart";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -81,9 +73,11 @@ export const ChartTab = ({ id, from, to }: ChartTabProps) => {
     GET_CHART_REPRESENTATION,
     { variables: { sensorId: id, from, to } }
   );
+
   if (loading) {
     return <Loading />;
   }
+
   if (error) {
     return <Error message={error.message} />;
   }
@@ -106,71 +100,13 @@ export const ChartTab = ({ id, from, to }: ChartTabProps) => {
         <FormattedMessage {...messages.NO2} />
       </Typography>
       <div className={classes.chart}>
-        <ResponsiveContainer>
-          <LineChart
-            width={400}
-            height={250}
-            data={lineNO2}
-            margin={{
-              top: 15,
-              right: 30,
-              left: 20,
-              bottom: 5
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="from" />
-            <YAxis
-              label={{
-                value: "[µg/m³]",
-                position: "center",
-                angle: -90
-              }}
-            />
-            <Tooltip />
-            <Line
-              type="monotone"
-              dataKey="value"
-              stroke="#FF4081"
-              activeDot={{ r: 2 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+        <Chart data={lineNO2} />
       </div>
       <Typography className={classes.title}>
         <FormattedMessage {...messages.PM10} />
       </Typography>
       <div className={classes.chart}>
-        <ResponsiveContainer>
-          <LineChart
-            width={400}
-            height={250}
-            data={linePM10}
-            margin={{
-              top: 15,
-              right: 30,
-              left: 20,
-              bottom: 5
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="from" />
-            <YAxis
-              label={{
-                value: "[µg/m³]",
-                position: "center",
-                angle: -90
-              }}
-            />
-            <Tooltip />
-            <Line
-              type="monotone"
-              dataKey="value"
-              stroke="#FF4081"
-              activeDot={{ r: 2 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+        <Chart data={linePM10} />
       </div>
     </>
   );
