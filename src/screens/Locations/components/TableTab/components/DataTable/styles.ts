@@ -1,6 +1,6 @@
-import { createStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       marginTop: theme.spacing(3),
@@ -9,7 +9,8 @@ const styles = (theme: Theme) =>
     },
     table: {
       minWidth: 700
-    },
-  });
+    }
+  })
+);
 
-export default styles;
+export default useStyles;

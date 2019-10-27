@@ -1,6 +1,6 @@
-import { createStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       position: "relative",
@@ -17,6 +17,7 @@ const styles = (theme: Theme) =>
       flexGrow: 1
     },
     title: {
+      cursor: "pointer",
       fontFamily: '"Leckerli One", cursive',
       fontSize: 30,
 
@@ -27,6 +28,7 @@ const styles = (theme: Theme) =>
         fontSize: 25
       }
     }
-  });
+  })
+);
 
-export default styles;
+export default useStyles;

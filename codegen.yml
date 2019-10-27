@@ -2,12 +2,18 @@ overwrite: true
 schema: "./schema.graphql"
 documents: "**/*.graphql"
 config:
+  gqlImport: apollo-boost#gql
+  noTypename: true
+  skipTypename: true
   noNamespaces: true
-  #TODO: check options it brings
-  withHooks: true
+  withMutationFn: false
+  withHOC: false
+  withComponent: false
+  withHooks: false
+  reactApolloVersion: 3
+  addDocBlocks: false
 generates:
   src/generated/graphql.tsx:
     plugins:
       - typescript
       - typescript-operations
-      - typescript-react-apollo

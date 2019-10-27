@@ -1,6 +1,0 @@
-query SensorList {
-    sensors {
-        code
-        id
-    }
-}

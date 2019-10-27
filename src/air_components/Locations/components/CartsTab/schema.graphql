@@ -1,7 +1,0 @@
-query ChartRepresentation($from: OffsetDateTime, $to: OffsetDateTime, $sensorId: String) {
-    sensorData(from: $from, to: $to, sensorId: $sensorId) {
-        from
-        pollutant
-        value
-    }
-}
