@@ -1,17 +1,14 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
 
 import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
 
 import { Error } from "src/components/Error";
 import { Loading } from "src/components/LoadingState";
-import { ChartRepresentationQuery } from "src/generated/graphql";
-import { QueryInterface } from "types/queryInterface";
 
 import messages from "./messages";
 import { Chart } from "./Chart";
+import { useChartRepresentationQuery } from "src/graphql/generated/graphql";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,20 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const GET_CHART_REPRESENTATION = gql`
-  query ChartRepresentation(
-    $from: OffsetDateTime
-    $to: OffsetDateTime
-    $sensorId: String
-  ) {
-    sensorData(from: $from, to: $to, sensorId: $sensorId) {
-      from
-      pollutant
-      value
-    }
-  }
-`;
-
 interface ChartTabProps {
   id: string;
   from: any;
@@ -65,14 +48,9 @@ interface ChartTabProps {
 export const ChartTab = ({ id, from, to }: ChartTabProps) => {
   const classes = useStyles({});
 
-  const {
-    data,
-    loading,
-    error
-  }: QueryInterface<ChartRepresentationQuery> = useQuery(
-    GET_CHART_REPRESENTATION,
-    { variables: { sensorId: id, from, to } }
-  );
+  const { data, loading, error } = useChartRepresentationQuery({
+    variables: { sensorId: id, from, to }
+  });
 
   if (loading) {
     return <Loading />;

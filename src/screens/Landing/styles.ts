@@ -1,23 +1,16 @@
-import { createStyles, Theme } from "@material-ui/core";
-import background from "./background.jpg";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
-export const styles = (theme: Theme) =>
+ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      height: '100vh',
+      width: "100%",
+      height: "100%",
       display: "flex",
-      overflow: 'scroll',
+      overflow: "scroll",
       flexDirection: "column",
       fontFamily: "Varela Round",
       fontStyle: "normal",
-      fontWeight: "normal",
-
-      background: `url(${background}) no-repeat center center fixed`,
-      backgroundSize: "cover",
-
-      [theme.breakpoints.down("sm")]: {
-        background: 'unset',
-      }
+      fontWeight: "normal"
     },
 
     gridContainer: {
@@ -32,7 +25,7 @@ export const styles = (theme: Theme) =>
       lineHeight: 2,
       marginLeft: theme.spacing(1),
       letterSpacing: "0.1em",
-      color: "#FF4081",
+      color: theme.palette.primary.main,
 
       [theme.breakpoints.down("sm")]: {
         marginTop: theme.spacing(4),
@@ -48,7 +41,7 @@ export const styles = (theme: Theme) =>
       marginLeft: theme.spacing(4),
 
       letterSpacing: "0.1em",
-      color: "#FF79BD",
+      color: theme.palette.primary.light,
 
       [theme.breakpoints.down("sm")]: {
         fontSize: 20,
@@ -72,7 +65,7 @@ export const styles = (theme: Theme) =>
         maxWidth: "90%",
         fontSize: 18,
         marginLeft: "auto",
-        marginRight: "auto",
+        marginRight: "auto"
       }
     },
 
@@ -80,4 +73,7 @@ export const styles = (theme: Theme) =>
       display: "inline-flex",
       flexWrap: "wrap"
     }
-  });
+  })
+);
+
+ export default useStyles;

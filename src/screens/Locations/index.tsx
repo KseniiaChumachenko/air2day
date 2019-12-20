@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
-
+import React from "react";
+import { gql, useQuery } from "@apollo/client";
 import { Container, createStyles, Theme, makeStyles } from "@material-ui/core";
 
 import { SelectMenu } from "./components/TableTab/components/Selectors";
-
 import Map from "./components/Map";
-import GetAddress from "./utils/geocoding";
-import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
 import { Loading } from "src/components/LoadingState";
 import { Error } from "src/components/Error";
 
@@ -17,17 +13,9 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: 0,
       margin: 0,
       display: "flex",
-      flex: 1
-    },
-    root: {
-      margin: 0,
-      width: "100%",
-      height: "95vh",
-      display: "flex",
+      flex: 1,
 
-      [theme.breakpoints.down("sm")]: {
-        flexDirection: "column"
-      }
+      flexDirection: "column",
     },
     dataColumn: {
       display: "flex",
@@ -87,11 +75,9 @@ export const Locations = () => {
 
   return (
     <Container className={classes.container} maxWidth={false}>
-      <div className={classes.root}>
-        <Map data={data} />
-        <div className={classes.dataColumn}>
-          <SelectMenu />
-        </div>
+      <Map data={data} />
+      <div className={classes.dataColumn}>
+        <SelectMenu />
       </div>
     </Container>
   );

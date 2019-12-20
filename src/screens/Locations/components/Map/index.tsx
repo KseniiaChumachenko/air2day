@@ -1,7 +1,7 @@
 import React from "react";
 
 import GoogleMapReact, { Coords } from "google-map-react";
-import { SensorsQuery } from "src/generated/graphql";
+import { SensorsQuery } from "src/graphql/generated/graphql";
 
 import { withStyles, WithStyles } from "@material-ui/core";
 

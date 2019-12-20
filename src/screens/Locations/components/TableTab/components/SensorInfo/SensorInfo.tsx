@@ -1,7 +1,5 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
 import {
   createStyles,
   Paper,
@@ -11,9 +9,8 @@ import {
   Link
 } from "@material-ui/core";
 
-import { QueryInterface } from "types/queryInterface";
-import { SensorInfoQuery } from "src/generated/graphql";
 import { Loading } from "src/components/LoadingState";
+import { useSensorInfoQuery } from "src/graphql/generated/graphql";
 
 import messages from "./messages";
 
@@ -34,25 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const GET_SENSOR_INFO = gql`
-  query SensorInfo($id: String) {
-    sensor(id: $id) {
-      code
-      altitude
-      latitude
-      longitude
-      web
-    }
-  }
-`;
-
 export const SensorInfo = ({ id }: { id: string }) => {
   const classes = useStyles({});
 
-  const { data, loading, error }: QueryInterface<SensorInfoQuery> = useQuery(
-    GET_SENSOR_INFO,
-    { variables: id }
-  );
+  const { data, loading, error } = useSensorInfoQuery({ variables: { id } });
   if (loading) {
     return <Loading />;
   }

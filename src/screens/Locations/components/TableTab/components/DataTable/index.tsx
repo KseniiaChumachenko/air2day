@@ -1,6 +1,4 @@
 import React from "react";
-import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
 import { FormattedMessage } from "react-intl";
 import {
   Paper,
@@ -12,29 +10,12 @@ import {
   Typography
 } from "@material-ui/core";
 
+import { useDataTableQuery } from "src/graphql/generated/graphql";
 import { Error } from "src/components/Error";
 import { Loading } from "src/components/LoadingState";
-import { DataTableQuery } from "src/generated/graphql";
-import { QueryInterface } from "types/queryInterface";
 
 import useStyles from "./styles";
 import messages from "./messages";
-
-const GET_DATA_TABLE = gql`
-  query DataTable(
-    $from: OffsetDateTime
-    $to: OffsetDateTime
-    $sensorId: String
-  ) {
-    sensorData(from: $from, to: $to, sensorId: $sensorId) {
-      from
-      to
-      pollutant
-      hourAvg
-      value
-    }
-  }
-`;
 
 interface DataTableProps {
   id: string;
@@ -45,12 +26,9 @@ interface DataTableProps {
 export const DataTable = ({ id, from, to }: DataTableProps) => {
   const classes = useStyles({});
 
-  const { data, loading, error }: QueryInterface<DataTableQuery> = useQuery(
-    GET_DATA_TABLE,
-    {
-      variables: { sensorId: id, from, to }
-    }
-  );
+  const { data, loading, error } = useDataTableQuery({
+    variables: { sensorId: id, from, to }
+  });
 
   if (loading) {
     return <Loading />;

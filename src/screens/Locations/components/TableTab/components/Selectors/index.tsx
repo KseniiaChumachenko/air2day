@@ -1,6 +1,4 @@
 import React from "react";
-import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
 import {
   Container,
   createStyles,
@@ -13,13 +11,11 @@ import {
   Tabs,
   Theme
 } from "@material-ui/core";
-import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
+import { KeyboardDateTimePicker } from "@material-ui/pickers";
 
+import { useSensorListQuery } from "src/graphql/generated/graphql";
 import { Error } from "src/components/Error";
 import { Loading } from "src/components/LoadingState";
-import { QueryInterface } from "types/queryInterface";
-import { SensorListQuery } from "src/generated/graphql";
 
 import { SensorInfo } from "../SensorInfo/SensorInfo";
 import { DataTable } from "../DataTable";
@@ -40,28 +36,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     selectorContainer: {
       marginTop: theme.spacing(3),
+      marginLeft: 0,
       display: "flex",
       flexWrap: "wrap",
-      justifyContent: "space-around",
+      justifyContent: "flex-start",
       padding: 0
     }
   })
 );
 
-const GET_SENSOR_LIST = gql`
-  query SensorList {
-    sensors {
-      code
-      id
-    }
-  }
-`;
-
 export const SelectMenu = () => {
   const classes = useStyles({});
-  const { data, loading, error }: QueryInterface<SensorListQuery> = useQuery(
-    GET_SENSOR_LIST
-  );
+  const { data, loading, error } = useSensorListQuery();
 
   const [state, update] = React.useState({
     sensorId: "5ce6d500659d5e1303f3ac6a",
@@ -98,6 +84,22 @@ export const SelectMenu = () => {
   return (
     <div className={classes.root}>
       <Container className={classes.selectorContainer}>
+        <KeyboardDateTimePicker
+          label="From"
+          variant={"inline"}
+          value={state.selectedFromDate}
+          onChange={handleFromDateChange}
+          className={classes.select}
+          format="yyyy/MM/dd HH:mm"
+        />
+        <KeyboardDateTimePicker
+          label="To"
+          variant={"inline"}
+          value={state.selectedToDate}
+          onChange={handleToDateChange}
+          className={classes.select}
+          format="yyyy/MM/dd HH:mm"
+        />
         <FormControl className={classes.select}>
           <InputLabel htmlFor="sensor">Select sensor</InputLabel>
           <Select
@@ -110,23 +112,6 @@ export const SelectMenu = () => {
             ))}
           </Select>
         </FormControl>
-
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <DateTimePicker
-            label="From"
-            value={state.selectedFromDate}
-            onChange={handleFromDateChange}
-            className={classes.select}
-          />
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DateTimePicker
-              label="To"
-              value={state.selectedToDate}
-              onChange={handleToDateChange}
-              className={classes.select}
-            />
-          </MuiPickersUtilsProvider>
-        </MuiPickersUtilsProvider>
       </Container>
       <SensorInfo id={state.sensorId} />
       <Tabs

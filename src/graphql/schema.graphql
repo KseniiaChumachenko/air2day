@@ -4,26 +4,19 @@ schema {
     query: Query
 }
 
-type Provider {
-    abbr: String
-    id: String!
-    name: String
-    sensors: [Sensor]
-    web: String
-}
-
 type Query {
     commonAirQualityIndex(sensorId: String): Int
     interpolateData(latitude: Float, longitude: Float, time: OffsetDateTime): [SensorData]
     interpolatedCommonAirQualityIndex(latitude: Float, longitude: Float): Int
-    provider(id: String): Provider
-    providers: [Provider]
+    provider(id: String): SensorProvider
+    providers: [SensorProvider]
     providersCount: Int
     sensor(id: String): Sensor
     sensorByCode(code: String): Sensor
     sensorData(from: OffsetDateTime, sensorId: String, to: OffsetDateTime): [SensorData]
     sensors: [Sensor]
     sensorsCount: Int
+    weatherData(from: OffsetDateTime, to: OffsetDateTime): [WeatherData]
 }
 
 type Sensor {
@@ -32,7 +25,7 @@ type Sensor {
     id: String!
     latitude: Float
     longitude: Float
-    provider: Provider
+    provider: SensorProvider
     sensorData(from: OffsetDateTime, to: OffsetDateTime): [SensorData]
     web: String
 }
@@ -45,6 +38,27 @@ type SensorData {
     sensorIds: [String]
     to: OffsetDateTime
     value: Float
+}
+
+type SensorProvider {
+    abbr: String
+    id: String!
+    name: String
+    sensors: [Sensor]
+    web: String
+}
+
+type WeatherData {
+    datetime: OffsetDateTime
+    humidity: Int
+    id: String
+    latitude: Float
+    longitude: Float
+    pressure: Int
+    temperature: Int
+    weatherCondition: String
+    windDirection: String
+    windSpeedString: String
 }
 
 

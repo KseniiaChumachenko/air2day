@@ -28,7 +28,7 @@ const styles = (theme: Theme) =>
       justifyContent: "center",
       alignItems: "center",
 
-      color: theme.palette.error.light
+      color: theme.palette.primary.main
     }
   });
 

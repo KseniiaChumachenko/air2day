@@ -32,12 +32,12 @@ Your app is ready to be deployed.
 ## no-cors policy
 If CORS (Cross-Origin Resource Sharing) is blocked by server(back-end setup currently not stable) no-cors mode of browser have to be used.<br>
 
-####On mac:<br>
+#### On mac:<br>
 * Install Chrome
 * Run in terminal <br> 
 `open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security`
 
-####On windows:<br>
+#### On windows:<br>
 * Install Chrome
 * Right click on desktop, add new shortcut
 * Add the target as "[PATH_TO_CHROME]\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=~/chromeTemp
