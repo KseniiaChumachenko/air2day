@@ -3,6 +3,7 @@ query ChartRepresentation($from: OffsetDateTime, $to: OffsetDateTime, $sensorId:
         from
         pollutant
         value
+        id
     }
 }
 
@@ -13,12 +14,6 @@ query DataTable($from: OffsetDateTime, $to: OffsetDateTime, $sensorId: String) {
         pollutant
         hourAvg
         value
-    }
-}
-
-query SensorList {
-    sensors {
-        code
         id
     }
 }

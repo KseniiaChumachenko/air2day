@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Button,
   Container,
   createStyles,
   FormControl,
@@ -13,13 +14,10 @@ import {
 } from "@material-ui/core";
 import { KeyboardDateTimePicker } from "@material-ui/pickers";
 
-import { useSensorListQuery } from "src/graphql/generated/graphql";
-import { Error } from "src/components/Error";
-import { Loading } from "src/components/LoadingState";
-
-import { SensorInfo } from "../SensorInfo/SensorInfo";
+import { useSensorsQuery } from "src/graphql/generated/graphql";
 import { DataTable } from "../DataTable";
 import { ChartTab } from "../../../CartsTab";
+import moment, { Moment } from "moment";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     select: {
-      maxWidth: 200,
+      maxWidth: 220,
       margin: theme.spacing(1),
       display: "flex",
       flexGrow: 1
@@ -41,20 +39,28 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: "wrap",
       justifyContent: "flex-start",
       padding: 0
+    },
+    confirmButton: {
+      margin: `auto ${theme.spacing(2)}px`
     }
   })
 );
 
-export const SelectMenu = () => {
+export const SelectMenu = ({ initialID }: { initialID?: string }) => {
   const classes = useStyles({});
-  const { data, loading, error } = useSensorListQuery();
+  const { data } = useSensorsQuery({
+    fetchPolicy: "cache-first"
+  });
 
   const [state, update] = React.useState({
-    sensorId: "5ce6d500659d5e1303f3ac6a",
+    sensorId: initialID,
     tab: 0,
-    selectedFromDate: new Date(),
-    selectedToDate: new Date()
+    selectedFromDate: moment()
+      .subtract(1, "month")
+      .format(),
+    selectedToDate: moment().format()
   });
+  const [confirmed, handleConfirm] = React.useState(state);
 
   function handleTabChange(event: React.ChangeEvent<{}>, newValue: number) {
     update({ ...state, tab: newValue });
@@ -67,18 +73,11 @@ export const SelectMenu = () => {
       sensorId: event.target.value as string
     });
   }
-  function handleFromDateChange(date: Date | null) {
-    update({ ...state, selectedFromDate: date });
+  function handleFromDateChange(date: Moment) {
+    update({ ...state, selectedFromDate: date.format() });
   }
-  function handleToDateChange(date: Date | null) {
-    update({ ...state, selectedToDate: date });
-  }
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return <Error message={error.message} />;
+  function handleToDateChange(date: Moment) {
+    update({ ...state, selectedToDate: date.format() });
   }
 
   return (
@@ -87,18 +86,20 @@ export const SelectMenu = () => {
         <KeyboardDateTimePicker
           label="From"
           variant={"inline"}
+          ampm={false}
           value={state.selectedFromDate}
           onChange={handleFromDateChange}
           className={classes.select}
-          format="yyyy/MM/dd HH:mm"
+          format="DD/MM/YYYY HH:mm"
         />
         <KeyboardDateTimePicker
           label="To"
           variant={"inline"}
+          ampm={false}
           value={state.selectedToDate}
           onChange={handleToDateChange}
           className={classes.select}
-          format="yyyy/MM/dd HH:mm"
+          format="DD/MM/YYYY HH:mm"
         />
         <FormControl className={classes.select}>
           <InputLabel htmlFor="sensor">Select sensor</InputLabel>
@@ -107,13 +108,22 @@ export const SelectMenu = () => {
             onChange={handleSensorChange}
             inputProps={{ name: "sensor", id: "sensor" }}
           >
-            {data.sensors.map(sensor => (
-              <MenuItem value={sensor!.id}>{sensor!.code}</MenuItem>
+            {data?.sensors.map((sensor, key) => (
+              <MenuItem value={sensor!.id} key={key}>
+                {sensor!.code}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
+        <Button
+          onClick={() => handleConfirm(state)}
+          className={classes.confirmButton}
+          variant="contained"
+          color="primary"
+        >
+          Apply
+        </Button>
       </Container>
-      <SensorInfo id={state.sensorId} />
       <Tabs
         value={state.tab}
         onChange={handleTabChange}
@@ -124,18 +134,18 @@ export const SelectMenu = () => {
         <Tab label={"Tables"} aria-label="Tables" />
         <Tab label={"Charts"} aria-label="Charts" />
       </Tabs>
-      {state.tab === 0 && (
+      {state.tab === 0 && confirmed && (
         <DataTable
-          id={state.sensorId}
-          from={state.selectedFromDate}
-          to={state.selectedToDate}
+          id={confirmed.sensorId}
+          from={confirmed.selectedFromDate}
+          to={confirmed.selectedToDate}
         />
       )}
-      {state.tab === 1 && (
+      {state.tab === 1 && confirmed && (
         <ChartTab
-          id={state.sensorId}
-          from={state.selectedFromDate}
-          to={state.selectedToDate}
+          id={confirmed.sensorId}
+          from={confirmed.selectedFromDate}
+          to={confirmed.selectedToDate}
         />
       )}
     </div>

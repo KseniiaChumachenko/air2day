@@ -1,9 +1,8 @@
 import React from "react";
-import WebFont from "webfontloader";
 import { IntlProvider } from "react-intl";
 import { BrowserRouter, Route } from "react-router-dom";
 import { createStyles, Grid, makeStyles, Theme } from "@material-ui/core";
-import DateFnsUtils from "@date-io/date-fns";
+import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import {
   ApolloClient,
@@ -34,24 +33,18 @@ const client = new ApolloClient({
       authorization: `fb4c1cd7-e219-48ef-be8f-5e31f125e64f`
     }
   }),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 const App = () => {
   const classes = useStyles({});
-
-  WebFont.load({
-    google: {
-      families: ["LeckerliOne", "VarelaRound"]
-    }
-  });
 
   return (
     <ApolloProvider client={client}>
       <IntlProvider locale="en">
         <BrowserRouter>
           <ThemeProvider theme={theme}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <MuiPickersUtilsProvider utils={MomentUtils} locale={'cs'}>
               <div className={classes.root}>
                 <Grid container spacing={3}>
                   <NavBar />

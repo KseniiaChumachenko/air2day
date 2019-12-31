@@ -49,7 +49,8 @@ export const ChartTab = ({ id, from, to }: ChartTabProps) => {
   const classes = useStyles({});
 
   const { data, loading, error } = useChartRepresentationQuery({
-    variables: { sensorId: id, from, to }
+    variables: { sensorId: id, from, to },
+    fetchPolicy: "no-cache"
   });
 
   if (loading) {

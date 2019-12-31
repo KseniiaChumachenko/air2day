@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import moment from "moment";
 import { FormattedMessage } from "react-intl";
 import {
   Paper,
@@ -6,16 +7,16 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow,
-  Typography
+  TableRow
 } from "@material-ui/core";
 
 import { useDataTableQuery } from "src/graphql/generated/graphql";
-import { Error } from "src/components/Error";
-import { Loading } from "src/components/LoadingState";
 
+import { Error } from "src/components/Error";
 import useStyles from "./styles";
 import messages from "./messages";
+import { EmptyState } from "./EmptyState";
+import { Loading } from "./Loading";
 
 interface DataTableProps {
   id: string;
@@ -27,19 +28,17 @@ export const DataTable = ({ id, from, to }: DataTableProps) => {
   const classes = useStyles({});
 
   const { data, loading, error } = useDataTableQuery({
-    variables: { sensorId: id, from, to }
+    variables: { sensorId: id, from, to },
+    fetchPolicy: "no-cache"
   });
 
-  if (loading) {
-    return <Loading />;
-  }
   if (error) {
     return <Error message={error.message} />;
   }
 
   return (
     <Paper className={classes.root}>
-      <Table className={classes.table}>
+      <Table className={classes.table} stickyHeader={true} size={"small"}>
         <TableHead>
           <TableRow>
             <TableCell>
@@ -60,24 +59,31 @@ export const DataTable = ({ id, from, to }: DataTableProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data ? (
-            data.sensorData!.map((data, key) => (
-              <TableRow key={key}>
-                <TableCell>{data!.from.slice(11, 16)}</TableCell>
-                <TableCell>{data!.to.slice(11, 16)}</TableCell>
-                <TableCell>{data!.pollutant}</TableCell>
-                <TableCell>{data!.hourAvg}</TableCell>
-                <TableCell>{data!.value}</TableCell>
-              </TableRow>
-            ))
+          {loading ? (
+            <Loading />
           ) : (
-            <TableRow>
-              <TableCell>
-                <Typography>
-                  <FormattedMessage {...messages.noData} />
-                </Typography>
-              </TableCell>
-            </TableRow>
+            data &&
+            (data.sensorData.length > 0 ? (
+              data.sensorData.map(
+                ({ from, to, pollutant, hourAvg, value }, key) => (
+                  <TableRow key={key}>
+                    <TableCell>
+                      {moment(from).format("DD/MM/YYYY")}
+                      <b> {moment(from).format("HH:mm")}</b>
+                    </TableCell>
+                    <TableCell>
+                      {moment(to).format("DD/MM/YYYY HH:mm")}
+                      <b> {moment(to).format("HH:mm")}</b>
+                    </TableCell>
+                    <TableCell>{pollutant}</TableCell>
+                    <TableCell>{hourAvg}</TableCell>
+                    <TableCell>{value}</TableCell>
+                  </TableRow>
+                )
+              )
+            ) : (
+              <EmptyState />
+            ))
           )}
         </TableBody>
       </Table>

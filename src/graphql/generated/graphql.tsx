@@ -129,7 +129,7 @@ export type ChartRepresentationQuery = { __typename?: "Query" } & {
       Maybe<
         { __typename?: "SensorData" } & Pick<
           SensorData,
-          "from" | "pollutant" | "value"
+          "from" | "pollutant" | "value" | "id"
         >
       >
     >
@@ -148,18 +148,10 @@ export type DataTableQuery = { __typename?: "Query" } & {
       Maybe<
         { __typename?: "SensorData" } & Pick<
           SensorData,
-          "from" | "to" | "pollutant" | "hourAvg" | "value"
+          "from" | "to" | "pollutant" | "hourAvg" | "value" | "id"
         >
       >
     >
-  >;
-};
-
-export type SensorListQueryVariables = {};
-
-export type SensorListQuery = { __typename?: "Query" } & {
-  sensors: Maybe<
-    Array<Maybe<{ __typename?: "Sensor" } & Pick<Sensor, "code" | "id">>>
   >;
 };
 
@@ -201,6 +193,7 @@ export const ChartRepresentationDocument = gql`
       from
       pollutant
       value
+      id
     }
   }
 `;
@@ -248,6 +241,7 @@ export const DataTableDocument = gql`
       pollutant
       hourAvg
       value
+      id
     }
   }
 `;
@@ -280,44 +274,6 @@ export type DataTableLazyQueryHookResult = ReturnType<
 export type DataTableQueryResult = ApolloReactCommon.QueryResult<
   DataTableQuery,
   DataTableQueryVariables
->;
-export const SensorListDocument = gql`
-  query SensorList {
-    sensors {
-      code
-      id
-    }
-  }
-`;
-export function useSensorListQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    SensorListQuery,
-    SensorListQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<SensorListQuery, SensorListQueryVariables>(
-    SensorListDocument,
-    baseOptions
-  );
-}
-export function useSensorListLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    SensorListQuery,
-    SensorListQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    SensorListQuery,
-    SensorListQueryVariables
-  >(SensorListDocument, baseOptions);
-}
-export type SensorListQueryHookResult = ReturnType<typeof useSensorListQuery>;
-export type SensorListLazyQueryHookResult = ReturnType<
-  typeof useSensorListLazyQuery
->;
-export type SensorListQueryResult = ApolloReactCommon.QueryResult<
-  SensorListQuery,
-  SensorListQueryVariables
 >;
 export const SensorInfoDocument = gql`
   query SensorInfo($id: String) {

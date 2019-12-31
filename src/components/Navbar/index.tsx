@@ -19,7 +19,7 @@ export const NavBar = () => {
   };
 
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} className={classes.grid}>
       <div className={classes.appBar}>
         <Typography
           className={classes.title}

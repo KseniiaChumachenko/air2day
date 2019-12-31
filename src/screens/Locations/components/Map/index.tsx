@@ -1,48 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { Sensor, SensorsQuery } from "src/graphql/generated/graphql";
+import GoogleMap from "../../GoogleApi";
+import { MarkerProps } from "google-maps-react";
 
-import GoogleMapReact, { Coords } from "google-map-react";
-import { SensorsQuery } from "src/graphql/generated/graphql";
+export const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      height: "40vh"
+    }
+  })
+);
 
-import { withStyles, WithStyles } from "@material-ui/core";
-
-import { Marker } from "./Marker";
-import styles from "./styles";
-
-interface MapProps extends WithStyles<typeof styles> {
+interface MapProps {
   data: SensorsQuery;
-  center?: Coords;
-  zoom?: number;
 }
 
-class Map extends React.PureComponent<MapProps> {
-  render() {
-    const {
-      center = { lat: 50.09423833333334, lng: 14.44204888888889 },
-      zoom = 13,
-      classes,
-      data
-    } = this.props;
+export function Map({ data }: MapProps) {
+  const classes = useStyles({});
 
-    const { sensors } = data;
-    return (
-      <div className={classes.container}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyBhcFB0JFXy8hv4pyQqZh7isVbn3-Tfzxk" }} // TODO: replace with Key provided by CTU
-          defaultCenter={center}
-          defaultZoom={zoom}
-        >
-          {sensors!.map((sensor, key) => (
-            <Marker
-              code={sensor!.code!}
-              lat={sensor!.latitude!}
-              lng={sensor!.longitude!}
-              key={key}
-            />
-          ))}
-        </GoogleMapReact>
-      </div>
-    );
-  }
+  const [activeMarkerData, setActiveMarkerData] = useState<Sensor | null>(null);
+  const { sensors } = data;
+
+  const markers: MarkerProps[] = sensors.map(sensor => {
+    return {
+      name: sensor.code,
+      position: { lat: sensor.latitude, lng: sensor.longitude }
+    };
+  });
+
+  const handleActiveMarker = (key: number) => setActiveMarkerData(sensors[key]);
+
+
+  return (
+    <div className={classes.container}>
+      <GoogleMap
+        initialCenter={{
+          lat: sensors[0].latitude,
+          lng: sensors[0].longitude
+        }}
+        zoom={11}
+        markers={markers}
+        handleActiveMarker={handleActiveMarker}
+        activeMarkerData={activeMarkerData}
+      />
+    </div>
+  );
 }
-
-export default withStyles(styles)(Map);

@@ -2,6 +2,13 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    grid: {
+      position: "sticky",
+      top: 0,
+      left: 0,
+      background: "white",
+      zIndex: 200000
+    },
     appBar: {
       display: "flex",
       flexDirection: "row",
