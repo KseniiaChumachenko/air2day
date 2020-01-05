@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import { Sensor, SensorsQuery } from "src/graphql/generated/graphql";
-import GoogleMap from "../../GoogleApi";
+import GoogleMap from "../../../../components/GoogleApi";
 import { MarkerProps } from "google-maps-react";
 
 export const useStyles = makeStyles((theme: Theme) =>

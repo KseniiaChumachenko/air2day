@@ -33,7 +33,7 @@ const client = new ApolloClient({
       authorization: `fb4c1cd7-e219-48ef-be8f-5e31f125e64f`
     }
   }),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache()
 });
 
 const App = () => {
@@ -44,7 +44,7 @@ const App = () => {
       <IntlProvider locale="en">
         <BrowserRouter>
           <ThemeProvider theme={theme}>
-            <MuiPickersUtilsProvider utils={MomentUtils} locale={'cs'}>
+            <MuiPickersUtilsProvider utils={MomentUtils} locale={"cs"}>
               <div className={classes.root}>
                 <Grid container spacing={3}>
                   <NavBar />

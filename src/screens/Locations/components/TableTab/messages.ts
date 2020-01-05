@@ -1,15 +1,15 @@
 import { defineMessages } from "react-intl";
 
 export default defineMessages({
-  from: {
-    id: "screen.locations.dataColumn.tableColumnFrom",
-    description: "screen.locations.dataColumn.tableColumnFrom",
-    defaultMessage: "From"
+  date: {
+    id: "screen.locations.dataColumn.tableColumnDate",
+    description: "screen.locations.dataColumn.tableColumnDate",
+    defaultMessage: "Date"
   },
-  to: {
-    id: "screen.locations.dataColumn.tableColumnTo",
-    description: "screen.locations.dataColumn.tableColumnTo",
-    defaultMessage: "To"
+  time: {
+    id: "screen.locations.dataColumn.tableColumnTime",
+    description: "screen.locations.dataColumn.tableColumnTime",
+    defaultMessage: "Time"
   },
   pollut: {
     id: "screen.locations.dataColumn.tableColumnPollut",

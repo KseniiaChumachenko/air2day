@@ -26,7 +26,7 @@ import {
   MapOutlined,
   GpsFixedOutlined
 } from "@material-ui/icons";
-import { Sensor } from "../../../graphql/generated/graphql";
+import { Sensor } from "../../graphql/generated/graphql";
 import { useGeocoding } from "./useGeocoding";
 
 const useStyles = makeStyles((theme: Theme) =>

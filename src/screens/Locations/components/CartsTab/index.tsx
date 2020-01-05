@@ -1,14 +1,11 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
-
 import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
 
-import { Error } from "src/components/Error";
-import { Loading } from "src/components/LoadingState";
-
+import { SensorDataConsumer } from "../../model";
 import messages from "./messages";
 import { Chart } from "./Chart";
-import { useChartRepresentationQuery } from "src/graphql/generated/graphql";
+import { Skeleton } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,35 +36,23 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface ChartTabProps {
-  id: string;
-  from: any;
-  to: any;
-}
+export const ChartTabLoading = () => (
+  <Skeleton variant={"rect"} width={"100%"} height={"100%"} />
+);
 
-export const ChartTab = ({ id, from, to }: ChartTabProps) => {
+const ChartTab = ({ sensorData, loading }: SensorDataConsumer) => {
   const classes = useStyles({});
 
-  const { data, loading, error } = useChartRepresentationQuery({
-    variables: { sensorId: id, from, to },
-    fetchPolicy: "no-cache"
-  });
-
   if (loading) {
-    return <Loading />;
+    return <ChartTabLoading />;
   }
-
-  if (error) {
-    return <Error message={error.message} />;
-  }
-
-  const lineNO2 = data.sensorData
+  const lineNO2 = sensorData
     .filter(item => item!.pollutant === "NO2")
     .map(item => {
       return { ...item, from: item!.from.slice(11, 16) };
     });
 
-  const linePM10 = data.sensorData
+  const linePM10 = sensorData
     .filter(item => item!.pollutant === "PM10")
     .map(item => {
       return { ...item, from: item!.from.slice(11, 16) };
@@ -90,3 +75,5 @@ export const ChartTab = ({ id, from, to }: ChartTabProps) => {
     </>
   );
 };
+
+export default ChartTab;

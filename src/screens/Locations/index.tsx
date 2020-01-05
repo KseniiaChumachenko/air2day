@@ -1,9 +1,9 @@
 import React from "react";
+import { Skeleton } from "@material-ui/lab";
 import { Container, createStyles, Theme, makeStyles } from "@material-ui/core";
 
-import { SelectMenu } from "./components/TableTab/components/Selectors";
+import { SelectMenu } from "./SelectionFlow";
 import { Map } from "./components/Map";
-import { Loading } from "src/components/LoadingState";
 import { Error } from "src/components/Error";
 import { useSensorsQuery } from "../../graphql/generated/graphql";
 
@@ -33,7 +33,14 @@ export const Locations = () => {
   const { data, loading, error } = useSensorsQuery();
 
   if (loading) {
-    return <Loading />;
+    return (
+      <Skeleton
+        variant={"rect"}
+        width={"100%"}
+        height={"100%"}
+        className={classes.dataColumn}
+      />
+    );
   }
 
   if (error) {
@@ -44,7 +51,7 @@ export const Locations = () => {
     <Container className={classes.container} maxWidth={false}>
       <Map data={data} />
       <div className={classes.dataColumn}>
-        <SelectMenu initialID={data?.sensors[0].id} />
+        <SelectMenu sensorList={data?.sensors} />
       </div>
     </Container>
   );

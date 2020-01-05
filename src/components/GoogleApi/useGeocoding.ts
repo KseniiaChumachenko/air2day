@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { apiKey } from "./index";
-import { Sensor } from "../../../graphql/generated/graphql";
+import { Sensor } from "../../graphql/generated/graphql";
 
 const ADDRESS_MAP = new Map([
   ["ASUCA", "Nad Helmrovkou 261, 165 00 Praha-Lysolaje, Czechia"],
