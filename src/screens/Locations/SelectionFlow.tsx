@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
-import { mapKeys } from "lodash";
 import {
   Collapse,
   createStyles,
-  FormControlLabel,
   makeStyles,
-  Switch,
   Tab,
   Tabs,
   Theme

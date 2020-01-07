@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: "api/graphql",
+    uri: "/api/graphql",
     headers: {
       authorization: `fb4c1cd7-e219-48ef-be8f-5e31f125e64f`
     }
