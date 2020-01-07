@@ -9,6 +9,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy":  "http://william.multimediatech.cz:8081/air2day-test",
   "eslintConfig": {
     "extends": "react-app"
   },
