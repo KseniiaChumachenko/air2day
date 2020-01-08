@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "main": "serer.js",
+  "engines": {
+    "node": "13.x"
+  },
   "scripts": {
     "start": "node server.js",
-    "heroku-postbuild": "npm install --only=dev && npm install && npm run build",
+    "heroku-postbuild": "yarn install --only=dev && yarn install && yarn build",
     "run": "react-scripts start",
     "gql-gen": "graphql-codegen --config codegen.yml",
     "build": "react-scripts build",
