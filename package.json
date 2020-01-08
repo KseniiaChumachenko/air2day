@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "heroku-postbuild": "yarn install && yarn build",
+    "heroku-postbuild": "npm install --only=dev && npm install && npm run build",
     "run": "react-scripts start",
     "gql-gen": "graphql-codegen --config codegen.yml",
     "build": "react-scripts build",
