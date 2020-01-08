@@ -66,6 +66,7 @@ interface Props {
   sensorList: Sensor[];
   handleConfirm: React.Dispatch<React.SetStateAction<State>>;
   handleFiltersOpen(): void;
+  disabled: boolean
 }
 
 export const SensorDataPickers = ({
@@ -75,7 +76,8 @@ export const SensorDataPickers = ({
   handleSensorChange,
   sensorList,
   handleConfirm,
-  handleFiltersOpen
+  handleFiltersOpen,
+  disabled
 }: Props) => {
   const classes = useStyles({});
 
@@ -131,6 +133,7 @@ export const SensorDataPickers = ({
             checked={state.filtersOpen}
             onChange={handleFiltersOpen}
             color="primary"
+            disabled={disabled}
           />
         }
         label={<FormattedMessage {...messages.addFiltersCheckboxLabel} />}

@@ -67,7 +67,7 @@ function useFilters(
   return filteredData;
 }
 
-export const SelectMenu = ({ sensorList }: { sensorList?: Sensor[] }) => {
+export const SelectMenu = ({ sensorList }: { sensorList: Sensor[] }) => {
   const classes = useStyles({});
 
   const [state, update] = React.useState<State>({
@@ -125,6 +125,8 @@ export const SelectMenu = ({ sensorList }: { sensorList?: Sensor[] }) => {
     loading: sensorData?.loading || !filteredData
   };
 
+  const disableFilter = !(sensorData?.data?.sensorData.length > 0);
+
   return (
     <div className={classes.root}>
       {filteredData && (
@@ -137,15 +139,17 @@ export const SelectMenu = ({ sensorList }: { sensorList?: Sensor[] }) => {
             handleSensorChange={handleSensorChange}
             handleFiltersOpen={handleFiltersOpen}
             sensorList={sensorList}
+            disabled={disableFilter}
           />
-          <Collapse in={state.filtersOpen}>
-            <DataFilters
-              sensorData={sensorData?.data?.sensorData}
-              loading={sensorData?.loading || !sensorData?.data?.sensorData}
-              activeFilters={activeFilters}
-              setActiveFilter={setActiveFilter}
-            />
-          </Collapse>
+          {!disableFilter && (
+            <Collapse in={state.filtersOpen}>
+              <DataFilters
+                sensorData={sensorData.data.sensorData}
+                activeFilters={activeFilters}
+                setActiveFilter={setActiveFilter}
+              />
+            </Collapse>
+          )}
           <Tabs
             value={state.tab}
             onChange={handleTabChange}
