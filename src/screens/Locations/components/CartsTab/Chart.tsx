@@ -1,6 +1,7 @@
 import React from "react";
 import {
   CartesianGrid,
+  Legend,
   Line,
   LineChart,
   ResponsiveContainer,
@@ -8,12 +9,92 @@ import {
   XAxis,
   YAxis
 } from "recharts";
+import { color, HUE } from "./colors";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import {
+  amber,
+  blue,
+  brown,
+  deepPurple,
+  green,
+  indigo,
+  lime,
+  pink,
+  red,
+  teal
+} from "@material-ui/core/colors";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    legendContainer: {
+      display: "flex",
+      justifyContent: "center"
+    },
+    itemContainer: {
+      margin: theme.spacing(2)
+    },
+    0: {
+      color: pink[HUE]
+    },
+    1: {
+      color: blue[HUE]
+    },
+    2: {
+      color: green[HUE]
+    },
+    3: {
+      color: deepPurple[HUE]
+    },
+    4: {
+      color: lime[HUE]
+    },
+    5: {
+      color: amber[HUE]
+    },
+    6: {
+      color: teal[HUE]
+    },
+    7: {
+      color: brown[HUE]
+    },
+    8: {
+      color: red[HUE]
+    },
+    default: {
+      color: indigo[HUE]
+    }
+  })
+);
 
 interface Props {
-  data: { from: any; pollutant?: string; value?: number }[];
+  data: any;
 }
 
+// TODO legend colors
+
 export const Chart = ({ data }: Props) => {
+  const classes = useStyles({});
+
+  const keysToMap = Object.keys(data[0]).filter(
+    item => !(item === "to" || item === "from")
+  );
+
+  const renderLegend = (props: any) => {
+    const { payload } = props;
+
+    return (
+      <div className={classes.legendContainer}>
+        {payload.map((item: any, key: number) => (
+          <div className={classes.itemContainer}>
+            <li key={key} className={key < 10 ? classes[key] : classes.default}>
+              {keysToMap[key]}
+            </li>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <ResponsiveContainer>
       <LineChart
@@ -36,13 +117,18 @@ export const Chart = ({ data }: Props) => {
             angle: -90
           }}
         />
+
         <Tooltip />
-        <Line
-          type="monotone"
-          dataKey="value"
-          stroke="#FF4081"
-          activeDot={{ r: 2 }}
-        />
+        <Legend content={renderLegend} />
+        {keysToMap.map((key, index) => (
+          <Line
+            key={index}
+            type="monotone"
+            dataKey={item => item[key]}
+            stroke={color(index)}
+            activeDot={{ r: 2 }}
+          />
+        ))}
       </LineChart>
     </ResponsiveContainer>
   );
