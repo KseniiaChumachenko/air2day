@@ -1,11 +1,11 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
-import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
+import { groupBy } from "lodash";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
 import { SensorDataConsumer } from "../../model";
-import messages from "./messages";
 import { Chart } from "./Chart";
 import { Skeleton } from "@material-ui/lab";
+import { EmptyState } from "../TableTab/EmptyState";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,33 +46,27 @@ const ChartTab = ({ sensorData, loading }: SensorDataConsumer) => {
   if (loading) {
     return <ChartTabLoading />;
   }
-  const lineNO2 = sensorData
-    .filter(item => item!.pollutant === "NO2")
-    .map(item => {
-      return { ...item, from: item!.from.slice(11, 16) };
-    });
 
-  const linePM10 = sensorData
-    .filter(item => item!.pollutant === "PM10")
-    .map(item => {
-      return { ...item, from: item!.from.slice(11, 16) };
-    });
+  const mapData = sensorData.map(item => {
+    const pollutantName = item.pollutant;
+    return {
+      from: item.from,
+      to: item.to,
+      [pollutantName + "|" + item.hourAvg]: item.value
+    };
+  });
+  const groupData = groupBy(mapData, "from");
+  const mapKeys = Object.keys(groupData).map(key =>
+    groupData[key].reduce(
+      (result, current) => Object.assign(result, current),
+      {}
+    )
+  );
 
   return (
-    <>
-      <Typography className={classes.title}>
-        <FormattedMessage {...messages.NO2} />
-      </Typography>
-      <div className={classes.chart}>
-        <Chart data={lineNO2} />
-      </div>
-      <Typography className={classes.title}>
-        <FormattedMessage {...messages.PM10} />
-      </Typography>
-      <div className={classes.chart}>
-        <Chart data={linePM10} />
-      </div>
-    </>
+    <div className={classes.chart}>
+      {mapKeys.length > 0 ? <Chart data={mapKeys} /> : <EmptyState />}
+    </div>
   );
 };
 
