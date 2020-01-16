@@ -14,8 +14,11 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 0,
       display: "flex",
       flex: 1,
+      height: "100%",
 
-      flexDirection: "column"
+      flexDirection: "column",
+
+      background: theme.palette.background.default
     },
     dataColumn: {
       display: "flex",
@@ -43,16 +46,18 @@ export const Locations = () => {
     );
   }
 
-  if (error) {
-    return <Error message={error.message} />;
-  }
-
   return (
     <Container className={classes.container} maxWidth={false}>
-      <Map data={data} />
-      <div className={classes.dataColumn}>
-        <SelectMenu sensorList={data?.sensors} />
-      </div>
+      {error ? (
+        <Error message={error.message} />
+      ) : (
+        <>
+          <Map data={data} />
+          <div className={classes.dataColumn}>
+            <SelectMenu sensorList={data?.sensors} />
+          </div>
+        </>
+      )}
     </Container>
   );
 };

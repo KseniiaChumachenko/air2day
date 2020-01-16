@@ -2,17 +2,17 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    grid: {
+    appBar: {
       position: "sticky",
       top: 0,
       left: 0,
-      background: "white",
-      zIndex: 200000
-    },
-    appBar: {
+      height: '3em',
+      zIndex: 200000,
       display: "flex",
       flexDirection: "row",
-      maxHeight: "10vh"
+      background: theme.palette.background.default,
+      paddingTop: theme.spacing(1),
+      paddingLeft: theme.spacing(3)
     },
     grow: {
       flexGrow: 1
@@ -23,12 +23,12 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 30,
       color: theme.palette.primary.main,
 
-      marginRight: theme.spacing(2),
-      marginLeft: theme.spacing(2),
-
       [theme.breakpoints.down("sm")]: {
         fontSize: 25
       }
+    },
+    themeSwitch: {
+      height: "2em"
     }
   })
 );
