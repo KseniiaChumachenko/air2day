@@ -5,7 +5,6 @@ export const lightTheme = {
   palette: {
     type: "light" as PaletteType,
     background: {
-      paper: "",
       default: "#fff"
     },
 

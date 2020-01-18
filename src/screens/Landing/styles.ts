@@ -6,11 +6,14 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       height: "100%",
       display: "flex",
-      overflow: "scroll",
       flexDirection: "column",
       fontStyle: "normal",
       fontWeight: "normal",
-      background: theme.palette.background.default
+      background: theme.palette.background.default,
+      paddingBottom: theme.spacing(6),
+      [theme.breakpoints.down("sm")]: {
+        height: "unset"
+      }
     },
 
     gridContainer: {

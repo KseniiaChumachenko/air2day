@@ -3,9 +3,6 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     appBar: {
-      position: "sticky",
-      top: 0,
-      left: 0,
       height: '3em',
       zIndex: 200000,
       display: "flex",

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IntlProvider } from "react-intl";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route, BrowserRouter } from "react-router-dom";
 import {
   createMuiTheme,
   createStyles,
@@ -27,12 +27,10 @@ import { darkTheme, lightTheme } from "./theme";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1,
-      margin: '-8px',
-      height: '100vh',
-      bottom: 0,
+      height: "100vh",
+      overflow: "hidden",
       background: theme.palette.background.default
-    }
+    },
   })
 );
 
@@ -72,8 +70,15 @@ const App = () => {
             <MuiPickersUtilsProvider utils={MomentUtils} locale={"cs"}>
               <div className={classes.root}>
                 <NavBar setTheme={setState} />
-                <Route exact path="/" component={Landing} />
-                <Route path="/locations" component={Locations} />
+                  <Route
+                    exact
+                    path="/"
+                    component={Landing}
+                  />
+                  <Route
+                    path="/locations"
+                    component={Locations}
+                  />
               </div>
             </MuiPickersUtilsProvider>
           </ThemeProvider>
