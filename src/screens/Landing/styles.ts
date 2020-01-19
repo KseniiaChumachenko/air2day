@@ -1,16 +1,19 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
- const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       width: "100%",
       height: "100%",
       display: "flex",
-      overflow: "scroll",
       flexDirection: "column",
-      fontFamily: "Varela Round",
       fontStyle: "normal",
-      fontWeight: "normal"
+      fontWeight: "normal",
+      background: theme.palette.background.default,
+      paddingBottom: theme.spacing(6),
+      [theme.breakpoints.down("sm")]: {
+        height: "unset"
+      }
     },
 
     gridContainer: {
@@ -21,11 +24,10 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
     title: {
       marginTop: 50,
-      fontSize: 35,
       lineHeight: 2,
       marginLeft: theme.spacing(1),
       letterSpacing: "0.1em",
-      color: theme.palette.primary.main,
+      fontFamily: "Varela Round",
 
       [theme.breakpoints.down("sm")]: {
         marginTop: theme.spacing(4),
@@ -36,12 +38,11 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
     },
 
     subtitle: {
-      fontSize: 30,
+      fontFamily: "Varela Round",
       lineHeight: 2,
       marginLeft: theme.spacing(4),
 
       letterSpacing: "0.1em",
-      color: theme.palette.primary.light,
 
       [theme.breakpoints.down("sm")]: {
         fontSize: 20,
@@ -51,7 +52,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
     },
 
     intro: {
-      fontSize: 20,
+      fontFamily: "Varela Round",
       marginTop: theme.spacing(2),
       marginLeft: theme.spacing(8),
       marginBottom: theme.spacing(6),
@@ -63,17 +64,17 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
       [theme.breakpoints.down("sm")]: {
         marginTop: theme.spacing(1),
         maxWidth: "90%",
-        fontSize: 18,
         marginLeft: "auto",
         marginRight: "auto"
       }
     },
 
     cardView: {
+      fontFamily: "Varela Round",
       display: "inline-flex",
       flexWrap: "wrap"
     }
   })
 );
 
- export default useStyles;
+export default useStyles;

@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import {
   Collapse,
-  createStyles,
-  makeStyles,
   Tab,
-  Tabs,
-  Theme
+  Tabs
 } from "@material-ui/core";
 import {
   Sensor,
@@ -20,16 +17,6 @@ import messages from "./messages";
 import { SensorDataPickers, State } from "./components/SensorDataPickers";
 import { DataFilters } from "./components/DataFilters";
 import { SensorDataConsumer } from "./model";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      [theme.breakpoints.down("sm")]: {
-        height: "50vh"
-      }
-    }
-  })
-);
 
 export type SensorDataKey = keyof SensorData;
 
@@ -68,8 +55,6 @@ function useFilters(
 }
 
 export const SelectMenu = ({ sensorList }: { sensorList: Sensor[] }) => {
-  const classes = useStyles({});
-
   const [state, update] = React.useState<State>({
     sensorId: sensorList[0].id,
     tab: 0,
@@ -128,7 +113,7 @@ export const SelectMenu = ({ sensorList }: { sensorList: Sensor[] }) => {
   const disableFilter = !(sensorData?.data?.sensorData.length > 0);
 
   return (
-    <div className={classes.root}>
+    <div>
       {filteredData && (
         <>
           <SensorDataPickers

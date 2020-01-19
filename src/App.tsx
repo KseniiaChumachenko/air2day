@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IntlProvider } from "react-intl";
-import { BrowserRouter, Route } from "react-router-dom";
-import { createStyles, Grid, makeStyles, Theme } from "@material-ui/core";
+import { Route, BrowserRouter } from "react-router-dom";
+import {
+  createMuiTheme,
+  createStyles,
+  makeStyles,
+  Theme,
+  useMediaQuery
+} from "@material-ui/core";
 import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import {
@@ -16,29 +22,45 @@ import { NavBar } from "src/components/Navbar";
 import { Locations } from "src/screens/Locations";
 
 import { Landing } from "src/screens/Landing";
-import theme from "./theme";
+import { darkTheme, lightTheme } from "./theme";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1
-    }
+      height: "100vh",
+      overflow: "hidden",
+      background: theme.palette.background.default
+    },
   })
 );
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri:`/api/graphql`,
+    uri: `/api/graphql`,
     headers: {
-      authorization: `fb4c1cd7-e219-48ef-be8f-5e31f125e64f`,
-    },
-    fetchOptions: 'no-cors'
+      authorization: `fb4c1cd7-e219-48ef-be8f-5e31f125e64f`
+    }
   }),
   cache: new InMemoryCache()
 });
 
 const App = () => {
   const classes = useStyles({});
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [state, setState] = useState(prefersDarkMode);
+
+  useEffect(() => {
+    setState(prevState => {
+      if (prevState !== prefersDarkMode) {
+        return prefersDarkMode;
+      }
+    });
+  }, [prefersDarkMode]);
+
+  const theme = React.useMemo(
+    () => createMuiTheme(state ? darkTheme : lightTheme),
+    [state]
+  );
 
   return (
     <ApolloProvider client={client}>
@@ -47,11 +69,16 @@ const App = () => {
           <ThemeProvider theme={theme}>
             <MuiPickersUtilsProvider utils={MomentUtils} locale={"cs"}>
               <div className={classes.root}>
-                <Grid container spacing={3}>
-                  <NavBar />
-                  <Route exact path="/" component={Landing} />
-                  <Route path="/locations" component={Locations} />
-                </Grid>
+                <NavBar setTheme={setState} />
+                  <Route
+                    exact
+                    path="/"
+                    component={Landing}
+                  />
+                  <Route
+                    path="/locations"
+                    component={Locations}
+                  />
               </div>
             </MuiPickersUtilsProvider>
           </ThemeProvider>

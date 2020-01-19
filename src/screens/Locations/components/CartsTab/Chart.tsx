@@ -10,7 +10,7 @@ import {
   YAxis
 } from "recharts";
 import { color, HUE } from "./colors";
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
 import {
   amber,
   blue,
@@ -85,14 +85,20 @@ export const Chart = ({ data }: Props) => {
     return (
       <div className={classes.legendContainer}>
         {payload.map((item: any, key: number) => (
-          <div className={classes.itemContainer}>
-            <li key={key} className={key < 10 ? classes[key] : classes.default}>
-              {keysToMap[key]}
-            </li>
+          <div className={classes.itemContainer} key={key}>
+            <Typography>
+              <li className={key < 10 ? classes[key] : classes.default}>
+                {keysToMap[key]}
+              </li>
+            </Typography>
           </div>
         ))}
       </div>
     );
+  };
+
+  const renderLabel = () => {
+    return <Typography color={"textPrimary"}>[µg/m³]</Typography>;
   };
 
   return (
@@ -111,11 +117,7 @@ export const Chart = ({ data }: Props) => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="from" />
         <YAxis
-          label={{
-            value: "[µg/m³]",
-            position: "center",
-            angle: -90
-          }}
+          label={{ angle: -90, position: "center", content: renderLabel }}
         />
 
         <Tooltip />

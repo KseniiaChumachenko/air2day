@@ -1,23 +1,119 @@
-import { createMuiTheme } from "@material-ui/core/styles";
-import { blue, pink, red } from "@material-ui/core/colors";
+import { PaletteType } from "@material-ui/core";
+import { red } from "@material-ui/core/colors";
 
-const theme = createMuiTheme({
+export const lightTheme = {
   palette: {
+    type: "light" as PaletteType,
+    background: {
+      default: "#fff"
+    },
+
     primary: {
-      main: blue[600],
-      light: blue[200]
+      main: "#3d5af1",
+      light: "#7e87ff",
+      dark: "#0031bd",
+      contrastText: ""
     },
     secondary: {
-      main: pink[600],
-      light: pink[200]
+      main: "#22d1ee",
+      light: "#71ffff",
+      dark: "#009fbb",
+      contrastText: ""
+    },
+    text: {
+      primary: "#000000",
+      secondary: "#212121",
+      disabled: "#484848",
+      hint: ""
+    },
+
+    ////////////////// TBD ///////////////////
+    info: {
+      main: "#2196f3",
+      light: "#64b5f6",
+      dark: "#1976d2",
+      contrastText: ""
     },
     error: {
-      main: red[600]
+      main: red[600],
+      light: "#e57373",
+      dark: "#d32f2f",
+      contrastText: ""
+    },
+    warning: {
+      main: "#ff9800",
+      light: "#ffb74d",
+      dark: "#f57c00",
+      contrastText: ""
+    },
+    success: {
+      main: "#4caf50",
+      light: "#81c784",
+      dark: "#388e3c",
+      contrastText: ""
     }
+    /////////////////////////////////////
+  },
+  typography: {
+    fontFamily: "'Open Sans',sans-serif",
+  }
+};
+
+export const darkTheme = {
+  palette: {
+    type: "dark" as PaletteType,
+    background: {
+      paper: "#090f2b",
+      default: "#0e153a"
+    },
+
+    primary: {
+      main: "#3d5af1",
+      light: "#7e87ff",
+      dark: "#0031bd",
+      contrastText: ""
+    },
+    secondary: {
+      main: "#22d1ee",
+      light: "#71ffff",
+      dark: "#009fbb",
+      contrastText: ""
+    },
+    text: {
+      primary: "#ffffff",
+      secondary: "#eceff1",
+      disabled: "#484848",
+      hint: ""
+    },
+
+    ////////////////// TBD ///////////////////
+    info: {
+      main: "#2196f3",
+      light: "#64b5f6",
+      dark: "#1976d2",
+      contrastText: ""
+    },
+    error: {
+      main: red[600],
+      light: "#e57373",
+      dark: "#d32f2f",
+      contrastText: ""
+    },
+    warning: {
+      main: "#ff9800",
+      light: "#ffb74d",
+      dark: "#f57c00",
+      contrastText: ""
+    },
+    success: {
+      main: "#4caf50",
+      light: "#81c784",
+      dark: "#388e3c",
+      contrastText: ""
+    }
+    /////////////////////////////////////
   },
   typography: {
     fontFamily: "Open Sans, sans-serif"
   }
-});
-
-export default theme;
+};

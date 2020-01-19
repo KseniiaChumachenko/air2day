@@ -11,7 +11,8 @@ import {
   MenuItem,
   Select,
   Switch,
-  Theme
+  Theme,
+  Typography
 } from "@material-ui/core";
 import { FormattedMessage } from "react-intl";
 import messages from "./messages";
@@ -66,7 +67,7 @@ interface Props {
   sensorList: Sensor[];
   handleConfirm: React.Dispatch<React.SetStateAction<State>>;
   handleFiltersOpen(): void;
-  disabled: boolean
+  disabled: boolean;
 }
 
 export const SensorDataPickers = ({
@@ -136,7 +137,11 @@ export const SensorDataPickers = ({
             disabled={disabled}
           />
         }
-        label={<FormattedMessage {...messages.addFiltersCheckboxLabel} />}
+        label={
+          <Typography color={"textPrimary"}>
+            <FormattedMessage {...messages.addFiltersCheckboxLabel} />
+          </Typography>
+        }
       />
     </Container>
   );

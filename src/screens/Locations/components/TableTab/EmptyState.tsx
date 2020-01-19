@@ -9,7 +9,7 @@ export const EmptyState = () => {
   return (
     <TableRow>
       <TableCell className={classes.emptyState}>
-        <Typography className={classes.emptyState}>
+        <Typography className={classes.emptyState} color={"textPrimary"}>
           <FormattedMessage {...messages.noData} />
         </Typography>
       </TableCell>

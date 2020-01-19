@@ -6,15 +6,13 @@ import { SelectMenu } from "./SelectionFlow";
 import { Map } from "./components/Map";
 import { Error } from "src/components/Error";
 import { useSensorsQuery } from "../../graphql/generated/graphql";
+import { ScrollableContainer } from "../../components/ScrollableContainer";
+import { useTabTitle } from "../../hooks/useTabTitle";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      padding: 0,
-      margin: 0,
-      display: "flex",
-      flex: 1,
-
+      padding: `0 0 ${theme.spacing(6)}px`,
       flexDirection: "column"
     },
     dataColumn: {
@@ -31,6 +29,7 @@ export const Locations = () => {
   const classes = useStyles({});
 
   const { data, loading, error } = useSensorsQuery();
+  useTabTitle("Locations");
 
   if (loading) {
     return (
@@ -43,16 +42,20 @@ export const Locations = () => {
     );
   }
 
-  if (error) {
-    return <Error message={error.message} />;
-  }
-
   return (
-    <Container className={classes.container} maxWidth={false}>
-      <Map data={data} />
-      <div className={classes.dataColumn}>
-        <SelectMenu sensorList={data?.sensors} />
-      </div>
-    </Container>
+    <ScrollableContainer>
+      <Container className={classes.container} maxWidth={false}>
+        {error ? (
+          <Error message={error.message} />
+        ) : (
+          <>
+            <Map data={data} />
+            <div className={classes.dataColumn}>
+              <SelectMenu sensorList={data?.sensors} />
+            </div>
+          </>
+        )}
+      </Container>
+    </ScrollableContainer>
   );
 };
