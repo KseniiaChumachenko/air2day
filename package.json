@@ -2,28 +2,20 @@
   "name": "air2day",
   "version": "0.1.0",
   "private": true,
-  "main": "serer.js",
   "engines": {
     "node": "13.x"
   },
   "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
     "start": "node server.js",
+    "build": "cross-env NODE_ENV=production webpack",
     "heroku-postbuild": "npm install --only=dev && npm install && npm run build",
-    "run": "react-scripts start",
     "gql-gen": "graphql-codegen --config codegen.yml",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "proxy": "http://william.multimediatech.cz:8081/air2day-test",
-  "eslintConfig": {
-    "extends": "react-app"
+    "check-types": "tsc --noEmit"
   },
   "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
+    "last 2 versions and not dead",
+    "ie 11"
   ],
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.16",
@@ -37,34 +29,56 @@
     "express": "^4.17.1",
     "google-maps-react": "^2.0.2",
     "http-proxy-middleware": "^0.20.0",
-    "lodash": "^4.17.11",
+    "lodash.groupby": "^4.6.0",
+    "lodash.omit": "^4.5.0",
     "moment": "^2.24.0",
     "react": "^16.8.4",
     "react-apollo": "^3.1.3",
     "react-dom": "^16.8.4",
     "react-intl": "^3.4.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.2.0",
     "recharts": "^2.0.0-beta.1",
-    "typescript": "^3.7.3"
+    "regenerator-runtime": "^0.13.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-decorators": "^7.7.4",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.7.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.7.4",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.7.4",
+    "@babel/preset-typescript": "^7.7.4",
     "@graphql-codegen/cli": "^1.1.3",
     "@graphql-codegen/typescript": "^1.8.2",
     "@graphql-codegen/typescript-operations": "^1.8.2",
     "@graphql-codegen/typescript-react-apollo": "^1.8.2",
     "@types/google-map-react": "^1.1.0",
     "@types/google-maps-react": "^2.0.3",
-    "@types/jest": "24.0.25",
     "@types/lodash": "^4.14.130",
+    "@types/lodash.groupby": "^4.6.6",
+    "@types/lodash.omit": "^4.5.6",
+    "@types/ramda": "^0.26.40",
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.3",
     "@types/react-intl": "^3.0.0",
     "@types/react-router-dom": "^5.1.3",
-    "@types/recharts": "^1.1.16",
-    "@types/webfontloader": "^1.6.29",
+    "@types/recharts": "^1.8.5",
+    "@types/webpack-env": "^1.15.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-macros": "^2.7.1",
+    "copy-webpack-plugin": "^5.1.1",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.6.0",
     "graphql": "^14.5.8",
-    "prettier": "^1.16.4"
+    "graphql-tag": "^2.10.1",
+    "prettier": "^1.16.4",
+    "typescript": "^3.7.3",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
   },
   "peerDependencies": {
     "@date-io/core": "^1.3.0"

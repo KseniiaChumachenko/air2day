@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import "regenerator-runtime/runtime";
+import React, { useEffect, useState, Suspense } from "react";
 import { IntlProvider } from "react-intl";
 import { Route, BrowserRouter } from "react-router-dom";
 import {
+  CircularProgress,
   createMuiTheme,
   createStyles,
   makeStyles,
@@ -30,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100vh",
       overflow: "hidden",
       background: theme.palette.background.default
-    },
+    }
   })
 );
 
@@ -63,28 +65,23 @@ const App = () => {
   );
 
   return (
-    <ApolloProvider client={client}>
-      <IntlProvider locale="en">
-        <BrowserRouter>
-          <ThemeProvider theme={theme}>
-            <MuiPickersUtilsProvider utils={MomentUtils} locale={"cs"}>
-              <div className={classes.root}>
-                <NavBar setTheme={setState} />
-                  <Route
-                    exact
-                    path="/"
-                    component={Landing}
-                  />
-                  <Route
-                    path="/locations"
-                    component={Locations}
-                  />
-              </div>
-            </MuiPickersUtilsProvider>
-          </ThemeProvider>
-        </BrowserRouter>
-      </IntlProvider>
-    </ApolloProvider>
+    <Suspense fallback={<CircularProgress />}>
+      <ApolloProvider client={client}>
+        <IntlProvider locale="en">
+          <BrowserRouter>
+            <ThemeProvider theme={theme}>
+              <MuiPickersUtilsProvider utils={MomentUtils} locale={"cs"}>
+                <div className={classes.root}>
+                  <NavBar setTheme={setState} />
+                  <Route exact path="/" component={Landing} />
+                  <Route path="/locations" component={Locations} />
+                </div>
+              </MuiPickersUtilsProvider>
+            </ThemeProvider>
+          </BrowserRouter>
+        </IntlProvider>
+      </ApolloProvider>
+    </Suspense>
   );
 };
 export default App;

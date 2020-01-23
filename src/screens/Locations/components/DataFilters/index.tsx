@@ -1,6 +1,6 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { omit } from "lodash";
+import omit from "lodash.omit";
 import {
   Button,
   createStyles,
