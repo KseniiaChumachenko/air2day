@@ -1,9 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Collapse,
-  Tab,
-  Tabs
-} from "@material-ui/core";
+import { Collapse, Tab, Tabs } from "@material-ui/core";
 import {
   Sensor,
   SensorData,
@@ -17,6 +13,7 @@ import messages from "./messages";
 import { SensorDataPickers, State } from "./components/SensorDataPickers";
 import { DataFilters } from "./components/DataFilters";
 import { SensorDataConsumer } from "./model";
+import { ExportTab } from './components/ExportTab'
 
 export type SensorDataKey = keyof SensorData;
 
@@ -111,7 +108,9 @@ export const SelectMenu = ({ sensorList }: { sensorList: Sensor[] }) => {
   };
 
   const disableFilter = !(sensorData?.data?.sensorData.length > 0);
-  const countAppliedFilters = Object.values(activeFilters).filter((value => !!value)).length
+  const countAppliedFilters = Object.values(activeFilters).filter(
+    value => !!value
+  ).length;
 
   return (
     <div>
@@ -152,9 +151,14 @@ export const SelectMenu = ({ sensorList }: { sensorList: Sensor[] }) => {
               label={<FormattedMessage {...messages.chartTabLabel} />}
               aria-label="Charts"
             />
+            <Tab
+              label={<FormattedMessage {...messages.exportTabLabel} />}
+              aria-label="Charts"
+            />
           </Tabs>
           {state.tab === 0 && confirmed && <Table {...tabProps} />}
           {state.tab === 1 && confirmed && <ChartTab {...tabProps} />}
+          {state.tab === 2 && confirmed && <ExportTab {...tabProps} />}
         </>
       )}
     </div>

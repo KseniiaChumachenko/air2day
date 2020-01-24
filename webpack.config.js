@@ -66,6 +66,7 @@ module.exports = (/* env = {} */) => {
       hot: true,
       host: "::", // Listens on all IPv4 and IPv6 interfaces
       port: 3000,
+      historyApiFallback: true,
 
       proxy: {
         "/api/graphql": {
