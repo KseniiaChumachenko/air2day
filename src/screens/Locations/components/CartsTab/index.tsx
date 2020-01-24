@@ -1,5 +1,5 @@
 import React from "react";
-import { groupBy } from "lodash";
+import groupBy from "lodash.groupby";
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
 import { SensorDataConsumer } from "../../model";

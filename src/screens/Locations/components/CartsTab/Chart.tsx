@@ -1,6 +1,7 @@
 import React from "react";
 import {
   CartesianGrid,
+  Label,
   Legend,
   Line,
   LineChart,
@@ -10,7 +11,13 @@ import {
   YAxis
 } from "recharts";
 import { color, HUE } from "./colors";
-import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  Typography,
+  useTheme
+} from "@material-ui/core";
 import {
   amber,
   blue,
@@ -30,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "center"
     },
+    yLabel: {},
     itemContainer: {
       margin: theme.spacing(2)
     },
@@ -74,6 +82,7 @@ interface Props {
 
 export const Chart = ({ data }: Props) => {
   const classes = useStyles({});
+  const theme = useTheme();
 
   const keysToMap = Object.keys(data[0]).filter(
     item => !(item === "to" || item === "from")
@@ -97,8 +106,9 @@ export const Chart = ({ data }: Props) => {
     );
   };
 
-  const renderLabel = () => {
-    return <Typography color={"textPrimary"}>[µg/m³]</Typography>;
+  const renderLabel = (payload: any) => {
+    console.log(payload);
+    return <Typography color={"textPrimary"}>{payload.value}</Typography>;
   };
 
   return (
@@ -116,9 +126,15 @@ export const Chart = ({ data }: Props) => {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="from" />
-        <YAxis
-          label={{ angle: -90, position: "center", content: renderLabel }}
-        />
+        <YAxis>
+          <Label
+            value={"[µg/m³]"}
+            position={"center"}
+            angle={-90}
+            className={classes.yLabel}
+            fontFamily={theme.typography.fontFamily}
+          />
+        </YAxis>
 
         <Tooltip />
         <Legend content={renderLegend} />
