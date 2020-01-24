@@ -1,6 +1,7 @@
 import React from "react";
 import { KeyboardDateTimePicker } from "@material-ui/pickers";
 import {
+  Badge,
   Button,
   Container,
   createStyles,
@@ -68,6 +69,7 @@ interface Props {
   handleConfirm: React.Dispatch<React.SetStateAction<State>>;
   handleFiltersOpen(): void;
   disabled: boolean;
+  countAppliedFilters: number;
 }
 
 export const SensorDataPickers = ({
@@ -78,7 +80,8 @@ export const SensorDataPickers = ({
   sensorList,
   handleConfirm,
   handleFiltersOpen,
-  disabled
+  disabled,
+  countAppliedFilters
 }: Props) => {
   const classes = useStyles({});
 
@@ -128,6 +131,7 @@ export const SensorDataPickers = ({
         <FormattedMessage {...messages.applyButtonLabel} />
       </Button>
       <div className={classes.spacer} />
+
       <FormControlLabel
         control={
           <Switch
@@ -138,9 +142,11 @@ export const SensorDataPickers = ({
           />
         }
         label={
-          <Typography color={"textPrimary"}>
-            <FormattedMessage {...messages.addFiltersCheckboxLabel} />
-          </Typography>
+          <Badge badgeContent={countAppliedFilters} color={"primary"}>
+            <Typography color={"textPrimary"}>
+              <FormattedMessage {...messages.addFiltersCheckboxLabel} />
+            </Typography>
+          </Badge>
         }
       />
     </Container>

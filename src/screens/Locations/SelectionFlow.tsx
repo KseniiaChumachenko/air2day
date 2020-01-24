@@ -111,6 +111,7 @@ export const SelectMenu = ({ sensorList }: { sensorList: Sensor[] }) => {
   };
 
   const disableFilter = !(sensorData?.data?.sensorData.length > 0);
+  const countAppliedFilters = Object.values(activeFilters).filter((value => !!value)).length
 
   return (
     <div>
@@ -125,6 +126,7 @@ export const SelectMenu = ({ sensorList }: { sensorList: Sensor[] }) => {
             handleFiltersOpen={handleFiltersOpen}
             sensorList={sensorList}
             disabled={disableFilter}
+            countAppliedFilters={countAppliedFilters}
           />
           {!disableFilter && (
             <Collapse in={state.filtersOpen}>
