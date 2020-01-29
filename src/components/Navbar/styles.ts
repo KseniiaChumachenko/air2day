@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     appBar: {
-      height: '3em',
+      height: "3em",
       zIndex: 200000,
       display: "flex",
       flexDirection: "row",
@@ -14,15 +14,9 @@ const useStyles = makeStyles((theme: Theme) =>
     grow: {
       flexGrow: 1
     },
-    title: {
-      cursor: "pointer",
-      fontFamily: '"Leckerli One", cursive',
-      fontSize: 30,
-      color: theme.palette.primary.main,
-
-      [theme.breakpoints.down("sm")]: {
-        fontSize: 25
-      }
+    logo: {
+      height: "2em",
+      alignSelf: "center"
     },
     themeSwitch: {
       height: "2em"
