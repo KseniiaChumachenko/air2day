@@ -1,12 +1,12 @@
-<svg width="98px" height="14px" viewBox="0 0 98 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg width="85px" height="14px" viewBox="0 0 85 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <defs>
         <linearGradient id="maingrad" x1="0%" y1="50%" x2="100%" y2="50%" gradientUnits="userSpaceOnUse">
             <stop offset="0%" style="stop-color:rgb(34,209,238);stop-opacity:1"/>
             <stop offset="100%" style="stop-color:rgb(61,90,241);stop-opacity:1"/>
         </linearGradient>
     </defs>
-    <text transform="translate(20.000000, -2.000000)" fill="url(#maingrad)" font-family="VarelaRound-Regular, Varela Round" font-size="15" font-weight="normal" letter-spacing="1.5" line-spacing="12" stroke="none">
-        <tspan x="0" y="14">AIR2DAY</tspan>
+    <text transform="translate(20.000000, -2.000000)" fill="url(#maingrad)" font-family="VarelaRound-Regular, Varela Round" font-size="12" font-weight="normal" letter-spacing="1.5" line-spacing="12" stroke="none">
+        <tspan x="0" y="13.5">AIR2DAY</tspan>
     </text>
     <g transform="translate(1.000000, 2.000000)" stroke="url(#maingrad)" stroke-linecap="round" stroke-linejoin="round" fill="none">
         <path d="M5.49767654,6.08669703 C5.06512029,5.35870498 4.25782975,4.86907115 3.33333333,4.86907115 C1.95262146,4.86907115 0.833333333,5.96118288 0.833333333,7.30837098 C0.833333333,8.65555907 1.95262146,9.74767081 3.33333333,9.74767081 C3.61111111,9.74767081 3.88888889,9.72598814 4.16666667,9.68262281 C4.96725972,9.52763711 5.52928204,9.38669978 5.85273364,9.25981084 C6.7707718,8.89966765 7.42735316,8.44016565 7.90008513,8.06455392 C8.06603935,7.93269411 8.20933623,7.82246446 8.33333333,7.71492095 C8.8154025,7.29681918 9.19788321,6.86230654 9.50134763,6.43566066 M7.9,8.06455392 C8.50880901,8.84600045 9.74969721,9.73953981 10.8333333,9.73953981 C12.6742825,9.73953981 14.1666667,8.28339083 14.1666667,6.48714003 C14.1666667,4.69088924 12.4659492,3.25100226 10.625,3.25100226 C10.110285,1.82550837 8.71912203,0.803571429 7.08333333,0.803571429 C5.01226552,0.803571429 3.33333333,2.44173903 3.33333333,4.46252117 L3.33333333,4.86907115"/>

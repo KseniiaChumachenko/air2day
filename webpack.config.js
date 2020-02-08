@@ -9,7 +9,7 @@ module.exports = (/* env = {} */) => {
   return {
     mode: NODE_ENV,
 
-    node: false,
+    node: { global: true },
 
     devtool: NODE_ENV === "development" ? "source-map" : false,
 

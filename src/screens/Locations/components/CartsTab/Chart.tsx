@@ -1,153 +1,79 @@
 import React from "react";
-import {
-  CartesianGrid,
-  Label,
-  Legend,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis
-} from "recharts";
-import { color, HUE } from "./colors";
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-  useTheme
-} from "@material-ui/core";
-import {
-  amber,
-  blue,
-  brown,
-  deepPurple,
-  green,
-  indigo,
-  lime,
-  pink,
-  red,
-  teal
-} from "@material-ui/core/colors";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    legendContainer: {
-      display: "flex",
-      justifyContent: "center"
-    },
-    yLabel: {},
-    itemContainer: {
-      margin: theme.spacing(2)
-    },
-    0: {
-      color: pink[HUE]
-    },
-    1: {
-      color: blue[HUE]
-    },
-    2: {
-      color: green[HUE]
-    },
-    3: {
-      color: deepPurple[HUE]
-    },
-    4: {
-      color: lime[HUE]
-    },
-    5: {
-      color: amber[HUE]
-    },
-    6: {
-      color: teal[HUE]
-    },
-    7: {
-      color: brown[HUE]
-    },
-    8: {
-      color: red[HUE]
-    },
-    default: {
-      color: indigo[HUE]
-    }
-  })
-);
+import { ResponsiveLine } from "@nivo/line";
+import { ChartData } from "./index";
+import { useTheme } from "@material-ui/core";
 
 interface Props {
-  data: any;
+  data: ChartData;
 }
 
-// TODO legend colors
+/* TODO
+ * fix theming
+ * add tooltip for points
+ * map hourAvg in sensorData
+ * axes selector
+ * */
 
 export const Chart = ({ data }: Props) => {
-  const classes = useStyles({});
   const theme = useTheme();
-
-  const keysToMap = Object.keys(data[0]).filter(
-    item => !(item === "to" || item === "from")
-  );
-
-  const renderLegend = (props: any) => {
-    const { payload } = props;
-
-    return (
-      <div className={classes.legendContainer}>
-        {payload.map((item: any, key: number) => (
-          <div className={classes.itemContainer} key={key}>
-            <Typography>
-              <li className={key < 10 ? classes[key] : classes.default}>
-                {keysToMap[key]}
-              </li>
-            </Typography>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const renderLabel = (payload: any) => {
-    console.log(payload);
-    return <Typography color={"textPrimary"}>{payload.value}</Typography>;
-  };
-
   return (
-    <ResponsiveContainer>
-      <LineChart
-        width={400}
-        height={250}
-        data={data}
-        margin={{
-          top: 15,
-          right: 30,
-          left: 20,
-          bottom: 5
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="from" />
-        <YAxis>
-          <Label
-            value={"[µg/m³]"}
-            position={"center"}
-            angle={-90}
-            className={classes.yLabel}
-            fontFamily={theme.typography.fontFamily}
-          />
-        </YAxis>
-
-        <Tooltip />
-        <Legend content={renderLegend} />
-        {keysToMap.map((key, index) => (
-          <Line
-            key={index}
-            type="monotone"
-            dataKey={item => item[key]}
-            stroke={color(index)}
-            activeDot={{ r: 2 }}
-          />
-        ))}
-      </LineChart>
-    </ResponsiveContainer>
+    <ResponsiveLine
+      data={data}
+      lineWidth={1}
+      pointSize={2}
+      colors={{ scheme: "set1" }}
+      margin={{ top: 50, right: 160, bottom: 100, left: 60 }}
+      theme={{
+        axis: {
+          domain: { line: { color: theme.palette.text.primary } },
+          ticks: {
+            line: { color: theme.palette.text.primary },
+            text: { color: theme.palette.text.primary }
+          },
+          legend: {
+            text: { color: theme.palette.text.primary }
+          }
+        }
+      }}
+      curve={"monotoneX"}
+      xScale={{
+        type: "time"
+        //   format: "%Y-%m-%d",
+        //   precision: "month"
+      }}
+      axisBottom={{
+        legend: "Pollutant", //TODO : localization
+        tickRotation: -45,
+        legendOffset: 80,
+        format: "%Y-%m-%d"
+      }}
+      legends={[
+        {
+          itemTextColor: theme.palette.text.primary,
+          anchor: "right",
+          direction: "column",
+          justify: false,
+          translateX: 140,
+          translateY: 0,
+          itemsSpacing: 2,
+          itemDirection: "left-to-right",
+          itemWidth: 80,
+          itemHeight: 12,
+          itemOpacity: 0.75,
+          symbolSize: 12,
+          symbolShape: "circle",
+          symbolBorderColor: "rgba(0, 0, 0, .5)",
+          effects: [
+            {
+              on: "hover",
+              style: {
+                itemBackground: "rgba(0, 0, 0, .03)",
+                itemOpacity: 1
+              }
+            }
+          ]
+        }
+      ]}
+    />
   );
 };

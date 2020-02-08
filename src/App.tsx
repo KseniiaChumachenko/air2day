@@ -70,7 +70,7 @@ const App = () => {
         <IntlProvider locale="en">
           <BrowserRouter>
             <ThemeProvider theme={theme}>
-              <MuiPickersUtilsProvider utils={MomentUtils} locale={"cs"}>
+              <MuiPickersUtilsProvider utils={MomentUtils}>
                 <div className={classes.root}>
                   <NavBar setTheme={setState} />
                   <Route exact path="/" component={Landing} />

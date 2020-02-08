@@ -6,6 +6,12 @@ import { SensorDataConsumer } from "../../model";
 import { Chart } from "./Chart";
 import { Skeleton } from "@material-ui/lab";
 import { EmptyState } from "../TableTab/EmptyState";
+import moment from 'moment'
+
+export type ChartData = Array<{
+  id: string | number;
+  data: Array<{ x: number | string | Date; y: number | string | Date }>;
+}>;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,6 +53,8 @@ const ChartTab = ({ sensorData, loading }: SensorDataConsumer) => {
     return <ChartTabLoading />;
   }
 
+  console.log(sensorData)
+
   const mapData = sensorData.map(item => {
     const pollutantName = item.pollutant;
     return {
@@ -63,9 +71,30 @@ const ChartTab = ({ sensorData, loading }: SensorDataConsumer) => {
     )
   );
 
+  // TODO not counted on hourAvg
+
+  const pollutants = [...new Set(sensorData.map(item => item.pollutant))];
+  const hourAvg = [...new Set(sensorData.map(item => item.hourAvg))];
+
+  const restructuredData: ChartData = pollutants.map(pollutant => {
+    const data = sensorData
+      .map(item => {
+        if (item.pollutant === pollutant) {
+          return { x: moment(item.from).toDate(), y: item.value };
+        }
+      })
+      .filter(item => item);
+    return {
+      id: pollutant,
+      data
+    };
+  });
+
+  console.log(restructuredData);
+
   return (
     <div className={classes.chart}>
-      {mapKeys.length > 0 ? <Chart data={mapKeys} /> : <EmptyState />}
+      {mapKeys.length > 0 ? <Chart data={restructuredData} /> : <EmptyState />}
     </div>
   );
 };
