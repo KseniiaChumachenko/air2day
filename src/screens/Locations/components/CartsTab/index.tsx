@@ -1,12 +1,12 @@
 import React from "react";
 import groupBy from "lodash.groupby";
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { createStyles, makeStyles, Paper, Theme } from "@material-ui/core";
 
 import { SensorDataConsumer } from "../../model";
 import { Chart } from "./Chart";
 import { Skeleton } from "@material-ui/lab";
 import { EmptyState } from "../TableTab/EmptyState";
-import moment from 'moment'
+import moment from "moment";
 
 export type ChartData = Array<{
   id: string | number;
@@ -36,8 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       alignContent: "center",
       justifyContent: "center",
-      height: 300,
-      width: "100%"
+      width: "100%",
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(3)
     }
   })
 );
@@ -53,7 +54,7 @@ const ChartTab = ({ sensorData, loading }: SensorDataConsumer) => {
     return <ChartTabLoading />;
   }
 
-  console.log(sensorData)
+  console.log(sensorData);
 
   const mapData = sensorData.map(item => {
     const pollutantName = item.pollutant;
@@ -94,7 +95,16 @@ const ChartTab = ({ sensorData, loading }: SensorDataConsumer) => {
 
   return (
     <div className={classes.chart}>
-      {mapKeys.length > 0 ? <Chart data={restructuredData} /> : <EmptyState />}
+      {mapKeys.length > 0 ? (
+        <Chart
+          data={restructuredData}
+          axesLeftTitle={"Value [µg/m³]"}
+          axesBottomTitle={"Timestamp"}
+          title={"Title"}
+        />
+      ) : (
+        <EmptyState />
+      )}
     </div>
   );
 };
