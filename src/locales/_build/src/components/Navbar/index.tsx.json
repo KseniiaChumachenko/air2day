@@ -1,0 +1,18 @@
+{
+  "Home": {
+    "origin": [
+      [
+        "src/components/Navbar/index.tsx",
+        26
+      ]
+    ]
+  },
+  "Locations": {
+    "origin": [
+      [
+        "src/components/Navbar/index.tsx",
+        27
+      ]
+    ]
+  }
+}

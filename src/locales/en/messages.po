@@ -1,0 +1,126 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2020-02-18 21:08+0100\n"
+"Mime-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/screens/Landing/index.tsx:38
+msgid "<0>92%</0> of the global population live in places with unhealthy air quality"
+msgstr ""
+
+#: src/screens/Locations/components/SensorDataPickers/index.tsx:60
+msgid "Add filters"
+msgstr ""
+
+#: src/screens/Landing/index.tsx:35
+msgid "Air pollution kills <0>3.7m</0> people per year worldwide"
+msgstr ""
+
+#: src/screens/Locations/components/DataFilters/index.tsx:58
+msgid "All"
+msgstr ""
+
+#: src/screens/Locations/components/SensorDataPickers/index.tsx:54
+msgid "Apply"
+msgstr ""
+
+#: src/screens/Landing/index.tsx:31
+msgid "Average <0>2 years of life</0> expectancy taken out of major European cities inhabitants"
+msgstr ""
+
+#: src/screens/Locations/SelectionFlow.tsx:84
+msgid "Charts"
+msgstr ""
+
+#: src/screens/Locations/components/DataFilters/index.tsx:68
+msgid "Clear all"
+msgstr ""
+
+#: src/screens/Locations/components/TableTab/index.tsx:11
+msgid "Date"
+msgstr ""
+
+#: src/screens/Locations/components/ExportTab/index.tsx:31
+msgid "Download as CSV"
+msgstr ""
+
+#: src/screens/Locations/components/SensorDataPickers/index.tsx:42
+msgid "End date"
+msgstr ""
+
+#: src/screens/Locations/SelectionFlow.tsx:85
+msgid "Export"
+msgstr ""
+
+#: src/screens/Landing/index.tsx:15
+msgid "Find & understand"
+msgstr ""
+
+#: src/components/Navbar/index.tsx:26
+msgid "Home"
+msgstr ""
+
+#: src/components/Navbar/index.tsx:27
+msgid "Locations"
+msgstr ""
+
+#: src/screens/Locations/components/TableTab/EmptyState.tsx:10
+msgid "No data for this time frame occurred!"
+msgstr ""
+
+#: src/screens/Locations/components/ExportTab/index.tsx:35
+msgid "Nothing to download"
+msgstr ""
+
+#: src/screens/Locations/components/TableTab/index.tsx:20
+msgid "Per hour average"
+msgstr ""
+
+#: src/screens/Locations/components/TableTab/index.tsx:17
+msgid "Pollutant"
+msgstr ""
+
+#: src/screens/Locations/components/SensorDataPickers/index.tsx:45
+msgid "Select sensor"
+msgstr ""
+
+#: src/components/Error/index.tsx:29
+msgid "Sorry, something went wrong..."
+msgstr ""
+
+#: src/screens/Locations/components/SensorDataPickers/index.tsx:41
+msgid "Start date"
+msgstr ""
+
+#: src/screens/Locations/SelectionFlow.tsx:83
+msgid "Table"
+msgstr ""
+
+#: src/screens/Locations/components/TableTab/index.tsx:14
+msgid "Time"
+msgstr ""
+
+#: src/screens/Locations/components/TableTab/index.tsx:23
+msgid "Value [µg/m³]"
+msgstr ""
+
+#: src/screens/Landing/index.tsx:21
+msgid "We're compensating the lack of fine monitoring of air pollution and informing people about current and forthcoming state of air quality empowering them to live healthier lives and create more sustainable business."
+msgstr ""
+
+#: src/screens/Landing/index.tsx:18
+msgid "what you’re breathing"
+msgstr ""
+
+#: src/screens/Locations/components/DataFilters/index.tsx:46
+msgid "{0}"
+msgstr ""

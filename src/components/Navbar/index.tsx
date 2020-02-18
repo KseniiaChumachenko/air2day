@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { FormattedMessage } from "react-intl";
 import { useHistory, useLocation } from "react-router-dom";
+import { Trans } from "@lingui/macro";
 import { Tab, Tabs, useTheme, IconButton } from "@material-ui/core";
 import { EmojiObjectsOutlined, EmojiObjects } from "@material-ui/icons";
 
 import useStyles from "./styles";
-import messages from "./messages";
 import logo from "./assets/Combined_logo.svg";
 
 export const NavBar = ({ setTheme }: { setTheme: any }) => {
@@ -40,11 +39,8 @@ export const NavBar = ({ setTheme }: { setTheme: any }) => {
         indicatorColor="primary"
         textColor={"primary"}
       >
-        <Tab label={<FormattedMessage {...messages.home} />} value="/" />
-        <Tab
-          label={<FormattedMessage {...messages.locations} />}
-          value="/locations"
-        />
+        <Tab label={<Trans>Home</Trans>} value="/" />
+        <Tab label={<Trans>Locations</Trans>} value="/locations" />
       </Tabs>
     </div>
   );

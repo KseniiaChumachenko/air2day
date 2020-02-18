@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Collapse, Tab, Tabs } from "@material-ui/core";
+import { Trans } from "@lingui/macro";
 import {
   Sensor,
   SensorData,
@@ -8,8 +9,6 @@ import {
 import moment, { Moment } from "moment";
 import Table from "./components/TableTab";
 import ChartTab from "./components/CartsTab";
-import { FormattedMessage } from "react-intl";
-import messages from "./messages";
 import { SensorDataPickers, State } from "./components/SensorDataPickers";
 import { DataFilters } from "./components/DataFilters";
 import { SensorDataConsumer } from "./model";
@@ -51,7 +50,13 @@ function useFilters(
   return filteredData;
 }
 
-export const SelectMenu = ({ sensorList, tabId }: { sensorList: Sensor[], tabId: string }) => {
+export const SelectMenu = ({
+  sensorList,
+  tabId
+}: {
+  sensorList: Sensor[];
+  tabId: string;
+}) => {
   const [state, update] = React.useState<State>({
     sensorId: sensorList[0].id,
     tab: tabId,
@@ -144,17 +149,17 @@ export const SelectMenu = ({ sensorList, tabId }: { sensorList: Sensor[], tabId:
             textColor="primary"
           >
             <Tab
-              label={<FormattedMessage {...messages.tableTabLabel} />}
+              label={<Trans>Table</Trans>}
               aria-label="Tables"
               value={"tables"}
             />
             <Tab
-              label={<FormattedMessage {...messages.chartTabLabel} />}
+              label={<Trans>Charts</Trans>}
               aria-label="Charts"
               value={"charts"}
             />
             <Tab
-              label={<FormattedMessage {...messages.exportTabLabel} />}
+              label={<Trans>Export</Trans>}
               aria-label="Export"
               value={"export"}
             />

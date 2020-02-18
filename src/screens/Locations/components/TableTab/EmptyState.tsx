@@ -1,8 +1,7 @@
 import React from "react";
-import useStyles from "./styles";
+import { Trans } from "@lingui/macro";
 import { TableCell, TableRow, Typography } from "@material-ui/core";
-import { FormattedMessage } from "react-intl";
-import messages from "./messages";
+import useStyles from "./styles";
 
 export const EmptyState = () => {
   const classes = useStyles({});
@@ -10,7 +9,7 @@ export const EmptyState = () => {
     <TableRow>
       <TableCell className={classes.emptyState}>
         <Typography className={classes.emptyState} color={"textPrimary"}>
-          <FormattedMessage {...messages.noData} />
+          <Trans>No data for this time frame occurred!</Trans>
         </Typography>
       </TableCell>
     </TableRow>

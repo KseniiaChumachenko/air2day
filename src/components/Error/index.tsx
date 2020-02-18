@@ -1,6 +1,4 @@
 import React from "react";
-import { FormattedHTMLMessage } from "react-intl";
-
 import {
   createStyles,
   makeStyles,
@@ -8,8 +6,7 @@ import {
   Typography,
   useTheme
 } from "@material-ui/core";
-
-import messages from "./messages";
+import { Trans } from "@lingui/macro";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,7 +41,7 @@ export const Error = ({ message }: ErrorBannerProps) => {
   return (
     <div className={classes.container}>
       <Typography variant="h5" className={classes.header}>
-        <FormattedHTMLMessage {...messages.title} />
+        <Trans>Sorry, something went wrong...</Trans>
       </Typography>
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -1,0 +1,42 @@
+{
+  "Start date": {
+    "origin": [
+      [
+        "src/screens/Locations/components/SensorDataPickers/index.tsx",
+        41
+      ]
+    ]
+  },
+  "End date": {
+    "origin": [
+      [
+        "src/screens/Locations/components/SensorDataPickers/index.tsx",
+        42
+      ]
+    ]
+  },
+  "Select sensor": {
+    "origin": [
+      [
+        "src/screens/Locations/components/SensorDataPickers/index.tsx",
+        45
+      ]
+    ]
+  },
+  "Apply": {
+    "origin": [
+      [
+        "src/screens/Locations/components/SensorDataPickers/index.tsx",
+        54
+      ]
+    ]
+  },
+  "Add filters": {
+    "origin": [
+      [
+        "src/screens/Locations/components/SensorDataPickers/index.tsx",
+        60
+      ]
+    ]
+  }
+}

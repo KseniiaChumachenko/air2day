@@ -1,0 +1,10 @@
+{
+  "No data for this time frame occurred!": {
+    "origin": [
+      [
+        "src/screens/Locations/components/TableTab/EmptyState.tsx",
+        10
+      ]
+    ]
+  }
+}

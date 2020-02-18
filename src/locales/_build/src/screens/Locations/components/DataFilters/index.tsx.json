@@ -1,0 +1,26 @@
+{
+  "{0}": {
+    "origin": [
+      [
+        "src/screens/Locations/components/DataFilters/index.tsx",
+        46
+      ]
+    ]
+  },
+  "All": {
+    "origin": [
+      [
+        "src/screens/Locations/components/DataFilters/index.tsx",
+        58
+      ]
+    ]
+  },
+  "Clear all": {
+    "origin": [
+      [
+        "src/screens/Locations/components/DataFilters/index.tsx",
+        68
+      ]
+    ]
+  }
+}

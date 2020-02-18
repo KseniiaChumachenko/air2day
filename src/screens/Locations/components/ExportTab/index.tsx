@@ -1,6 +1,6 @@
 import React from "react";
+import { Trans } from "@lingui/macro";
 import { CSVLink } from "react-csv";
-import { defineMessages, FormattedMessage } from "react-intl";
 import { GetApp, CloudQueue } from "@material-ui/icons";
 import { Skeleton } from "@material-ui/lab";
 import { createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
@@ -29,19 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const messages = defineMessages({
-  downloadLabel: {
-    id: "screen.locations.exportTab.downloadLabel",
-    description: "screen.locations.exportTab.downloadLabel",
-    defaultMessage: "Download as CSV"
-  },
-  emptyState: {
-    id: "screen.locations.exportTab.emptyStateLabel",
-    description: "screen.locations.exportTab.emptyStateLabel",
-    defaultMessage: "Nothing to download"
-  }
-});
-
 export const ExportTab = ({ loading, sensorData }: SensorDataConsumer) => {
   const classes = useStyles({});
 
@@ -59,17 +46,17 @@ export const ExportTab = ({ loading, sensorData }: SensorDataConsumer) => {
           fontSize={"inherit"}
           className={classes.icon}
         />
-        <FormattedMessage {...messages.downloadLabel} />
+        <Trans>Download as CSV</Trans>
       </Typography>
     </CSVLink>
   ) : (
-    <Typography variant={"h4"} className={classes.typography} color={'primary'}>
+    <Typography variant={"h4"} className={classes.typography} color={"primary"}>
       <CloudQueue
         color={"primary"}
         fontSize={"inherit"}
         className={classes.icon}
       />
-      <FormattedMessage {...messages.emptyState} />
+      <Trans>Nothing to download</Trans>
     </Typography>
   );
 };

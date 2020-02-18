@@ -1,0 +1,18 @@
+{
+  "Download as CSV": {
+    "origin": [
+      [
+        "src/screens/Locations/components/ExportTab/index.tsx",
+        31
+      ]
+    ]
+  },
+  "Nothing to download": {
+    "origin": [
+      [
+        "src/screens/Locations/components/ExportTab/index.tsx",
+        35
+      ]
+    ]
+  }
+}

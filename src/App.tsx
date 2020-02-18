@@ -1,9 +1,9 @@
 import "regenerator-runtime/runtime";
-import React, { useEffect, useState, Suspense } from "react";
-import { IntlProvider } from "react-intl";
+import React, { useEffect, useState } from "react";
 import { Route, BrowserRouter, Redirect } from "react-router-dom";
+import { setupI18n } from "@lingui/core";
+import { I18nProvider } from "@lingui/react";
 import {
-  CircularProgress,
   createMuiTheme,
   createStyles,
   makeStyles,
@@ -22,8 +22,12 @@ import { ThemeProvider } from "@material-ui/styles";
 
 import { NavBar } from "src/components/Navbar";
 import { Locations } from "src/screens/Locations";
-
 import { Landing } from "src/screens/Landing";
+/*import enMessages from "src/locales/en/messages.js";
+import ruMessages from "src/locales/ru/messages.js";
+import csMessages from "src/locales/cs/messages.js";
+import ukMessages from "src/locales/uk/messages.js";*/
+
 import { darkTheme, lightTheme } from "./theme";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -51,6 +55,17 @@ const App = () => {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [state, setState] = useState(prefersDarkMode);
 
+  const defaultLocale = "en";
+  const i18n = setupI18n({
+    language: "en",
+    catalogs: {
+/*      en: enMessages,
+      ru: ruMessages,
+      cs: csMessages,
+      uk: ukMessages*/
+    }
+  });
+
   useEffect(() => {
     setState(prevState => {
       if (prevState !== prefersDarkMode) {
@@ -65,24 +80,22 @@ const App = () => {
   );
 
   return (
-    <Suspense fallback={<CircularProgress />}>
+    <I18nProvider i18n={i18n} language={defaultLocale}>
       <ApolloProvider client={client}>
-        <IntlProvider locale="en">
-          <BrowserRouter>
-            <ThemeProvider theme={theme}>
-              <MuiPickersUtilsProvider utils={MomentUtils}>
-                <div className={classes.root}>
-                  <NavBar setTheme={setState} />
-                  <Redirect from={'/locations'} to={'/locations/tables'}/>
-                  <Route exact path="/" component={Landing} />
-                  <Route path={"/locations/:tabId"} component={Locations} />
-                </div>
-              </MuiPickersUtilsProvider>
-            </ThemeProvider>
-          </BrowserRouter>
-        </IntlProvider>
+        <BrowserRouter>
+          <ThemeProvider theme={theme}>
+            <MuiPickersUtilsProvider utils={MomentUtils}>
+              <div className={classes.root}>
+                <NavBar setTheme={setState} />
+                <Redirect from={"/locations"} to={"/locations/tables"} />
+                <Route exact path="/" component={Landing} />
+                <Route path={"/locations/:tabId"} component={Locations} />
+              </div>
+            </MuiPickersUtilsProvider>
+          </ThemeProvider>
+        </BrowserRouter>
       </ApolloProvider>
-    </Suspense>
+    </I18nProvider>
   );
 };
 export default App;
