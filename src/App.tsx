@@ -1,7 +1,7 @@
 import "regenerator-runtime/runtime";
 import React, { useEffect, useState, Suspense } from "react";
 import { IntlProvider } from "react-intl";
-import { Route, BrowserRouter } from "react-router-dom";
+import { Route, BrowserRouter, Redirect } from "react-router-dom";
 import {
   CircularProgress,
   createMuiTheme,
@@ -73,8 +73,9 @@ const App = () => {
               <MuiPickersUtilsProvider utils={MomentUtils}>
                 <div className={classes.root}>
                   <NavBar setTheme={setState} />
+                  <Redirect from={'/locations'} to={'/locations/tables'}/>
                   <Route exact path="/" component={Landing} />
-                  <Route path="/locations" component={Locations} />
+                  <Route path={"/locations/:tabId"} component={Locations} />
                 </div>
               </MuiPickersUtilsProvider>
             </ThemeProvider>

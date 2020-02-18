@@ -84,7 +84,7 @@ export const Chart = ({
   return (
     <Paper className={classes.root}>
       <Typography
-        variant={"h4"}
+        variant={"h5"}
         color={"textPrimary"}
         className={classes.title}
       >

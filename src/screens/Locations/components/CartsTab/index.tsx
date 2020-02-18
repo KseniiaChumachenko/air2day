@@ -100,7 +100,7 @@ const ChartTab = ({ sensorData, loading }: SensorDataConsumer) => {
           data={restructuredData}
           axesLeftTitle={"Value [µg/m³]"}
           axesBottomTitle={"Timestamp"}
-          title={"Title"}
+          title={"Pollution over time"}
         />
       ) : (
         <EmptyState />

@@ -8,6 +8,7 @@ import { Error } from "src/components/Error";
 import { useSensorsQuery } from "../../graphql/generated/graphql";
 import { ScrollableContainer } from "../../components/ScrollableContainer";
 import { useTabTitle } from "../../hooks/useTabTitle";
+import { useParams } from "react-router";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const Locations = () => {
+  const { tabId } = useParams();
   const classes = useStyles({});
 
   const { data, loading, error } = useSensorsQuery();
@@ -51,7 +53,10 @@ export const Locations = () => {
           <>
             <Map data={data} />
             <div className={classes.dataColumn}>
-              <SelectMenu sensorList={data?.sensors} />
+              <SelectMenu
+                sensorList={data?.sensors}
+                tabId={tabId || "tables"}
+              />
             </div>
           </>
         )}

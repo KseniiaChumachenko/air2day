@@ -13,7 +13,7 @@ import messages from "./messages";
 import { SensorDataPickers, State } from "./components/SensorDataPickers";
 import { DataFilters } from "./components/DataFilters";
 import { SensorDataConsumer } from "./model";
-import { ExportTab } from './components/ExportTab'
+import { ExportTab } from "./components/ExportTab";
 
 export type SensorDataKey = keyof SensorData;
 
@@ -51,10 +51,10 @@ function useFilters(
   return filteredData;
 }
 
-export const SelectMenu = ({ sensorList }: { sensorList: Sensor[] }) => {
+export const SelectMenu = ({ sensorList, tabId }: { sensorList: Sensor[], tabId: string }) => {
   const [state, update] = React.useState<State>({
     sensorId: sensorList[0].id,
-    tab: 0,
+    tab: tabId,
     selectedFromDate: moment()
       .subtract(1, "month")
       .format(),
@@ -79,7 +79,7 @@ export const SelectMenu = ({ sensorList }: { sensorList: Sensor[] }) => {
 
   const filteredData = useFilters(sensorData?.data?.sensorData, activeFilters);
 
-  function handleTabChange(event: React.ChangeEvent<{}>, newValue: number) {
+  function handleTabChange(event: React.ChangeEvent<{}>, newValue: string) {
     update({ ...state, tab: newValue });
   }
   function handleSensorChange(
@@ -146,19 +146,22 @@ export const SelectMenu = ({ sensorList }: { sensorList: Sensor[] }) => {
             <Tab
               label={<FormattedMessage {...messages.tableTabLabel} />}
               aria-label="Tables"
+              value={"tables"}
             />
             <Tab
               label={<FormattedMessage {...messages.chartTabLabel} />}
               aria-label="Charts"
+              value={"charts"}
             />
             <Tab
               label={<FormattedMessage {...messages.exportTabLabel} />}
-              aria-label="Charts"
+              aria-label="Export"
+              value={"export"}
             />
           </Tabs>
-          {state.tab === 0 && confirmed && <Table {...tabProps} />}
-          {state.tab === 1 && confirmed && <ChartTab {...tabProps} />}
-          {state.tab === 2 && confirmed && <ExportTab {...tabProps} />}
+          {state.tab === "tables" && confirmed && <Table {...tabProps} />}
+          {state.tab === "charts" && confirmed && <ChartTab {...tabProps} />}
+          {state.tab === "export" && confirmed && <ExportTab {...tabProps} />}
         </>
       )}
     </div>

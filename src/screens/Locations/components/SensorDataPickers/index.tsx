@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface State {
   sensorId: string;
-  tab: number;
+  tab: string;
   selectedFromDate: string;
   selectedToDate: string;
   filtersOpen: boolean;
