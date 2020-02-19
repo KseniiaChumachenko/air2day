@@ -6,6 +6,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "react",
     "strictNullChecks": false,
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "removeComments": false, // prevent tsc from removing webpack magic comments

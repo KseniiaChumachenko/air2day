@@ -45,6 +45,10 @@ msgstr ""
 msgid "Clear all"
 msgstr ""
 
+#: src/components/Navbar/index.tsx:26
+msgid "Dashboard"
+msgstr "Панель индикаторов"
+
 #: src/screens/Locations/components/TableTab/index.tsx:11
 msgid "Date"
 msgstr ""
@@ -63,15 +67,11 @@ msgstr ""
 
 #: src/screens/Landing/index.tsx:15
 msgid "Find & understand"
-msgstr ""
-
-#: src/components/Navbar/index.tsx:26
-msgid "Home"
-msgstr ""
+msgstr "Узнай & пойми"
 
 #: src/components/Navbar/index.tsx:27
 msgid "Locations"
-msgstr ""
+msgstr "Локации"
 
 #: src/screens/Locations/components/TableTab/EmptyState.tsx:10
 msgid "No data for this time frame occurred!"

@@ -45,6 +45,10 @@ msgstr ""
 msgid "Clear all"
 msgstr ""
 
+#: src/components/Navbar/index.tsx:26
+msgid "Dashboard"
+msgstr ""
+
 #: src/screens/Locations/components/TableTab/index.tsx:11
 msgid "Date"
 msgstr ""
@@ -66,8 +70,8 @@ msgid "Find & understand"
 msgstr ""
 
 #: src/components/Navbar/index.tsx:26
-msgid "Home"
-msgstr ""
+#~ msgid "Home"
+#~ msgstr ""
 
 #: src/components/Navbar/index.tsx:27
 msgid "Locations"

@@ -23,12 +23,9 @@ import { ThemeProvider } from "@material-ui/styles";
 import { NavBar } from "src/components/Navbar";
 import { Locations } from "src/screens/Locations";
 import { Landing } from "src/screens/Landing";
-/*import enMessages from "src/locales/en/messages.js";
-import ruMessages from "src/locales/ru/messages.js";
-import csMessages from "src/locales/cs/messages.js";
-import ukMessages from "src/locales/uk/messages.js";*/
 
-import { darkTheme, lightTheme } from "./theme";
+import { useThemingSetup } from "./hooks/useThemingSetup";
+import { useLanguageSetup } from "./hooks/useLanguageSetup";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,41 +49,21 @@ const client = new ApolloClient({
 
 const App = () => {
   const classes = useStyles({});
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [state, setState] = useState(prefersDarkMode);
-
-  const defaultLocale = "en";
-  const i18n = setupI18n({
-    language: "en",
-    catalogs: {
-/*      en: enMessages,
-      ru: ruMessages,
-      cs: csMessages,
-      uk: ukMessages*/
-    }
-  });
-
-  useEffect(() => {
-    setState(prevState => {
-      if (prevState !== prefersDarkMode) {
-        return prefersDarkMode;
-      }
-    });
-  }, [prefersDarkMode]);
-
-  const theme = React.useMemo(
-    () => createMuiTheme(state ? darkTheme : lightTheme),
-    [state]
-  );
+  const { theme, setTheme } = useThemingSetup();
+  const { i18n, locale, setLocale } = useLanguageSetup();
 
   return (
-    <I18nProvider i18n={i18n} language={defaultLocale}>
+    <I18nProvider i18n={i18n} language={locale.language}>
       <ApolloProvider client={client}>
         <BrowserRouter>
           <ThemeProvider theme={theme}>
             <MuiPickersUtilsProvider utils={MomentUtils}>
               <div className={classes.root}>
-                <NavBar setTheme={setState} />
+                <NavBar
+                  setTheme={setTheme}
+                  locale={locale}
+                  setLocale={setLocale}
+                />
                 <Redirect from={"/locations"} to={"/locations/tables"} />
                 <Route exact path="/" component={Landing} />
                 <Route path={"/locations/:tabId"} component={Locations} />

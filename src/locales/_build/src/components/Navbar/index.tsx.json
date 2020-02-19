@@ -1,5 +1,5 @@
 {
-  "Home": {
+  "Dashboard": {
     "origin": [
       [
         "src/components/Navbar/index.tsx",

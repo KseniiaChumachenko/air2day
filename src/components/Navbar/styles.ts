@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     themeSwitch: {
       height: "2em"
-    }
+    },
+      languageSelector: {
+        margin: `0 ${theme.spacing(1)}px`
+      }
   })
 );
 
