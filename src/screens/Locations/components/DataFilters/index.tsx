@@ -15,11 +15,11 @@ import { SensorDataConsumer } from "../../model";
 import { INITIAL_FILTER_STATE, SensorDataKey } from "../../SelectionFlow";
 
 const messages = {
-  from: "From",
-  to: "To",
-  pollutant: "Pollutant",
-  hourAvg: "Per hour average",
-  value: "Value"
+  from: <Trans>From</Trans>,
+  to: <Trans>To</Trans>,
+  pollutant: <Trans>Pollutant</Trans>,
+  hourAvg: <Trans>Per hour average</Trans>,
+  value: <Trans>Value</Trans>
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -74,7 +74,7 @@ export const DataFilters = ({
           <FormControl className={classes.select} key={index}>
             <InputLabel htmlFor={key}>
               {/* TODO: localization for generic filters is not generic enough */}
-              <Trans>{(messages as any)[key]}</Trans>
+              {(messages as any)[key]}
             </InputLabel>
             <Select
               value={activeFilters[key]}

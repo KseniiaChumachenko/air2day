@@ -3,7 +3,7 @@
     "origin": [
       [
         "src/screens/Landing/index.tsx",
-        15
+        17
       ]
     ]
   },
@@ -11,7 +11,7 @@
     "origin": [
       [
         "src/screens/Landing/index.tsx",
-        18
+        20
       ]
     ]
   },
@@ -19,7 +19,7 @@
     "origin": [
       [
         "src/screens/Landing/index.tsx",
-        21
+        23
       ]
     ]
   },
@@ -27,7 +27,7 @@
     "origin": [
       [
         "src/screens/Landing/index.tsx",
-        31
+        33
       ]
     ]
   },
@@ -35,7 +35,7 @@
     "origin": [
       [
         "src/screens/Landing/index.tsx",
-        35
+        37
       ]
     ]
   },
@@ -43,7 +43,7 @@
     "origin": [
       [
         "src/screens/Landing/index.tsx",
-        38
+        40
       ]
     ]
   }

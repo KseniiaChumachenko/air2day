@@ -3,7 +3,7 @@
     "origin": [
       [
         "src/components/Navbar/index.tsx",
-        26
+        33
       ]
     ]
   },
@@ -11,7 +11,7 @@
     "origin": [
       [
         "src/components/Navbar/index.tsx",
-        27
+        34
       ]
     ]
   }

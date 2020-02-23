@@ -1,4 +1,8 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { LanguageProps } from "src/hooks/useLanguageSetup";
+
+const font = ({ locale }: { locale: LanguageProps }) =>
+  locale.language === "ru" ? "Varela Round" : "Open Sans";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: 2,
       marginLeft: theme.spacing(1),
       letterSpacing: "0.1em",
-      fontFamily: "Varela Round",
+      fontFamily: font,
 
       [theme.breakpoints.down("sm")]: {
         marginTop: theme.spacing(4),
@@ -38,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     subtitle: {
-      fontFamily: "Varela Round",
+      fontFamily: font,
       lineHeight: 2,
       marginLeft: theme.spacing(4),
 
@@ -52,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     intro: {
-      fontFamily: "Varela Round",
+      fontFamily: font,
       marginTop: theme.spacing(2),
       marginLeft: theme.spacing(8),
       marginBottom: theme.spacing(6),
@@ -70,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     cardView: {
-      fontFamily: "Varela Round",
+      fontFamily: font,
       display: "inline-flex",
       flexWrap: "wrap"
     }

@@ -1,15 +1,8 @@
 import "regenerator-runtime/runtime";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Route, BrowserRouter, Redirect } from "react-router-dom";
-import { setupI18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
-import {
-  createMuiTheme,
-  createStyles,
-  makeStyles,
-  Theme,
-  useMediaQuery
-} from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import {
@@ -64,7 +57,6 @@ const App = () => {
                   locale={locale}
                   setLocale={setLocale}
                 />
-                <Redirect from={"/locations"} to={"/locations/tables"} />
                 <Route exact path="/" component={Landing} />
                 <Route path={"/locations/:tabId"} component={Locations} />
               </div>

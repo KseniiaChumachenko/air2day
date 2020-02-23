@@ -6,9 +6,11 @@ import { CardView } from "./Card";
 import useStyles from "./styles";
 import { ScrollableContainer } from "../../components/ScrollableContainer";
 import { useTabTitle } from "../../hooks/useTabTitle";
+import {useLanguageSetup} from '../../hooks/useLanguageSetup'
 
 export const Landing = () => {
-  const classes = useStyles({});
+  const { locale } = useLanguageSetup();
+  const classes = useStyles({locale});
   useTabTitle("Home");
 
   return (

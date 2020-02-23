@@ -13,7 +13,7 @@ import { EmojiObjectsOutlined, EmojiObjects } from "@material-ui/icons";
 
 import useStyles from "./styles";
 import logo from "./assets/Combined_logo.svg";
-import { languages, LanguageProps } from "../../hooks/useLanguageSetup";
+import { languages, LanguageProps } from "src/hooks/useLanguageSetup";
 
 export const NavBar = ({
   setTheme,
@@ -27,9 +27,10 @@ export const NavBar = ({
   const history = useHistory();
   const location = useLocation();
   const theme = useTheme();
-
   const [value, update] = useState<string>(location.pathname);
   const classes = useStyles({});
+  // hack to force an update of the tabs width
+  window.dispatchEvent(new CustomEvent("resize"));
 
   const handleChange = (event: React.ChangeEvent<{}>, value: string) => {
     update(value);
@@ -71,7 +72,7 @@ export const NavBar = ({
         textColor={"primary"}
       >
         <Tab label={<Trans>Dashboard</Trans>} value="/" />
-        <Tab label={<Trans>Locations</Trans>} value="/locations" />
+        <Tab label={<Trans>Locations</Trans>} value="/locations/tables" />
       </Tabs>
     </div>
   );
