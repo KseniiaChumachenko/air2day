@@ -1,6 +1,6 @@
 import "regenerator-runtime/runtime";
 import React from "react";
-import { Route, BrowserRouter, Redirect } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import { I18nProvider } from "@lingui/react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import MomentUtils from "@date-io/moment";

@@ -19,7 +19,6 @@ interface Props {
 }
 
 /* TODO
- * map hourAvg in sensorData
  * axes selector
  * */
 
@@ -109,7 +108,7 @@ export const Chart = ({
           legend: axesBottomTitle,
           tickRotation: -45,
           legendOffset: 90,
-          format: "%Y-%m-%d"
+          format: "%d/%m/%Y"
         }}
         axisLeft={{
           legend: axesLeftTitle,
@@ -125,7 +124,7 @@ export const Chart = ({
             translateY: isMobile ? 180 : 80,
             itemsSpacing: 2,
             itemDirection: "left-to-right",
-            itemWidth: 80,
+            itemWidth: 130,
             itemHeight: 12,
             itemOpacity: 0.75,
             symbolSize: 12,

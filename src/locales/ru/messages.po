@@ -45,7 +45,7 @@ msgstr "Графики"
 msgid "Clear all"
 msgstr "Очистить все"
 
-#: src/components/Navbar/index.tsx:33
+#: src/components/Navbar/index.tsx:35
 msgid "Dashboard"
 msgstr "Панель индикаторов"
 
@@ -73,7 +73,7 @@ msgstr "Узнай & пойми"
 msgid "From"
 msgstr "От"
 
-#: src/components/Navbar/index.tsx:34
+#: src/components/Navbar/index.tsx:36
 msgid "Locations"
 msgstr "Локации"
 
@@ -95,6 +95,10 @@ msgstr "Средне часовой показатель"
 msgid "Pollutant"
 msgstr "Загрязнитель"
 
+#: src/screens/Locations/components/CartsTab/index.tsx:71
+msgid "Pollution over time"
+msgstr "Загрязнение во времени"
+
 #: src/screens/Locations/components/SensorDataPickers/index.tsx:45
 msgid "Select sensor"
 msgstr "Выбрать сенсор"
@@ -115,6 +119,10 @@ msgstr "Таблица"
 msgid "Time"
 msgstr "Время"
 
+#: src/screens/Locations/components/CartsTab/index.tsx:71
+msgid "Timestamp"
+msgstr "Временная отметка"
+
 #: src/screens/Locations/components/DataFilters/index.tsx:8
 msgid "To"
 msgstr "До"
@@ -123,6 +131,7 @@ msgstr "До"
 msgid "Value"
 msgstr "Значение"
 
+#: src/screens/Locations/components/CartsTab/index.tsx:71
 #: src/screens/Locations/components/TableTab/index.tsx:23
 msgid "Value [µg/m³]"
 msgstr "Значение [µg/m³]"

@@ -45,7 +45,7 @@ msgstr ""
 msgid "Clear all"
 msgstr ""
 
-#: src/components/Navbar/index.tsx:33
+#: src/components/Navbar/index.tsx:35
 msgid "Dashboard"
 msgstr ""
 
@@ -77,7 +77,7 @@ msgstr ""
 #~ msgid "Home"
 #~ msgstr ""
 
-#: src/components/Navbar/index.tsx:34
+#: src/components/Navbar/index.tsx:36
 msgid "Locations"
 msgstr ""
 
@@ -97,6 +97,10 @@ msgstr ""
 #: src/screens/Locations/components/DataFilters/index.tsx:9
 #: src/screens/Locations/components/TableTab/index.tsx:17
 msgid "Pollutant"
+msgstr ""
+
+#: src/screens/Locations/components/CartsTab/index.tsx:71
+msgid "Pollution over time"
 msgstr ""
 
 #: src/screens/Locations/components/SensorDataPickers/index.tsx:45
@@ -119,6 +123,10 @@ msgstr ""
 msgid "Time"
 msgstr ""
 
+#: src/screens/Locations/components/CartsTab/index.tsx:71
+msgid "Timestamp"
+msgstr ""
+
 #: src/screens/Locations/components/DataFilters/index.tsx:8
 msgid "To"
 msgstr ""
@@ -127,6 +135,7 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
+#: src/screens/Locations/components/CartsTab/index.tsx:71
 #: src/screens/Locations/components/TableTab/index.tsx:23
 msgid "Value [µg/m³]"
 msgstr ""
@@ -141,4 +150,16 @@ msgstr ""
 
 #: src/screens/Locations/components/DataFilters/index.tsx:46
 #~ msgid "{0}"
+#~ msgstr ""
+
+#: src/screens/Locations/components/CartsTab/Chart.tsx:64
+#~ msgid "{axesBottomTitle}"
+#~ msgstr ""
+
+#: src/screens/Locations/components/CartsTab/Chart.tsx:69
+#~ msgid "{axesLeftTitle}"
+#~ msgstr ""
+
+#: src/screens/Locations/components/CartsTab/Chart.tsx:57
+#~ msgid "{title}"
 #~ msgstr ""

@@ -1,12 +1,17 @@
 import React from "react";
 import groupBy from "lodash.groupby";
-import { createStyles, makeStyles, Paper, Theme } from "@material-ui/core";
+import { Trans } from "@lingui/macro";
+import moment from "moment";
+import { Skeleton } from "@material-ui/lab";
+import {
+  createStyles,
+  makeStyles,
+  Theme
+} from "@material-ui/core";
 
 import { SensorDataConsumer } from "../../model";
 import { Chart } from "./Chart";
-import { Skeleton } from "@material-ui/lab";
 import { EmptyState } from "../TableTab/EmptyState";
-import moment from "moment";
 
 export type ChartData = Array<{
   id: string | number;
@@ -72,35 +77,34 @@ const ChartTab = ({ sensorData, loading }: SensorDataConsumer) => {
     )
   );
 
-  // TODO not counted on hourAvg
-
   const pollutants = [...new Set(sensorData.map(item => item.pollutant))];
   const hourAvg = [...new Set(sensorData.map(item => item.hourAvg))];
 
-  const restructuredData: ChartData = pollutants.map(pollutant => {
-    const data = sensorData
-      .map(item => {
-        if (item.pollutant === pollutant) {
-          return { x: moment(item.from).toDate(), y: item.value };
-        }
+  const restructuredData: ChartData = hourAvg
+    .map(hour =>
+      pollutants.map(pollutant => {
+        return {
+          id: pollutant + " ( " + hour + " 🕒 ) ",
+          data: sensorData
+            .map(item => {
+              if (item.pollutant === pollutant && item.hourAvg === hour) {
+                return { x: moment(item.from).toDate(), y: item.value };
+              }
+            })
+            .filter(item => item)
+        };
       })
-      .filter(item => item);
-    return {
-      id: pollutant,
-      data
-    };
-  });
-
-  console.log(restructuredData);
-
+    )
+    .flat()
+    .filter(chartData => chartData.data.length > 0);
   return (
     <div className={classes.chart}>
       {mapKeys.length > 0 ? (
         <Chart
           data={restructuredData}
-          axesLeftTitle={"Value [µg/m³]"}
-          axesBottomTitle={"Timestamp"}
-          title={"Pollution over time"}
+          axesLeftTitle={<Trans>Value [µg/m³]</Trans>}
+          axesBottomTitle={<Trans>Timestamp</Trans>}
+          title={<Trans>Pollution over time</Trans>}
         />
       ) : (
         <EmptyState />
