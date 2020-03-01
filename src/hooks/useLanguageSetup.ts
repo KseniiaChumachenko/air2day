@@ -20,25 +20,25 @@ interface UseLanguageSetup {
 
 export const languages: UseLanguageSetup = {
   en: {
-    label: "EN 🇬🇧",
+    label: "EN",
     language: "en",
     component: enUS,
     catalog: enMessages
   },
   ru: {
-    label: "RU 🇷🇺",
+    label: "RU",
     language: "ru",
     component: ruRU,
     catalog: ruMessages
   },
   cs: {
-    label: "CZ 🇨🇿",
+    label: "CZ",
     language: "cs",
     component: csCZ,
     catalog: csMessages
   },
   uk: {
-    label: "UA 🇺🇦",
+    label: "UA",
     language: "uk",
     component: ukUA,
     catalog: ukMessages

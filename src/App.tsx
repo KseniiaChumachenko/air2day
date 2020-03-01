@@ -13,19 +13,26 @@ import {
 } from "@apollo/client";
 import { ThemeProvider } from "@material-ui/styles";
 
-import { NavBar } from "src/components/Navbar";
 import { Locations } from "src/screens/Locations";
 import { Landing } from "src/screens/Landing";
 
 import { useThemingSetup } from "./hooks/useThemingSetup";
 import { useLanguageSetup } from "./hooks/useLanguageSetup";
+import { Navigation } from "./components/Navigation";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      [theme.breakpoints.up("sm")]: {
+        display: "flex"
+      },
+      display: "block",
       height: "100vh",
       overflow: "hidden",
       background: theme.palette.background.default
+    },
+    content: {
+      flexGrow: 1
     }
   })
 );
@@ -52,13 +59,16 @@ const App = () => {
           <ThemeProvider theme={theme}>
             <MuiPickersUtilsProvider utils={MomentUtils}>
               <div className={classes.root}>
-                <NavBar
+                <Navigation
+                  theme={theme}
                   setTheme={setTheme}
                   locale={locale}
                   setLocale={setLocale}
                 />
-                <Route exact path="/" component={Landing} />
-                <Route path={"/locations/:tabId"} component={Locations} />
+                <main className={classes.content}>
+                  <Route exact path="/" component={Landing} />
+                  <Route path={"/locations/:tabId"} component={Locations} />
+                </main>
               </div>
             </MuiPickersUtilsProvider>
           </ThemeProvider>
