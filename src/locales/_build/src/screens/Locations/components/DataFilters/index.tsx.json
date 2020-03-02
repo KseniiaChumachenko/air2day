@@ -1,0 +1,58 @@
+{
+  "From": {
+    "origin": [
+      [
+        "src/screens/Locations/components/DataFilters/index.tsx",
+        7
+      ]
+    ]
+  },
+  "To": {
+    "origin": [
+      [
+        "src/screens/Locations/components/DataFilters/index.tsx",
+        8
+      ]
+    ]
+  },
+  "Pollutant": {
+    "origin": [
+      [
+        "src/screens/Locations/components/DataFilters/index.tsx",
+        9
+      ]
+    ]
+  },
+  "Per hour average": {
+    "origin": [
+      [
+        "src/screens/Locations/components/DataFilters/index.tsx",
+        10
+      ]
+    ]
+  },
+  "Value": {
+    "origin": [
+      [
+        "src/screens/Locations/components/DataFilters/index.tsx",
+        11
+      ]
+    ]
+  },
+  "All": {
+    "origin": [
+      [
+        "src/screens/Locations/components/DataFilters/index.tsx",
+        57
+      ]
+    ]
+  },
+  "Clear all": {
+    "origin": [
+      [
+        "src/screens/Locations/components/DataFilters/index.tsx",
+        67
+      ]
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { Trans } from "@lingui/macro";
 import omit from "lodash.omit";
 import {
   Button,
@@ -13,7 +13,14 @@ import {
 } from "@material-ui/core";
 import { SensorDataConsumer } from "../../model";
 import { INITIAL_FILTER_STATE, SensorDataKey } from "../../SelectionFlow";
-import messages from "./messages";
+
+const messages = {
+  from: <Trans>From</Trans>,
+  to: <Trans>To</Trans>,
+  pollutant: <Trans>Pollutant</Trans>,
+  hourAvg: <Trans>Per hour average</Trans>,
+  value: <Trans>Value</Trans>
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,7 +74,7 @@ export const DataFilters = ({
           <FormControl className={classes.select} key={index}>
             <InputLabel htmlFor={key}>
               {/* TODO: localization for generic filters is not generic enough */}
-              <FormattedMessage {...(messages as any)[key]} />
+              {(messages as any)[key]}
             </InputLabel>
             <Select
               value={activeFilters[key]}
@@ -84,7 +91,7 @@ export const DataFilters = ({
             >
               <MenuItem value={""}>
                 <em>
-                  <FormattedMessage {...messages.selectorEmptyState} />
+                  <Trans>All</Trans>
                 </em>
               </MenuItem>
               {filterItems.map((item, key) => (
@@ -101,7 +108,7 @@ export const DataFilters = ({
         color={"primary"}
         onClick={() => setActiveFilter(INITIAL_FILTER_STATE)}
       >
-        <FormattedMessage {...messages.clearFiltersButtonLabel} />
+        <Trans>Clear all</Trans>
       </Button>
     </div>
   );

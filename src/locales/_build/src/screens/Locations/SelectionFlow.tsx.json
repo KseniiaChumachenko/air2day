@@ -1,0 +1,26 @@
+{
+  "Table": {
+    "origin": [
+      [
+        "src/screens/Locations/SelectionFlow.tsx",
+        83
+      ]
+    ]
+  },
+  "Charts": {
+    "origin": [
+      [
+        "src/screens/Locations/SelectionFlow.tsx",
+        84
+      ]
+    ]
+  },
+  "Export": {
+    "origin": [
+      [
+        "src/screens/Locations/SelectionFlow.tsx",
+        85
+      ]
+    ]
+  }
+}

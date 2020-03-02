@@ -1,0 +1,26 @@
+{
+  "Value [µg/m³]": {
+    "origin": [
+      [
+        "src/screens/Locations/components/CartsTab/index.tsx",
+        71
+      ]
+    ]
+  },
+  "Timestamp": {
+    "origin": [
+      [
+        "src/screens/Locations/components/CartsTab/index.tsx",
+        71
+      ]
+    ]
+  },
+  "Pollution over time": {
+    "origin": [
+      [
+        "src/screens/Locations/components/CartsTab/index.tsx",
+        71
+      ]
+    ]
+  }
+}

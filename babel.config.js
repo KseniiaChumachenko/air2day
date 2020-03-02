@@ -6,7 +6,7 @@ module.exports = api => {
       [
         "@babel/preset-env",
         {
-          modules: isTest ? "commonjs" : false,
+          modules: isTest ? "commonjs" : false
         }
       ],
       "@babel/preset-react",

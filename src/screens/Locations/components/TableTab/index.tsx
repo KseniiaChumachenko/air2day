@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { FormattedMessage } from "react-intl";
+import { Trans } from "@lingui/macro";
 import {
   Paper,
   Table,
@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 
 import useStyles from "./styles";
-import messages from "./messages";
 import { EmptyState } from "./EmptyState";
 import { Loading } from "./Loading";
 import { SensorDataConsumer } from "../../model";
@@ -20,19 +19,19 @@ export const TableHeader = () => (
   <TableHead>
     <TableRow>
       <TableCell>
-        <FormattedMessage {...messages.date} />
+        <Trans>Date</Trans>
       </TableCell>
       <TableCell>
-        <FormattedMessage {...messages.time} />
+        <Trans>Time</Trans>
       </TableCell>
       <TableCell>
-        <FormattedMessage {...messages.pollut} />
+        <Trans>Pollutant</Trans>
       </TableCell>
       <TableCell>
-        <FormattedMessage {...messages.hourAvg} />
+        <Trans>Per hour average</Trans>
       </TableCell>
       <TableCell>
-        <FormattedMessage {...messages.value} />
+        <Trans>Value [µg/m³]</Trans>
       </TableCell>
     </TableRow>
   </TableHead>

@@ -1,4 +1,6 @@
 import React from "react";
+import { Moment } from "moment";
+import { Trans } from "@lingui/macro";
 import { KeyboardDateTimePicker } from "@material-ui/pickers";
 import {
   Badge,
@@ -15,10 +17,7 @@ import {
   Theme,
   Typography
 } from "@material-ui/core";
-import { FormattedMessage } from "react-intl";
-import messages from "./messages";
 import { Sensor } from "../../../../graphql/generated/graphql";
-import { Moment } from "moment";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface State {
   sensorId: string;
-  tab: number;
+  tab: string;
   selectedFromDate: string;
   selectedToDate: string;
   filtersOpen: boolean;
@@ -95,20 +94,20 @@ export const SensorDataPickers = ({
   return (
     <Container className={classes.selectorContainer}>
       <KeyboardDateTimePicker
-        label={<FormattedMessage {...messages.fromDateTimePickerLabel} />}
+        label={<Trans>Start date</Trans>}
         value={state.selectedFromDate}
         onChange={handleFromDateChange}
         {...commonPickerProps}
       />
       <KeyboardDateTimePicker
-        label={<FormattedMessage {...messages.toDateTimePickerLabel} />}
+        label={<Trans>End date</Trans>}
         value={state.selectedToDate}
         onChange={handleToDateChange}
         {...commonPickerProps}
       />
       <FormControl className={classes.select}>
         <InputLabel htmlFor="sensor">
-          <FormattedMessage {...messages.selectSensorLabel} />
+          <Trans>Select sensor</Trans>
         </InputLabel>
         <Select
           value={state.sensorId}
@@ -128,7 +127,7 @@ export const SensorDataPickers = ({
         variant="contained"
         color="primary"
       >
-        <FormattedMessage {...messages.applyButtonLabel} />
+        <Trans>Apply</Trans>
       </Button>
       <div className={classes.spacer} />
 
@@ -144,7 +143,7 @@ export const SensorDataPickers = ({
         label={
           <Badge badgeContent={countAppliedFilters} color={"primary"}>
             <Typography color={"textPrimary"}>
-              <FormattedMessage {...messages.addFiltersCheckboxLabel} />
+              <Trans>Add filters</Trans>
             </Typography>
           </Badge>
         }

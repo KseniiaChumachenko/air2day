@@ -1,153 +1,149 @@
 import React from "react";
-import {
-  CartesianGrid,
-  Label,
-  Legend,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis
-} from "recharts";
-import { color, HUE } from "./colors";
+import { ResponsiveLine } from "@nivo/line";
+import { ChartData } from "./index";
 import {
   createStyles,
   makeStyles,
+  Paper,
   Theme,
   Typography,
+  useMediaQuery,
   useTheme
 } from "@material-ui/core";
-import {
-  amber,
-  blue,
-  brown,
-  deepPurple,
-  green,
-  indigo,
-  lime,
-  pink,
-  red,
-  teal
-} from "@material-ui/core/colors";
+
+interface Props {
+  title: string;
+  axesLeftTitle: string;
+  axesBottomTitle: string;
+  data: ChartData;
+}
+
+/* TODO
+ * axes selector
+ * */
+
+function createTheme(theme: Theme) {
+  /* theming props are not obvious: https://github.com/plouc/nivo/blob/master/packages/core/src/theming/defaultTheme.js*/
+  return {
+    axis: {
+      domain: { line: { color: theme.palette.text.primary } },
+      ticks: {
+        line: { stroke: theme.palette.text.primary },
+        text: { fill: theme.palette.text.primary }
+      },
+      legend: {
+        text: { fill: theme.palette.text.primary, fontSize: "16px" }
+      }
+    },
+    labels: {
+      text: { fill: theme.palette.text.primary }
+    },
+    legends: {
+      text: { fill: theme.palette.text.primary, fontSize: "16px" }
+    },
+    markers: {
+      textColor: theme.palette.text.primary
+    },
+    tooltip: {
+      container: {
+        background: theme.palette.background.paper,
+        boxShadow:
+          theme.palette.type === "dark"
+            ? "0 1px 2px white"
+            : "0 1px 2px rgba(0, 0, 0, 0.25)"
+      }
+    }
+  };
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    legendContainer: {
-      display: "flex",
-      justifyContent: "center"
+    root: {
+      width: "100%",
+      height: 600,
+      padding: theme.spacing(2)
     },
-    yLabel: {},
-    itemContainer: {
-      margin: theme.spacing(2)
-    },
-    0: {
-      color: pink[HUE]
-    },
-    1: {
-      color: blue[HUE]
-    },
-    2: {
-      color: green[HUE]
-    },
-    3: {
-      color: deepPurple[HUE]
-    },
-    4: {
-      color: lime[HUE]
-    },
-    5: {
-      color: amber[HUE]
-    },
-    6: {
-      color: teal[HUE]
-    },
-    7: {
-      color: brown[HUE]
-    },
-    8: {
-      color: red[HUE]
-    },
-    default: {
-      color: indigo[HUE]
+    title: {
+      textAlign: "center"
     }
   })
 );
 
-interface Props {
-  data: any;
-}
-
-// TODO legend colors
-
-export const Chart = ({ data }: Props) => {
-  const classes = useStyles({});
+export const Chart = ({
+  data,
+  title,
+  axesBottomTitle,
+  axesLeftTitle
+}: Props) => {
   const theme = useTheme();
+  const classes = useStyles({});
 
-  const keysToMap = Object.keys(data[0]).filter(
-    item => !(item === "to" || item === "from")
-  );
-
-  const renderLegend = (props: any) => {
-    const { payload } = props;
-
-    return (
-      <div className={classes.legendContainer}>
-        {payload.map((item: any, key: number) => (
-          <div className={classes.itemContainer} key={key}>
-            <Typography>
-              <li className={key < 10 ? classes[key] : classes.default}>
-                {keysToMap[key]}
-              </li>
-            </Typography>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const renderLabel = (payload: any) => {
-    console.log(payload);
-    return <Typography color={"textPrimary"}>{payload.value}</Typography>;
-  };
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <ResponsiveContainer>
-      <LineChart
-        width={400}
-        height={250}
-        data={data}
-        margin={{
-          top: 15,
-          right: 30,
-          left: 20,
-          bottom: 5
-        }}
+    <Paper className={classes.root}>
+      <Typography
+        variant={"h5"}
+        color={"textPrimary"}
+        className={classes.title}
       >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="from" />
-        <YAxis>
-          <Label
-            value={"[µg/m³]"}
-            position={"center"}
-            angle={-90}
-            className={classes.yLabel}
-            fontFamily={theme.typography.fontFamily}
-          />
-        </YAxis>
-
-        <Tooltip />
-        <Legend content={renderLegend} />
-        {keysToMap.map((key, index) => (
-          <Line
-            key={index}
-            type="monotone"
-            dataKey={item => item[key]}
-            stroke={color(index)}
-            activeDot={{ r: 2 }}
-          />
-        ))}
-      </LineChart>
-    </ResponsiveContainer>
+        {title}
+      </Typography>
+      <ResponsiveLine
+        data={data}
+        lineWidth={1}
+        pointSize={2}
+        colors={
+          theme.palette.type === "light"
+            ? { scheme: "set1" }
+            : { scheme: "nivo" }
+        }
+        margin={{ top: 15, right: 26, bottom: isMobile ? 220 : 140, left: 46 }}
+        theme={createTheme(theme)}
+        curve={"monotoneX"}
+        xScale={{
+          type: "time"
+        }}
+        axisBottom={{
+          legend: axesBottomTitle,
+          tickRotation: -45,
+          legendOffset: 90,
+          format: "%d/%m/%Y"
+        }}
+        axisLeft={{
+          legend: axesLeftTitle,
+          legendOffset: -40
+        }}
+        legends={[
+          {
+            itemTextColor: theme.palette.text.primary,
+            anchor: "bottom",
+            direction: isMobile ? "column" : "row",
+            justify: false,
+            translateX: 0,
+            translateY: isMobile ? 180 : 80,
+            itemsSpacing: 2,
+            itemDirection: "left-to-right",
+            itemWidth: 130,
+            itemHeight: 12,
+            itemOpacity: 0.75,
+            symbolSize: 12,
+            symbolShape: "circle",
+            symbolBorderColor: "rgba(0, 0, 0, .5)",
+            effects: [
+              {
+                on: "hover",
+                style: {
+                  itemBackground: "rgba(0, 0, 0, .03)",
+                  itemOpacity: 1
+                }
+              }
+            ]
+          }
+        ]}
+        enableSlices={"x"}
+        useMesh={true}
+      />
+    </Paper>
   );
 };

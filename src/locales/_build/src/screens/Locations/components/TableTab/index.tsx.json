@@ -1,0 +1,42 @@
+{
+  "Date": {
+    "origin": [
+      [
+        "src/screens/Locations/components/TableTab/index.tsx",
+        11
+      ]
+    ]
+  },
+  "Time": {
+    "origin": [
+      [
+        "src/screens/Locations/components/TableTab/index.tsx",
+        14
+      ]
+    ]
+  },
+  "Pollutant": {
+    "origin": [
+      [
+        "src/screens/Locations/components/TableTab/index.tsx",
+        17
+      ]
+    ]
+  },
+  "Per hour average": {
+    "origin": [
+      [
+        "src/screens/Locations/components/TableTab/index.tsx",
+        20
+      ]
+    ]
+  },
+  "Value [µg/m³]": {
+    "origin": [
+      [
+        "src/screens/Locations/components/TableTab/index.tsx",
+        23
+      ]
+    ]
+  }
+}

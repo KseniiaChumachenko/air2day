@@ -1,0 +1,10 @@
+{
+  "Sorry, something went wrong...": {
+    "origin": [
+      [
+        "src/components/Error/index.tsx",
+        29
+      ]
+    ]
+  }
+}
