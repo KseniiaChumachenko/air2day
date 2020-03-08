@@ -29,12 +29,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "block",
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         display: "flex"
       }
     },
     drawer: {
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         width: drawerWidth,
         flexShrink: 0
       }
@@ -50,10 +50,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     logo: {
       height: "1.5em",
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         height: theme.spacing(5),
         width: theme.spacing(25),
-        margin: theme.spacing(1)
+        margin: theme.spacing(1),
+        alignSelf: "center"
       }
     },
     logoCollapsed: {
@@ -86,7 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }),
       overflowX: "hidden",
       width: theme.spacing(5) + 1,
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         width: theme.spacing(7) + 1
       }
     }
@@ -117,7 +118,7 @@ export const Navigation = ({ locale, setTheme, theme, setLocale }: Props) => {
   return (
     <nav aria-label="navigation list" className={classes.root}>
       <CssBaseline />
-      <Hidden smUp implementation="css">
+      <Hidden mdUp implementation="css">
         <AppBar className={classes.appBar}>
           <IconButton
             color="inherit"
@@ -154,7 +155,7 @@ export const Navigation = ({ locale, setTheme, theme, setLocale }: Props) => {
       </Hidden>
 
       {/*   Desktop version    */}
-      <Hidden xsDown implementation="css">
+      <Hidden smDown implementation="css">
         <Drawer
           variant="permanent"
           className={clsx(classes.drawer, {

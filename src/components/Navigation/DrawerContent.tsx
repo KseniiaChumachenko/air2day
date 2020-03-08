@@ -112,8 +112,8 @@ export const DrawerContent = ({
           onChange={handleLanguageChange}
           className={classes.languageSelector}
         >
-          {Object.keys(languages).map(item => (
-            <MenuItem value={languages[item].language}>
+          {Object.keys(languages).map((item, index) => (
+            <MenuItem value={languages[item].language} key={index}>
               {languages[item].label}
             </MenuItem>
           ))}
