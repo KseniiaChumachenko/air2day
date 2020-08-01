@@ -83,12 +83,21 @@ module.exports = (/* env = {} */) => {
           test: /\.(graphql|gql)$/,
           exclude: /node_modules/,
           loader: "graphql-tag/loader"
-        }
+        },
+
+        {
+          test: /\.(png|jpe?g|gif)$/i,
+          use: [
+            {
+              loader: 'file-loader',
+            },
+          ],
+        },
       ]
     },
 
     loader: {
-      test: /\.(html|png|ico|json)$/,
+      test: /\.(html|ico|json)$/,
       loader: "file?name=[path][name].[ext]&context=./static"
     },
 
@@ -111,7 +120,7 @@ module.exports = (/* env = {} */) => {
 
       proxy: {
         "/api/graphql": {
-          target: "http://william.multimediatech.cz:8081/air2day-test",
+          target: "http://localhost:8080/air2day-devel",
           changeOrigin: true,
           secure: false
         }

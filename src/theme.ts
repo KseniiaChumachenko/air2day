@@ -5,7 +5,7 @@ export const lightTheme = {
   palette: {
     type: "light" as PaletteType,
     background: {
-      default: "#fff"
+      default: "#f9f9f9"
     },
 
     primary: {
@@ -55,7 +55,7 @@ export const lightTheme = {
     /////////////////////////////////////
   },
   typography: {
-    fontFamily: "'Open Sans',sans-serif",
+    fontFamily: "'Open Sans',sans-serif"
   }
 };
 
@@ -114,6 +114,6 @@ export const darkTheme = {
     /////////////////////////////////////
   },
   typography: {
-    fontFamily: "Open Sans, sans-serif"
+    fontFamily: "'Roboto', 'Roboto Mono', serif"
   }
 };

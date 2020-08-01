@@ -2,9 +2,6 @@
   "name": "air2day",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "13.x"
-  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
     "start": "node server.js",

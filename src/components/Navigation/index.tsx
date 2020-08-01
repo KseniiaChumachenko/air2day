@@ -18,8 +18,8 @@ import {
   MenuRounded
 } from "@material-ui/icons";
 
-import logo from "./assets/Combined_logo.svg";
-import logoSmall from "./assets/Cloud_logo.svg";
+import logo from "./assets/Combined_logo.png";
+import logoSmall from "./assets/Cloud_logo.png";
 import { LanguageProps } from "../../hooks/useLanguageSetup";
 import { DrawerContent } from "./DrawerContent";
 
@@ -51,16 +51,16 @@ const useStyles = makeStyles((theme: Theme) =>
     logo: {
       height: "1.5em",
       [theme.breakpoints.up("md")]: {
-        height: theme.spacing(5),
-        width: theme.spacing(25),
+        height: 30,
+        width: 200,
         margin: theme.spacing(1),
         alignSelf: "center"
       }
     },
     logoCollapsed: {
       alignSelf: "center",
-      width: "35px",
-      height: theme.spacing(4),
+      width: 38,
+      height: 30,
       margin: theme.spacing(1)
     },
     expandIcon: {

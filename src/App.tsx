@@ -23,7 +23,7 @@ import { Navigation } from "./components/Navigation";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         display: "flex"
       },
       display: "block",
@@ -32,7 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
       background: theme.palette.background.default
     },
     content: {
-      flexGrow: 1
+      flexGrow: 1,
+      overflow: "auto",
+      height: "100%"
     }
   })
 );
@@ -41,7 +43,7 @@ const client = new ApolloClient({
   link: new HttpLink({
     uri: `/api/graphql`,
     headers: {
-      authorization: `fb4c1cd7-e219-48ef-be8f-5e31f125e64f`
+      authorization: `359c76d9-ce7d-4a85-91b2-5fdc27f278da`
     }
   }),
   cache: new InMemoryCache()
