@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 import * as ApolloReactCommon from "@apollo/client";
 import * as ApolloReactHooks from "@apollo/client";
 export type Maybe<T> = T | null;
+export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -117,14 +118,14 @@ export type WeatherData = {
   windSpeedString?: Maybe<Scalars["String"]>;
 };
 
-export type ChartRepresentationQueryVariables = {
+export type ChartRepresentationQueryVariables = Exact<{
   from?: Maybe<Scalars["OffsetDateTime"]>;
   to?: Maybe<Scalars["OffsetDateTime"]>;
   sensorId?: Maybe<Scalars["String"]>;
-};
+}>;
 
 export type ChartRepresentationQuery = { __typename?: "Query" } & {
-  sensorData: Maybe<
+  sensorData?: Maybe<
     Array<
       Maybe<
         { __typename?: "SensorData" } & Pick<
@@ -136,14 +137,14 @@ export type ChartRepresentationQuery = { __typename?: "Query" } & {
   >;
 };
 
-export type DataTableQueryVariables = {
+export type DataTableQueryVariables = Exact<{
   from?: Maybe<Scalars["OffsetDateTime"]>;
   to?: Maybe<Scalars["OffsetDateTime"]>;
   sensorId?: Maybe<Scalars["String"]>;
-};
+}>;
 
 export type DataTableQuery = { __typename?: "Query" } & {
-  sensorData: Maybe<
+  sensorData?: Maybe<
     Array<
       Maybe<
         { __typename?: "SensorData" } & Pick<
@@ -155,12 +156,12 @@ export type DataTableQuery = { __typename?: "Query" } & {
   >;
 };
 
-export type SensorInfoQueryVariables = {
+export type SensorInfoQueryVariables = Exact<{
   id?: Maybe<Scalars["String"]>;
-};
+}>;
 
 export type SensorInfoQuery = { __typename?: "Query" } & {
-  sensor: Maybe<
+  sensor?: Maybe<
     { __typename?: "Sensor" } & Pick<
       Sensor,
       "code" | "altitude" | "latitude" | "longitude" | "web"
@@ -168,10 +169,10 @@ export type SensorInfoQuery = { __typename?: "Query" } & {
   >;
 };
 
-export type SensorsQueryVariables = {};
+export type SensorsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SensorsQuery = { __typename?: "Query" } & {
-  sensors: Maybe<
+  sensors?: Maybe<
     Array<
       Maybe<
         { __typename?: "Sensor" } & Pick<
@@ -182,6 +183,39 @@ export type SensorsQuery = { __typename?: "Query" } & {
     >
   >;
 };
+
+export type DashboardDataQueryVariables = Exact<{ [key: string]: never }>;
+
+export type DashboardDataQuery = { __typename?: "Query" } & Pick<
+  Query,
+  "sensorsCount" | "providersCount"
+>;
+
+export type SensorsPositionQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SensorsPositionQuery = { __typename?: "Query" } & {
+  sensors?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: "Sensor" } & Pick<
+          Sensor,
+          "id" | "code" | "latitude" | "longitude"
+        >
+      >
+    >
+  >;
+};
+
+export type AirQualityIndexByLocationsQueryVariables = Exact<{
+  sensorId?: Maybe<Scalars["String"]>;
+  latitude?: Maybe<Scalars["Float"]>;
+  longitude?: Maybe<Scalars["Float"]>;
+}>;
+
+export type AirQualityIndexByLocationsQuery = { __typename?: "Query" } & Pick<
+  Query,
+  "commonAirQualityIndex" | "interpolatedCommonAirQualityIndex"
+>;
 
 export const ChartRepresentationDocument = gql`
   query ChartRepresentation(
@@ -356,4 +390,129 @@ export type SensorsLazyQueryHookResult = ReturnType<typeof useSensorsLazyQuery>;
 export type SensorsQueryResult = ApolloReactCommon.QueryResult<
   SensorsQuery,
   SensorsQueryVariables
+>;
+export const DashboardDataDocument = gql`
+  query DashboardData {
+    sensorsCount
+    providersCount
+  }
+`;
+export function useDashboardDataQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    DashboardDataQuery,
+    DashboardDataQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    DashboardDataQuery,
+    DashboardDataQueryVariables
+  >(DashboardDataDocument, baseOptions);
+}
+export function useDashboardDataLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    DashboardDataQuery,
+    DashboardDataQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    DashboardDataQuery,
+    DashboardDataQueryVariables
+  >(DashboardDataDocument, baseOptions);
+}
+export type DashboardDataQueryHookResult = ReturnType<
+  typeof useDashboardDataQuery
+>;
+export type DashboardDataLazyQueryHookResult = ReturnType<
+  typeof useDashboardDataLazyQuery
+>;
+export type DashboardDataQueryResult = ApolloReactCommon.QueryResult<
+  DashboardDataQuery,
+  DashboardDataQueryVariables
+>;
+export const SensorsPositionDocument = gql`
+  query SensorsPosition {
+    sensors {
+      id
+      code
+      latitude
+      longitude
+    }
+  }
+`;
+export function useSensorsPositionQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    SensorsPositionQuery,
+    SensorsPositionQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    SensorsPositionQuery,
+    SensorsPositionQueryVariables
+  >(SensorsPositionDocument, baseOptions);
+}
+export function useSensorsPositionLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    SensorsPositionQuery,
+    SensorsPositionQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    SensorsPositionQuery,
+    SensorsPositionQueryVariables
+  >(SensorsPositionDocument, baseOptions);
+}
+export type SensorsPositionQueryHookResult = ReturnType<
+  typeof useSensorsPositionQuery
+>;
+export type SensorsPositionLazyQueryHookResult = ReturnType<
+  typeof useSensorsPositionLazyQuery
+>;
+export type SensorsPositionQueryResult = ApolloReactCommon.QueryResult<
+  SensorsPositionQuery,
+  SensorsPositionQueryVariables
+>;
+export const AirQualityIndexByLocationsDocument = gql`
+  query airQualityIndexByLocations(
+    $sensorId: String
+    $latitude: Float
+    $longitude: Float
+  ) {
+    commonAirQualityIndex(sensorId: $sensorId)
+    interpolatedCommonAirQualityIndex(
+      latitude: $latitude
+      longitude: $longitude
+    )
+  }
+`;
+export function useAirQualityIndexByLocationsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    AirQualityIndexByLocationsQuery,
+    AirQualityIndexByLocationsQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    AirQualityIndexByLocationsQuery,
+    AirQualityIndexByLocationsQueryVariables
+  >(AirQualityIndexByLocationsDocument, baseOptions);
+}
+export function useAirQualityIndexByLocationsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    AirQualityIndexByLocationsQuery,
+    AirQualityIndexByLocationsQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    AirQualityIndexByLocationsQuery,
+    AirQualityIndexByLocationsQueryVariables
+  >(AirQualityIndexByLocationsDocument, baseOptions);
+}
+export type AirQualityIndexByLocationsQueryHookResult = ReturnType<
+  typeof useAirQualityIndexByLocationsQuery
+>;
+export type AirQualityIndexByLocationsLazyQueryHookResult = ReturnType<
+  typeof useAirQualityIndexByLocationsLazyQuery
+>;
+export type AirQualityIndexByLocationsQueryResult = ApolloReactCommon.QueryResult<
+  AirQualityIndexByLocationsQuery,
+  AirQualityIndexByLocationsQueryVariables
 >;

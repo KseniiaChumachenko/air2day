@@ -14,7 +14,7 @@ import {
 import { ThemeProvider } from "@material-ui/styles";
 
 import { Locations } from "src/screens/Locations";
-import { Landing } from "src/screens/Landing";
+import { Dashboard } from "src/screens/Dashboard";
 
 import { useThemingSetup } from "./hooks/useThemingSetup";
 import { useLanguageSetup } from "./hooks/useLanguageSetup";
@@ -68,7 +68,7 @@ const App = () => {
                   setLocale={setLocale}
                 />
                 <main className={classes.content}>
-                  <Route exact path="/" component={Landing} />
+                  <Route exact path="/" component={Dashboard} />
                   <Route path={"/locations/:tabId"} component={Locations} />
                 </main>
               </div>

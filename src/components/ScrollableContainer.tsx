@@ -5,8 +5,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       height: "100%",
-      overflow: "scroll",
-      background: theme.palette.background.default
+      overflow: "auto"
     }
   })
 );
