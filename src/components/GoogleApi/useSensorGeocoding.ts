@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { apiKey } from "./index";
 import { Sensor } from "../../graphql/generated/graphql";
 
@@ -19,10 +19,8 @@ const ADDRESS_MAP = new Map([
   ["AVRSA", "Sámova 1529, 101 00 Praha 10-Vršovice, Czechia"]
 ]);
 
-export const useGeocoding = (
-  activeSensor: Sensor | null,
-  setAddress: (value: string) => void
-) => {
+export const useSensorGeocoding = (activeSensor: Sensor | null) => {
+  const [address, useSetAddress] = useState("");
   useEffect(() => {
     async function getAddress() {
       const link = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${activeSensor.latitude},${activeSensor.longitude}&key=${apiKey}`;
@@ -30,7 +28,7 @@ export const useGeocoding = (
         .get(link)
         .then(function(response) {
           // handle success
-          setAddress(response.data.results[0].formatted_address);
+          useSetAddress(response.data.results[0].formatted_address);
         })
         .catch(function(error) {
           // handle error
@@ -41,10 +39,12 @@ export const useGeocoding = (
     if (activeSensor) {
       const addressFromMap = ADDRESS_MAP.get(activeSensor.code);
       if (addressFromMap) {
-        setAddress(addressFromMap);
+        useSetAddress(addressFromMap);
       } else {
         getAddress();
       }
     }
   });
+
+  return address;
 };

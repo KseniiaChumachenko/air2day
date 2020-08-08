@@ -55,6 +55,5 @@ export function useNearestSensor() {
     }
   }, [sensorsCoords, position]);
 
-  console.log(sensorsCoords, state);
   return state;
 }

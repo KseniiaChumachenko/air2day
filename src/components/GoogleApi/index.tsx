@@ -27,7 +27,7 @@ import {
   GpsFixedOutlined
 } from "@material-ui/icons";
 import { Sensor } from "../../graphql/generated/graphql";
-import { useGeocoding } from "./useGeocoding";
+import { useSensorGeocoding } from "./useSensorGeocoding";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,9 +62,8 @@ interface P extends MapProps {
 export const MapContainer = (props: P) => {
   const classes = useStyles({});
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
-  const [address, setAddress] = useState<string>("");
 
-  useGeocoding(props.activeMarkerData, setAddress);
+  const address = useSensorGeocoding(props.activeMarkerData);
 
   const handleClick = useCallback(
     (event?: any) => {

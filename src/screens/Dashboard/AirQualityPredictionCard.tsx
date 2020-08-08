@@ -118,20 +118,20 @@ export function AirQualityPredictionCard({
       {withWidget && (
         <Card className={classes.root}>
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="h6" component="h2">
               <Trans>Air pollution prediction for your location</Trans>
             </Typography>
             <Table size={"small"} className={classes.table}>
               <TableHeader />
               {predictionInMonth?.data && (
                 <TableBody>
-                  {predictionInMonth.data.interpolateData.map(item => (
+                  {predictionInMonth?.data?.interpolateData.map(item => (
                     <PredictionBody {...item} />
                   ))}
-                  {predictionInYear.data.interpolateData.map(item => (
+                  {predictionInYear?.data?.interpolateData.map(item => (
                     <PredictionBody {...item} />
                   ))}
-                  {predictionInTenYears.data.interpolateData.map(item => (
+                  {predictionInTenYears?.data?.interpolateData.map(item => (
                     <PredictionBody {...item} />
                   ))}
                 </TableBody>

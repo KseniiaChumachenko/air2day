@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up("md")]: {
         height: 30,
         width: 200,
-        margin: theme.spacing(1),
+        margin: theme.spacing(2),
         alignSelf: "center"
       }
     },

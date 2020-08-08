@@ -3,11 +3,7 @@ import groupBy from "lodash.groupby";
 import { Trans } from "@lingui/macro";
 import moment from "moment";
 import { Skeleton } from "@material-ui/lab";
-import {
-  createStyles,
-  makeStyles,
-  Theme
-} from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
 import { SensorDataConsumer } from "../../model";
 import { Chart } from "./Chart";
@@ -58,8 +54,6 @@ const ChartTab = ({ sensorData, loading }: SensorDataConsumer) => {
   if (loading) {
     return <ChartTabLoading />;
   }
-
-  console.log(sensorData);
 
   const mapData = sensorData.map(item => {
     const pollutantName = item.pollutant;
