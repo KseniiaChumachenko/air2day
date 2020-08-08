@@ -66,3 +66,19 @@ query airQualityIndexByLocations(
   commonAirQualityIndex(sensorId: $sensorId)
   interpolatedCommonAirQualityIndex(latitude: $latitude, longitude: $longitude)
 }
+
+query airPolutionPrediction(
+  $latitude: Float
+  $longitude: Float
+  $time: OffsetDateTime
+) {
+  interpolateData(latitude: $latitude, longitude: $longitude, time: $time) {
+    from
+    hourAvg
+    id
+    pollutant
+    sensorIds
+    to
+    value
+  }
+}

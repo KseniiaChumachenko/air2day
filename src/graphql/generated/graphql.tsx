@@ -217,6 +217,25 @@ export type AirQualityIndexByLocationsQuery = { __typename?: "Query" } & Pick<
   "commonAirQualityIndex" | "interpolatedCommonAirQualityIndex"
 >;
 
+export type AirPolutionPredictionQueryVariables = Exact<{
+  latitude?: Maybe<Scalars["Float"]>;
+  longitude?: Maybe<Scalars["Float"]>;
+  time?: Maybe<Scalars["OffsetDateTime"]>;
+}>;
+
+export type AirPolutionPredictionQuery = { __typename?: "Query" } & {
+  interpolateData?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: "SensorData" } & Pick<
+          SensorData,
+          "from" | "hourAvg" | "id" | "pollutant" | "sensorIds" | "to" | "value"
+        >
+      >
+    >
+  >;
+};
+
 export const ChartRepresentationDocument = gql`
   query ChartRepresentation(
     $from: OffsetDateTime
@@ -515,4 +534,53 @@ export type AirQualityIndexByLocationsLazyQueryHookResult = ReturnType<
 export type AirQualityIndexByLocationsQueryResult = ApolloReactCommon.QueryResult<
   AirQualityIndexByLocationsQuery,
   AirQualityIndexByLocationsQueryVariables
+>;
+export const AirPolutionPredictionDocument = gql`
+  query airPolutionPrediction(
+    $latitude: Float
+    $longitude: Float
+    $time: OffsetDateTime
+  ) {
+    interpolateData(latitude: $latitude, longitude: $longitude, time: $time) {
+      from
+      hourAvg
+      id
+      pollutant
+      sensorIds
+      to
+      value
+    }
+  }
+`;
+export function useAirPolutionPredictionQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    AirPolutionPredictionQuery,
+    AirPolutionPredictionQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    AirPolutionPredictionQuery,
+    AirPolutionPredictionQueryVariables
+  >(AirPolutionPredictionDocument, baseOptions);
+}
+export function useAirPolutionPredictionLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    AirPolutionPredictionQuery,
+    AirPolutionPredictionQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    AirPolutionPredictionQuery,
+    AirPolutionPredictionQueryVariables
+  >(AirPolutionPredictionDocument, baseOptions);
+}
+export type AirPolutionPredictionQueryHookResult = ReturnType<
+  typeof useAirPolutionPredictionQuery
+>;
+export type AirPolutionPredictionLazyQueryHookResult = ReturnType<
+  typeof useAirPolutionPredictionLazyQuery
+>;
+export type AirPolutionPredictionQueryResult = ApolloReactCommon.QueryResult<
+  AirPolutionPredictionQuery,
+  AirPolutionPredictionQueryVariables
 >;

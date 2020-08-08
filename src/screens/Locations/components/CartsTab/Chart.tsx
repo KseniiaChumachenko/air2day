@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { ResponsiveLine } from "@nivo/line";
 import { ChartData } from "./index";
 import {
@@ -12,9 +12,9 @@ import {
 } from "@material-ui/core";
 
 interface Props {
-  title: string;
-  axesLeftTitle: string;
-  axesBottomTitle: string;
+  title: ReactNode;
+  axesLeftTitle: ReactNode;
+  axesBottomTitle: ReactNode;
   data: ChartData;
 }
 

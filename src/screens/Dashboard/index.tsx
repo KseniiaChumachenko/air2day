@@ -19,6 +19,7 @@ import {
 } from "../../graphql/generated/graphql";
 import { usePositioning } from "../../hooks/usePositioning";
 import { useNearestSensor } from "../../hooks/useNearestSensor";
+import { AirQualityPredictionCard } from "./AirQualityPredictionCard";
 
 export const Dashboard = () => {
   const { locale } = useLanguageSetup();
@@ -58,7 +59,7 @@ export const Dashboard = () => {
                 <Trans>what you’re breathing</Trans>
               </Typography>
               <Typography
-                variant={"h6"}
+                variant={"body1"}
                 className={classes.intro}
                 color={"textSecondary"}
               >
@@ -114,11 +115,14 @@ export const Dashboard = () => {
             text={
               <Trans>
                 is <i>Common air quality index</i> calculated based on your
-                <b>current location</b>
+                <b> current location</b>
               </Trans>
             }
           />
         </Grid>
+        {userPosition?.coords?.latitude && (
+          <AirQualityPredictionCard userPosition={userPosition} />
+        )}
       </Grid>
     </ScrollableContainer>
   );

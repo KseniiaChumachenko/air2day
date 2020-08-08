@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     title: {
-      lineHeight: 2,
+      lineHeight: 1.5,
       marginLeft: theme.spacing(1),
       letterSpacing: "0.1em",
       fontFamily: font,
@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
     subtitle: {
       fontFamily: font,
-      lineHeight: 2,
-      marginLeft: theme.spacing(4),
+      lineHeight: 1.5,
+      marginLeft: theme.spacing(8),
 
       letterSpacing: "0.1em",
 
@@ -44,9 +44,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
     intro: {
       fontFamily: font,
-      marginTop: theme.spacing(2),
-      marginLeft: theme.spacing(8),
-      marginRight: theme.spacing(8),
+      marginTop: theme.spacing(1),
+      marginLeft: theme.spacing(12),
+      marginRight: theme.spacing(12),
       lineHeight: 1.5,
       letterSpacing: "0.05em",
       textAlign: "justify",
