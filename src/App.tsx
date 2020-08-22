@@ -43,7 +43,7 @@ const client = new ApolloClient({
   link: new HttpLink({
     uri: `/api/graphql`,
     headers: {
-      authorization: `61d5f427-4a4e-49dd-ae3d-6a1ad985e3f1`
+      authorization: `e9f0dcc5-1877-4570-960c-a3ae9f4a45b3`
     }
   }),
   cache: new InMemoryCache()

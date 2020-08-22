@@ -24,7 +24,8 @@ export function usePositioning() {
         position => {
           setState(position);
         },
-        () => setState(Prague)
+        () => setState(Prague),
+        { enableHighAccuracy: true }
       );
     } else {
       setState(Prague);

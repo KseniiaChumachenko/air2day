@@ -40,8 +40,6 @@ export const Dashboard = () => {
     }
   });
 
-  console.log(nearestSensor);
-
   return (
     <ScrollableContainer>
       <Grid container spacing={3} className={classes.container}>

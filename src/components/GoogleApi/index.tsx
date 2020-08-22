@@ -3,9 +3,9 @@ import { Skeleton } from "@material-ui/lab";
 import {
   Map,
   GoogleApiWrapper,
-  MapProps,
-  InfoWindowProps,
-  MarkerProps,
+  IMapProps,
+  IInfoWindowProps,
+  IMarkerProps,
   Marker
 } from "google-maps-react";
 import {
@@ -52,9 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface P extends MapProps {
-  markers?: MarkerProps[];
-  infoWindows?: InfoWindowProps[];
+interface P extends IMapProps {
+  markers?: IMarkerProps[];
+  infoWindows?: IInfoWindowProps[];
   handleActiveMarker?(key: number): void;
   activeMarkerData?: Sensor;
 }
@@ -87,7 +87,7 @@ export const MapContainer = (props: P) => {
           <Marker
             key={key}
             {...marker}
-            onClick={(p?: MarkerProps, m?: google.maps.Marker, event?: any) => {
+            onClick={(p?, m?, event?: any) => {
               handleClick(event);
               props.handleActiveMarker(key);
             }}
