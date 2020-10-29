@@ -4,8 +4,6 @@ Webapplication created in order to represent data about air pollution in big cit
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Newest version of app runs on: https://air2day.herokuapp.com/
-
 ## Available Scripts
 
 In the project directory, you can run:
