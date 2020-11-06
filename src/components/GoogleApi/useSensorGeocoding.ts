@@ -20,7 +20,7 @@ const ADDRESS_MAP = new Map([
 ]);
 
 export const useSensorGeocoding = (activeSensor: Sensor | null) => {
-  const [address, useSetAddress] = useState("");
+  const [address, setAddress] = useState("");
   useEffect(() => {
     async function getAddress() {
       const link = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${activeSensor.latitude},${activeSensor.longitude}&key=${GOOGLE_API_KEY}`;
@@ -28,7 +28,7 @@ export const useSensorGeocoding = (activeSensor: Sensor | null) => {
         .get(link)
         .then(function(response) {
           // handle success
-          useSetAddress(response.data.results[0].formatted_address);
+          setAddress(response.data.results[0].formatted_address);
         })
         .catch(function(error) {
           // handle error
@@ -39,12 +39,40 @@ export const useSensorGeocoding = (activeSensor: Sensor | null) => {
     if (activeSensor) {
       const addressFromMap = ADDRESS_MAP.get(activeSensor.code);
       if (addressFromMap) {
-        useSetAddress(addressFromMap);
+        setAddress(addressFromMap);
       } else {
         getAddress();
       }
     }
   });
+
+  return address;
+};
+
+export const getSensorAddress = (activeSensor: Sensor | null) => {
+  let address = "";
+  async function getAddress() {
+    const link = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${activeSensor.latitude},${activeSensor.longitude}&key=${GOOGLE_API_KEY}`;
+    await axios
+      .get(link)
+      .then(function(response) {
+        // handle success
+        address = response.data.results[0].formatted_address;
+      })
+      .catch(function(error) {
+        // handle error
+        console.log(error);
+      });
+  }
+
+  if (activeSensor) {
+    const addressFromMap = ADDRESS_MAP.get(activeSensor.code);
+    if (addressFromMap) {
+      address = addressFromMap;
+    } else {
+      getAddress();
+    }
+  }
 
   return address;
 };

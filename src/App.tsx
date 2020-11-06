@@ -19,6 +19,8 @@ import { Dashboard } from "src/screens/Dashboard";
 import { useThemingSetup } from "./hooks/useThemingSetup";
 import { useLanguageSetup } from "./hooks/useLanguageSetup";
 import { Navigation } from "./components/Navigation";
+import { Autocomplete } from "./components/Autocomplete";
+import { SearchHeader } from "./components/SearchHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,9 +55,6 @@ const App = () => {
   const { theme, setTheme } = useThemingSetup();
   const { i18n, locale, setLocale } = useLanguageSetup();
 
-  console.log(process.env["NODE_ENV "]);
-  console.log(process.env["AUTH_TOKEN "]);
-
   return (
     <I18nProvider i18n={i18n} language={locale.language}>
       <ApolloProvider client={client}>
@@ -70,6 +69,7 @@ const App = () => {
                   setLocale={setLocale}
                 />
                 <main className={classes.content}>
+                  <SearchHeader />
                   <Route exact path="/" component={Dashboard} />
                   <Route path={"/locations/:tabId"} component={Locations} />
                 </main>
