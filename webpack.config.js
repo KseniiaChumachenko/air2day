@@ -4,6 +4,7 @@ const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const NODE_ENV = process.env.NODE_ENV;
+const API_URI = process.env.API_URI;
 
 module.exports = (/* env = {} */) => {
   return {
@@ -24,7 +25,7 @@ module.exports = (/* env = {} */) => {
     },
 
     resolve: {
-      extensions: [".tsx", ".ts", ".js"],
+      extensions: [".tsx", ".ts", ".mjs", ".js"],
 
       alias: {
         src: path.resolve(__dirname, "src/")
@@ -41,38 +42,38 @@ module.exports = (/* env = {} */) => {
               resourceQuery: /inline/,
               use: [
                 {
-                  loader: 'raw-loader',
+                  loader: "raw-loader"
                 },
                 {
-                  loader: 'svgo-loader',
+                  loader: "svgo-loader",
                   options: {
                     plugins: [
                       { removeScriptElement: true },
                       { removeViewBox: false },
                       { removeDimensions: true },
-                      { removeAttr: 'id' },
-                    ],
-                  },
-                },
-              ],
+                      { removeAttr: "id" }
+                    ]
+                  }
+                }
+              ]
             },
             {
               use: [
                 {
-                  loader: 'file-loader',
+                  loader: "file-loader",
                   options: {
-                    outputPath: 'assets/images',
-                  },
+                    outputPath: "assets/images"
+                  }
                 },
                 {
-                  loader: 'svgo-loader',
+                  loader: "svgo-loader",
                   options: {
-                    plugins: [{ removeScriptElement: true }],
-                  },
-                },
-              ],
-            },
-          ],
+                    plugins: [{ removeScriptElement: true }]
+                  }
+                }
+              ]
+            }
+          ]
         },
         {
           test: /\.(js|jsx|ts|tsx)$/,
@@ -89,10 +90,10 @@ module.exports = (/* env = {} */) => {
           test: /\.(png|jpe?g|gif)$/i,
           use: [
             {
-              loader: 'file-loader',
-            },
-          ],
-        },
+              loader: "file-loader"
+            }
+          ]
+        }
       ]
     },
 
@@ -102,9 +103,12 @@ module.exports = (/* env = {} */) => {
     },
 
     plugins: [
-      new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify(NODE_ENV)
-      }),
+      new webpack.EnvironmentPlugin([
+        "NODE_ENV",
+        "API_URI",
+        "AUTH_TOKEN",
+        "GOOGLE_API_KEY"
+      ]),
 
       new webpack.optimize.MinChunkSizePlugin({
         minChunkSize: 20000
@@ -119,8 +123,8 @@ module.exports = (/* env = {} */) => {
       historyApiFallback: true,
 
       proxy: {
-        "/api/graphql": {
-          target: "http://localhost:8080/air2day-devel",
+        "/graphql": {
+          target: API_URI,
           changeOrigin: true,
           secure: false
         }

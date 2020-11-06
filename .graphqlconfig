@@ -4,9 +4,9 @@
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {
-        "url": "http://william.multimediatech.cz:8081/air2day-test/api/graphql",
+        "url": "http://localhost:8080/air2day-devel/api/graphql",
         "headers": {
-          "authorization": "fb4c1cd7-e219-48ef-be8f-5e31f125e64f"
+          "authorization": "b30d043e-4121-4e6f-92f3-233e18753bad"
         },
         "introspect": true
       }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { apiKey } from "./index";
 import { Sensor } from "../../graphql/generated/graphql";
+import { GOOGLE_API_KEY } from "./const";
 
 const ADDRESS_MAP = new Map([
   ["ASUCA", "Nad Helmrovkou 261, 165 00 Praha-Lysolaje, Czechia"],
@@ -23,7 +23,7 @@ export const useSensorGeocoding = (activeSensor: Sensor | null) => {
   const [address, useSetAddress] = useState("");
   useEffect(() => {
     async function getAddress() {
-      const link = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${activeSensor.latitude},${activeSensor.longitude}&key=${apiKey}`;
+      const link = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${activeSensor.latitude},${activeSensor.longitude}&key=${GOOGLE_API_KEY}`;
       await axios
         .get(link)
         .then(function(response) {

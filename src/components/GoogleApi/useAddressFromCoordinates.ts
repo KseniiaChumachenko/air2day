@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { apiKey } from "./index";
 import axios from "axios";
+import { GOOGLE_API_KEY } from "./const";
 
 export const useAddressFromCoordinates = (coords: Coordinates) => {
   const [data, setData] = useState("");
   useEffect(() => {
-    const link = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords?.latitude},${coords?.longitude}&key=${apiKey}`;
+    const link = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords?.latitude},${coords?.longitude}&key=${GOOGLE_API_KEY}`;
 
     const fetchData = async () =>
       await axios
@@ -22,6 +22,6 @@ export const useAddressFromCoordinates = (coords: Coordinates) => {
     if (coords) {
       fetchData();
     }
-  }, [coords, apiKey]);
+  }, [coords, GOOGLE_API_KEY]);
   return data;
 };

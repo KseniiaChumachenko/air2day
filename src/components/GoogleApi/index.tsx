@@ -28,6 +28,7 @@ import {
 } from "@material-ui/icons";
 import { Sensor } from "../../graphql/generated/graphql";
 import { useSensorGeocoding } from "./useSensorGeocoding";
+import { GOOGLE_API_KEY } from "./const";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -175,13 +176,11 @@ export const MapContainer = (props: P) => {
   );
 };
 
-export const apiKey = "AIzaSyCMq7ChRIjtPzz_QNpiHShMY0dfmpkL8vs";
-
 const LoadingContainer = () => (
   <Skeleton variant={"rect"} height={"40vh"} width={"100%"} />
 );
 
 export default GoogleApiWrapper({
-  apiKey: apiKey,
+  apiKey: GOOGLE_API_KEY,
   LoadingContainer: LoadingContainer
 })(MapContainer);

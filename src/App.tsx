@@ -28,8 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       display: "block",
       height: "100vh",
-      overflow: "hidden",
-      background: theme.palette.background.default
+      overflow: "hidden"
     },
     content: {
       flexGrow: 1,
@@ -41,9 +40,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: `/api/graphql`,
+    uri: `/graphql`,
     headers: {
-      authorization: `e9f0dcc5-1877-4570-960c-a3ae9f4a45b3`
+      authorization: process.env.AUTH_TOKEN
     }
   }),
   cache: new InMemoryCache()
@@ -53,6 +52,9 @@ const App = () => {
   const classes = useStyles({});
   const { theme, setTheme } = useThemingSetup();
   const { i18n, locale, setLocale } = useLanguageSetup();
+
+  console.log(process.env["NODE_ENV "]);
+  console.log(process.env["AUTH_TOKEN "]);
 
   return (
     <I18nProvider i18n={i18n} language={locale.language}>

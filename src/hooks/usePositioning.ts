@@ -16,7 +16,7 @@ const Prague: Position = {
 };
 
 export function usePositioning() {
-  const [state, setState] = useState<Position | undefined>(undefined);
+  const [state, setState] = useState<Position | undefined>(Prague);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -27,8 +27,6 @@ export function usePositioning() {
         () => setState(Prague),
         { enableHighAccuracy: true }
       );
-    } else {
-      setState(Prague);
     }
   }, []);
 
