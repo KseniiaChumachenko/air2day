@@ -16,6 +16,12 @@ import { ExportTab } from "./components/ExportTab";
 
 export type SensorDataKey = keyof SensorData;
 
+export enum TabIds {
+  tables = "tables",
+  charts = "charts",
+  export = "export"
+}
+
 export const INITIAL_FILTER_STATE = {
   from: "",
   to: "",
@@ -151,22 +157,26 @@ export const SelectMenu = ({
             <Tab
               label={<Trans>Table</Trans>}
               aria-label="Tables"
-              value={"tables"}
+              value={TabIds.tables}
             />
             <Tab
               label={<Trans>Charts</Trans>}
               aria-label="Charts"
-              value={"charts"}
+              value={TabIds.charts}
             />
             <Tab
               label={<Trans>Export</Trans>}
               aria-label="Export"
-              value={"export"}
+              value={TabIds.export}
             />
           </Tabs>
-          {state.tab === "tables" && confirmed && <Table {...tabProps} />}
-          {state.tab === "charts" && confirmed && <ChartTab {...tabProps} />}
-          {state.tab === "export" && confirmed && <ExportTab {...tabProps} />}
+          {state.tab === TabIds.tables && confirmed && <Table {...tabProps} />}
+          {state.tab === TabIds.charts && confirmed && (
+            <ChartTab {...tabProps} />
+          )}
+          {state.tab === TabIds.export && confirmed && (
+            <ExportTab {...tabProps} />
+          )}
         </>
       )}
     </div>

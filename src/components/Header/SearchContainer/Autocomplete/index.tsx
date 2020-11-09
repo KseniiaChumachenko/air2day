@@ -1,14 +1,29 @@
 import React, { Dispatch, SetStateAction, useEffect, useMemo } from "react";
-import { Chip, Grid, TextField, Typography } from "@material-ui/core";
-import { Autocomplete as MAutocomplete } from "@material-ui/lab";
-import { SensorsQuery, useSensorsQuery } from "../../graphql/generated/graphql";
-import { Trans } from "@lingui/macro";
-import { getSensorAddress } from "../GoogleApi/useSensorGeocoding";
-import { LocationOnRounded, MemoryRounded } from "@material-ui/icons";
 import parse from "autosuggest-highlight/parse";
 import throttle from "lodash/throttle";
-import { makeStyles } from "@material-ui/core/styles";
-import { GOOGLE_API_KEY } from "../GoogleApi/const";
+import {
+  Chip,
+  Grid,
+  TextField,
+  Typography,
+  InputAdornment,
+  IconButton,
+  makeStyles
+} from "@material-ui/core";
+import { Autocomplete as MAutocomplete } from "@material-ui/lab";
+import {
+  LocationOnRounded,
+  MemoryRounded,
+  SearchRounded
+} from "@material-ui/icons";
+import { Trans } from "@lingui/macro";
+
+import {
+  SensorsQuery,
+  useSensorsQuery
+} from "../../../../graphql/generated/graphql";
+import { getSensorAddress } from "../../../GoogleApi/useSensorGeocoding";
+import { GOOGLE_API_KEY } from "../../../GoogleApi/const";
 import { PlaceType, OptionType } from "./model";
 
 const remappedSensorOption: (data: SensorsQuery) => PlaceType[] = data =>
@@ -47,12 +62,17 @@ const useStyles = makeStyles(theme => ({
 interface AutocompleteProps {
   value: PlaceType[];
   setValue: Dispatch<SetStateAction<PlaceType[]>>;
+  className?: string;
 }
 
 /*
  * TODO: refactor + error handling
  * */
-export const Autocomplete = ({ value, setValue }: AutocompleteProps) => {
+export const Autocomplete = ({
+  value,
+  setValue,
+  className
+}: AutocompleteProps) => {
   const { data, error, loading } = useSensorsQuery();
 
   const classes = useStyles();
@@ -137,6 +157,7 @@ export const Autocomplete = ({ value, setValue }: AutocompleteProps) => {
 
   return options ? (
     <MAutocomplete
+      className={className}
       id="grouped-demo"
       options={options}
       multiple={true}
@@ -152,6 +173,16 @@ export const Autocomplete = ({ value, setValue }: AutocompleteProps) => {
       renderInput={params => (
         <TextField
           {...params}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position={"end"}>
+                <IconButton>
+                  <SearchRounded />
+                </IconButton>
+              </InputAdornment>
+            ),
+            ...params.InputProps
+          }}
           label={<Trans>Select sensor or enter location</Trans>}
           variant="outlined"
           fullWidth={true}

@@ -4,3 +4,8 @@ export interface SensorDataConsumer {
   sensorData: SensorData[];
   loading?: boolean;
 }
+
+export enum LocationParams {
+  locations = "locations",
+  dates = "dates"
+}
