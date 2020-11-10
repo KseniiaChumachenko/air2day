@@ -162,11 +162,12 @@ export const Autocomplete = ({
       options={options}
       multiple={true}
       groupBy={option => option.type}
-      getOptionLabel={option => option.description}
+      getOptionLabel={option => option?.description || ""}
       getOptionDisabled={option => !!value.find(v => v.id === option.id)}
       onChange={(event: any, newValue: PlaceType | null | any) => {
         setValue(newValue);
       }}
+      defaultValue={value}
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);
       }}

@@ -8,9 +8,9 @@ import { Error } from "src/components/Error";
 import { useSensorsQuery } from "../../graphql/generated/graphql";
 import { ScrollableContainer } from "../../components/ScrollableContainer";
 import { useTabTitle } from "../../hooks/useTabTitle";
-import { useParams } from "react-router";
 import { useRouterParamsQuery } from "../../hooks/useRouterParamsQuery";
 import { LocationParams } from "./model";
+import { QUERY_PARAMS } from "../../components/Header/SearchContainer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,9 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Locations = () => {
   const classes = useStyles({});
-  const query = useRouterParamsQuery();
-  const locations = query.get(LocationParams.locations);
-  const dates = query.get(LocationParams.dates);
+  const paramsQuery = useRouterParamsQuery(QUERY_PARAMS);
+  const locations = (paramsQuery as any)[LocationParams.locations];
+  const dates = paramsQuery as any[LocationParams.dates];
 
   const { data, loading, error } = useSensorsQuery();
   useTabTitle("Locations");

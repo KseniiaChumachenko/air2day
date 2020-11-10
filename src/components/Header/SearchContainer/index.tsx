@@ -9,6 +9,11 @@ import { useHistory } from "react-router-dom";
 import { LocationParams } from "../../../screens/Locations/model";
 import { useRouterParamsQuery } from "../../../hooks/useRouterParamsQuery";
 
+export const QUERY_PARAMS = [LocationParams.locations, LocationParams.dates];
+
+const formatDate = (date: string | Moment) =>
+  moment(date, "YYYY-MM-DDTHH:mm:ss").format("YYYY/MMM/DD");
+
 const useStyles = makeStyles(theme => ({
   searchContainer: {
     display: "flex",
@@ -47,15 +52,15 @@ export interface State {
 }
 
 export const SearchContainer = () => {
-  const query = useRouterParamsQuery();
+  const paramsQuery = useRouterParamsQuery(QUERY_PARAMS);
   const classes = useStyles();
   const history = useHistory();
 
   const [locations, setLocations] = React.useState<PlaceType[]>(
-    /*query.get(LocationParams.locations) ||*/ []
+    paramsQuery?.locations || []
   );
   const [dates, setDates] = React.useState<State>(
-    /*JSON.parse(query.get(LocationParams.dates)) || */ {
+    paramsQuery?.dates || {
       selectedFromDate: moment()
         .subtract(1, "month")
         .format(),
@@ -63,12 +68,11 @@ export const SearchContainer = () => {
     }
   );
 
-  function handleFromDateChange(date: Moment) {
+  const handleFromDateChange = (date: Moment) =>
     setDates({ ...dates, selectedFromDate: date.format() });
-  }
-  function handleToDateChange(date: Moment) {
+
+  const handleToDateChange = (date: Moment) =>
     setDates({ ...dates, selectedToDate: date.format() });
-  }
 
   const commonPickerProps = {
     variant: "inline" as any,
@@ -77,8 +81,6 @@ export const SearchContainer = () => {
     format: "DD/MM/YYYY"
   };
 
-  // TODO: export route composition to avoid mistakes?
-  // locations to be joined ?
   const handleSearch = () =>
     history.push(
       `/locations?${LocationParams.locations}="${JSON.stringify(locations)}"&${
@@ -96,13 +98,13 @@ export const SearchContainer = () => {
       <div className={classes.selectorsContainer}>
         <KeyboardDatePicker
           label={<Trans>Start date</Trans>}
-          value={dates.selectedFromDate}
+          value={formatDate(dates.selectedFromDate)}
           onChange={handleFromDateChange}
           {...commonPickerProps}
         />
         <KeyboardDatePicker
           label={<Trans>End date</Trans>}
-          value={dates.selectedToDate}
+          value={formatDate(dates.selectedToDate)}
           onChange={handleToDateChange}
           {...commonPickerProps}
         />
