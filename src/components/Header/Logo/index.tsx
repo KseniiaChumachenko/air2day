@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import logo from "../assets/Combined_logo.png";
+import { useClearSearchData } from "../../../store/SearchData";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,13 +25,20 @@ const useStyles = makeStyles(theme => ({
 export const Logo = () => {
   const classes = useStyles();
   const history = useHistory();
+  const { clearSearchData } = useClearSearchData();
+
+  const handleClickLogo = () => {
+    clearSearchData();
+    history.push("/");
+  };
+
   return (
     <div className={classes.root}>
       <img
         src={logo}
         alt={"logo"}
         className={classes.logo}
-        onClick={() => history.push("/")}
+        onClick={handleClickLogo}
       />
     </div>
   );

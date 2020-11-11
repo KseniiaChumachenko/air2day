@@ -1,15 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import moment, { Moment } from "moment";
 import { Button, makeStyles } from "@material-ui/core";
-import { Autocomplete } from "./Autocomplete";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { Trans } from "@lingui/macro";
-import { PlaceType } from "./Autocomplete/model";
-import { useHistory } from "react-router-dom";
+import { useUpdateSearchData } from "src/store/SearchData";
+import { Autocomplete } from "./Autocomplete";
 import { LocationParams } from "../../../screens/Locations/model";
-import { useRouterParamsQuery } from "../../../hooks/useRouterParamsQuery";
-
-export const QUERY_PARAMS = [LocationParams.locations, LocationParams.dates];
 
 const formatDate = (date: string | Moment) =>
   moment(date, "YYYY-MM-DDTHH:mm:ss").format("YYYY/MMM/DD");
@@ -46,33 +43,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export interface State {
-  selectedFromDate: string;
-  selectedToDate: string;
-}
-
 export const SearchContainer = () => {
-  const paramsQuery = useRouterParamsQuery(QUERY_PARAMS);
   const classes = useStyles();
   const history = useHistory();
 
-  const [locations, setLocations] = React.useState<PlaceType[]>(
-    paramsQuery?.locations || []
-  );
-  const [dates, setDates] = React.useState<State>(
-    paramsQuery?.dates || {
-      selectedFromDate: moment()
-        .subtract(1, "month")
-        .format(),
-      selectedToDate: moment().format()
-    }
-  );
+  const {
+    searchData,
+    setToDate,
+    setFromDate,
+    setLocations
+  } = useUpdateSearchData();
 
-  const handleFromDateChange = (date: Moment) =>
-    setDates({ ...dates, selectedFromDate: date.format() });
+  const handleFromDateChange = (date: Moment) => setFromDate(date.format());
 
-  const handleToDateChange = (date: Moment) =>
-    setDates({ ...dates, selectedToDate: date.format() });
+  const handleToDateChange = (date: Moment) => setToDate(date.format());
 
   const commonPickerProps = {
     variant: "inline" as any,
@@ -83,28 +67,33 @@ export const SearchContainer = () => {
 
   const handleSearch = () =>
     history.push(
-      `/locations?${LocationParams.locations}="${JSON.stringify(locations)}"&${
-        LocationParams.dates
-      }="${JSON.stringify(dates)}"`
+      `/locations?${LocationParams.locations}="${JSON.stringify(
+        searchData.locations
+      )}"&${LocationParams.dates}="${JSON.stringify({
+        selectedFromDate: searchData.selectedFromDate,
+        selectedToDate: searchData.selectedToDate
+      })}"`
     );
+
+  console.log(searchData);
 
   return (
     <div className={classes.searchContainer}>
       <Autocomplete
-        value={locations}
+        value={searchData.locations}
         setValue={setLocations}
         className={classes.autocomplete}
       />
       <div className={classes.selectorsContainer}>
         <KeyboardDatePicker
           label={<Trans>Start date</Trans>}
-          value={formatDate(dates.selectedFromDate)}
+          value={formatDate(searchData.selectedFromDate)}
           onChange={handleFromDateChange}
           {...commonPickerProps}
         />
         <KeyboardDatePicker
           label={<Trans>End date</Trans>}
-          value={formatDate(dates.selectedToDate)}
+          value={formatDate(searchData.selectedToDate)}
           onChange={handleToDateChange}
           {...commonPickerProps}
         />

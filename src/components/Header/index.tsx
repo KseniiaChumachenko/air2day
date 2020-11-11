@@ -22,10 +22,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-/*
- * Next step: propagate values to route, add time selectors and confirm button
- * */
-
 export interface Props {
   theme: Theme;
   setTheme: React.Dispatch<React.SetStateAction<any>>;

@@ -19,6 +19,7 @@ import { Dashboard } from "src/screens/Dashboard";
 import { useThemingSetup } from "./hooks/useThemingSetup";
 import { useLanguageSetup } from "./hooks/useLanguageSetup";
 import { Header } from "./components/Header";
+import { SearchDataProvider } from "./store/SearchData";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,18 +60,20 @@ const App = () => {
         <BrowserRouter>
           <ThemeProvider theme={theme}>
             <MuiPickersUtilsProvider utils={MomentUtils}>
-              <div className={classes.root}>
-                <main className={classes.content}>
-                  <Header
-                    theme={theme}
-                    setTheme={setTheme}
-                    locale={locale}
-                    setLocale={setLocale}
-                  />
-                  <Route exact path="/" component={Dashboard} />
-                  <Route path={"/locations"} component={Locations} />
-                </main>
-              </div>
+              <SearchDataProvider>
+                <div className={classes.root}>
+                  <main className={classes.content}>
+                    <Header
+                      theme={theme}
+                      setTheme={setTheme}
+                      locale={locale}
+                      setLocale={setLocale}
+                    />
+                    <Route exact path="/" component={Dashboard} />
+                    <Route path={"/locations"} component={Locations} />
+                  </main>
+                </div>
+              </SearchDataProvider>
             </MuiPickersUtilsProvider>
           </ThemeProvider>
         </BrowserRouter>

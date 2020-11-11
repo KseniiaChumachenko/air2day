@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import parse from "autosuggest-highlight/parse";
 import throttle from "lodash/throttle";
 import {
@@ -24,7 +24,7 @@ import {
 } from "../../../../graphql/generated/graphql";
 import { getSensorAddress } from "../../../GoogleApi/useSensorGeocoding";
 import { GOOGLE_API_KEY } from "../../../GoogleApi/const";
-import { PlaceType, OptionType } from "./model";
+import { OptionType, PlaceType } from "../../../../store/SearchData/model";
 
 const remappedSensorOption: (data: SensorsQuery) => PlaceType[] = data =>
   data?.sensors.map(option => ({
@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
 
 interface AutocompleteProps {
   value: PlaceType[];
-  setValue: Dispatch<SetStateAction<PlaceType[]>>;
+  setValue: (p: PlaceType[]) => void;
   className?: string;
 }
 
@@ -167,7 +167,6 @@ export const Autocomplete = ({
       onChange={(event: any, newValue: PlaceType | null | any) => {
         setValue(newValue);
       }}
-      defaultValue={value}
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);
       }}

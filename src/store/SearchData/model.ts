@@ -1,4 +1,4 @@
-import { Sensor } from "../../../../graphql/generated/graphql";
+import { Sensor } from "../../graphql/generated/graphql";
 
 export enum OptionType {
   sensor = "Sensors",

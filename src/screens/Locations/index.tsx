@@ -10,7 +10,7 @@ import { ScrollableContainer } from "../../components/ScrollableContainer";
 import { useTabTitle } from "../../hooks/useTabTitle";
 import { useRouterParamsQuery } from "../../hooks/useRouterParamsQuery";
 import { LocationParams } from "./model";
-import { QUERY_PARAMS } from "../../components/Header/SearchContainer";
+import { QUERY_PARAMS } from "../../store/SearchData/constants";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
