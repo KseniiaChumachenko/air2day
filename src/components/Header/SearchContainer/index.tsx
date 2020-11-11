@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useHistory } from "react-router-dom";
 import moment, { Moment } from "moment";
 import { Button, makeStyles } from "@material-ui/core";
@@ -54,6 +54,11 @@ export const SearchContainer = () => {
     setLocations
   } = useUpdateSearchData();
 
+  const { locations, selectedToDate, selectedFromDate } = useMemo(
+    () => searchData,
+    [searchData]
+  );
+
   const handleFromDateChange = (date: Moment) => setFromDate(date.format());
 
   const handleToDateChange = (date: Moment) => setToDate(date.format());
@@ -67,33 +72,27 @@ export const SearchContainer = () => {
 
   const handleSearch = () =>
     history.push(
-      `/locations?${LocationParams.locations}="${JSON.stringify(
-        searchData.locations
-      )}"&${LocationParams.dates}="${JSON.stringify({
-        selectedFromDate: searchData.selectedFromDate,
-        selectedToDate: searchData.selectedToDate
+      `/locations?${LocationParams.locations}="${JSON.stringify(locations)}"&${
+        LocationParams.dates
+      }="${JSON.stringify({
+        selectedFromDate,
+        selectedToDate
       })}"`
     );
 
-  console.log(searchData);
-
   return (
     <div className={classes.searchContainer}>
-      <Autocomplete
-        value={searchData.locations}
-        setValue={setLocations}
-        className={classes.autocomplete}
-      />
+      <Autocomplete className={classes.autocomplete} />
       <div className={classes.selectorsContainer}>
         <KeyboardDatePicker
           label={<Trans>Start date</Trans>}
-          value={formatDate(searchData.selectedFromDate)}
+          value={formatDate(selectedFromDate)}
           onChange={handleFromDateChange}
           {...commonPickerProps}
         />
         <KeyboardDatePicker
           label={<Trans>End date</Trans>}
-          value={formatDate(searchData.selectedToDate)}
+          value={formatDate(selectedToDate)}
           onChange={handleToDateChange}
           {...commonPickerProps}
         />

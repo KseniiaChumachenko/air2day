@@ -20,6 +20,7 @@ import { useThemingSetup } from "./hooks/useThemingSetup";
 import { useLanguageSetup } from "./hooks/useLanguageSetup";
 import { Header } from "./components/Header";
 import { SearchDataProvider } from "./store/SearchData";
+import { GOOGLE_API_KEY } from "./components/GoogleApi/const";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +40,18 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+function loadScript(src: string, position: HTMLElement | null, id: string) {
+  if (!position) {
+    return;
+  }
+
+  const script = document.createElement("script");
+  script.setAttribute("async", "");
+  script.setAttribute("id", id);
+  script.src = src;
+  position.appendChild(script);
+}
+
 const client = new ApolloClient({
   link: new HttpLink({
     uri: `/graphql`,
@@ -53,6 +66,20 @@ const App = () => {
   const classes = useStyles({});
   const { theme, setTheme } = useThemingSetup();
   const { i18n, locale, setLocale } = useLanguageSetup();
+
+  const loaded = React.useRef(false);
+
+  if (typeof window !== "undefined" && !loaded.current) {
+    if (!document.querySelector("#google-maps")) {
+      loadScript(
+        `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`,
+        document.querySelector("head"),
+        "google-maps"
+      );
+    }
+
+    loaded.current = true;
+  }
 
   return (
     <I18nProvider i18n={i18n} language={locale.language}>

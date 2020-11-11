@@ -30,10 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Locations = () => {
   const classes = useStyles({});
-  const paramsQuery = useRouterParamsQuery(QUERY_PARAMS);
-  const locations = (paramsQuery as any)[LocationParams.locations];
-  const dates = paramsQuery as any[LocationParams.dates];
-
   const { data, loading, error } = useSensorsQuery();
   useTabTitle("Locations");
 
@@ -55,7 +51,7 @@ export const Locations = () => {
           <Error message={error.message} />
         ) : (
           <>
-            <Map data={data} />
+            <Map />
             <div className={classes.dataColumn}>
               <SelectMenu sensorList={data?.sensors} tabId={TabIds.charts} />
             </div>

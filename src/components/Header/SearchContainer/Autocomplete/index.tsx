@@ -18,37 +18,9 @@ import {
 } from "@material-ui/icons";
 import { Trans } from "@lingui/macro";
 
-import {
-  SensorsQuery,
-  useSensorsQuery
-} from "../../../../graphql/generated/graphql";
-import { getSensorAddress } from "../../../GoogleApi/useSensorGeocoding";
-import { GOOGLE_API_KEY } from "../../../GoogleApi/const";
-import { OptionType, PlaceType } from "../../../../store/SearchData/model";
-
-const remappedSensorOption: (data: SensorsQuery) => PlaceType[] = data =>
-  data?.sensors.map(option => ({
-    description: getSensorAddress(option),
-    type: OptionType.sensor,
-    structured_formatting: {
-      main_text: getSensorAddress(option),
-      secondary_text: option.code,
-      main_text_matched_substrings: [{ offset: 0, length: 0 }]
-    },
-    ...option
-  }));
-
-function loadScript(src: string, position: HTMLElement | null, id: string) {
-  if (!position) {
-    return;
-  }
-
-  const script = document.createElement("script");
-  script.setAttribute("async", "");
-  script.setAttribute("id", id);
-  script.src = src;
-  position.appendChild(script);
-}
+import { PlaceType } from "../../../../store/SearchData/model";
+import { OptionType } from "src/store/SearchData/constants";
+import { useUpdateSearchData } from "../../../../store/SearchData";
 
 const autocompleteService: any = { current: null };
 
@@ -60,37 +32,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 interface AutocompleteProps {
-  value: PlaceType[];
-  setValue: (p: PlaceType[]) => void;
   className?: string;
 }
 
 /*
- * TODO: refactor + error handling
+ * TODO: geocoding for selected location
  * */
-export const Autocomplete = ({
-  value,
-  setValue,
-  className
-}: AutocompleteProps) => {
-  const { data, error, loading } = useSensorsQuery();
-
+export const Autocomplete = ({ className }: AutocompleteProps) => {
   const classes = useStyles();
+  const { searchData, setLocations } = useUpdateSearchData();
+
   const [inputValue, setInputValue] = React.useState("");
   const [options, setOptions] = React.useState<PlaceType[]>([]);
-  const loaded = React.useRef(false);
 
-  if (typeof window !== "undefined" && !loaded.current) {
-    if (!document.querySelector("#google-maps")) {
-      loadScript(
-        `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`,
-        document.querySelector("head"),
-        "google-maps"
-      );
-    }
-
-    loaded.current = true;
-  }
+  const { sensors, locations } = useMemo(() => searchData, [searchData]);
 
   const fetch = useMemo(
     () =>
@@ -120,7 +75,7 @@ export const Autocomplete = ({
     }
 
     if (inputValue === "") {
-      setOptions(remappedSensorOption(data));
+      setOptions(sensors);
       return undefined;
     }
 
@@ -128,8 +83,8 @@ export const Autocomplete = ({
       if (active) {
         let newOptions = [] as PlaceType[];
 
-        if (value.length > 0) {
-          newOptions = value;
+        if (locations.length > 0) {
+          newOptions = locations;
         }
 
         if (results) {
@@ -139,7 +94,7 @@ export const Autocomplete = ({
         setOptions(
           newOptions
             .map(o => ({ type: OptionType.location, ...o }))
-            .concat(remappedSensorOption(data))
+            .concat(sensors)
         );
       }
     });
@@ -147,13 +102,15 @@ export const Autocomplete = ({
     return () => {
       active = false;
     };
-  }, [value, inputValue, fetch]);
+  }, [locations, inputValue, fetch]);
 
   useEffect(() => {
-    if (data) {
-      setOptions(prevState => prevState.concat(remappedSensorOption(data)));
+    if (sensors) {
+      setOptions(prevState => prevState.concat(sensors));
     }
-  }, [data]);
+  }, [sensors]);
+
+  console.log(locations);
 
   return options ? (
     <MAutocomplete
@@ -161,12 +118,13 @@ export const Autocomplete = ({
       id="grouped-demo"
       options={options}
       multiple={true}
+      value={locations}
       groupBy={option => option.type}
       getOptionLabel={option => option?.description || ""}
-      getOptionDisabled={option => !!value.find(v => v.id === option.id)}
-      onChange={(event: any, newValue: PlaceType | null | any) => {
-        setValue(newValue);
-      }}
+      getOptionDisabled={option => !!locations.find(v => v.id === option.id)}
+      onChange={(event: any, newValue: PlaceType[] | null | any) =>
+        setLocations(newValue)
+      }
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);
       }}
@@ -189,11 +147,11 @@ export const Autocomplete = ({
         />
       )}
       renderTags={(value, getTagProps) =>
-        value.map((option, index: number) => (
+        value.map((option, index) => (
           <Chip
             variant="outlined"
             color={index % 2 ? "primary" : "secondary"}
-            label={option.code || option.structured_formatting.main_text}
+            label={option.code || option.structured_formatting?.main_text}
             {...getTagProps({ index })}
           />
         ))

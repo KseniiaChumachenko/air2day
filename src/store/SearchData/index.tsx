@@ -3,23 +3,37 @@ import React, {
   Dispatch,
   ReactNode,
   useContext,
+  useEffect,
   useReducer
 } from "react";
-import { PlaceType } from "./model";
-import moment, { Moment } from "moment";
+import { Action, PlaceType, StateType, DateType } from "./model";
+import moment from "moment";
+import { Alert } from "@material-ui/lab";
+import { Snackbar } from "@material-ui/core";
+import { Trans } from "@lingui/macro";
 import { useRouterParamsQuery } from "../../hooks/useRouterParamsQuery";
-import {
-  Action,
-  ActionTypes,
-  DateType,
-  QUERY_PARAMS,
-  StateType
-} from "./constants";
+import { SensorsQuery, useSensorsQuery } from "../../graphql/generated/graphql";
+import { getSensorAddress } from "../../components/GoogleApi/useSensorGeocoding";
+import { QUERY_PARAMS, OptionType, ActionTypes } from "./constants";
+
+const remappedSensorOptions: (data: SensorsQuery) => PlaceType[] = data =>
+  data?.sensors.map(option => ({
+    description: getSensorAddress(option),
+    type: OptionType.sensor,
+    structured_formatting: {
+      main_text: getSensorAddress(option),
+      secondary_text: option.code,
+      main_text_matched_substrings: [{ offset: 0, length: 0 }]
+    },
+    ...option
+  }));
 
 function reducer(state: StateType, action: Action): StateType {
   switch (action.type) {
     case ActionTypes.UPDATE_ALL:
       return action.payload as StateType;
+    case ActionTypes.UPDATE_SENSORS:
+      return { ...state, sensors: action.payload as PlaceType[] };
     case ActionTypes.UPDATE_LOCATIONS:
       return { ...state, locations: action.payload as PlaceType[] };
     case ActionTypes.UPDATE_FROM_DATE:
@@ -30,6 +44,7 @@ function reducer(state: StateType, action: Action): StateType {
 }
 
 const INITIAL_STATE: StateType = {
+  sensors: [],
   locations: [],
   selectedFromDate: moment()
     .subtract(1, "month")
@@ -46,9 +61,12 @@ export const UserContext = createContext<{
 });
 
 export function SearchDataProvider({ children }: { children: ReactNode }) {
+  const [open, setOpen] = React.useState(false);
   const paramsQuery = useRouterParamsQuery(QUERY_PARAMS);
+  const { data, error } = useSensorsQuery();
 
   const [state, dispatch] = useReducer(reducer, {
+    sensors: remappedSensorOptions(data) || INITIAL_STATE.sensors,
     locations: paramsQuery?.locations || INITIAL_STATE.locations,
     selectedFromDate:
       paramsQuery?.dates.selectedFromDate || INITIAL_STATE.selectedFromDate,
@@ -56,9 +74,35 @@ export function SearchDataProvider({ children }: { children: ReactNode }) {
       paramsQuery?.dates.selectedToDate || INITIAL_STATE.selectedToDate
   });
 
+  useEffect(() => {
+    if (data) {
+      dispatch({
+        type: ActionTypes.UPDATE_SENSORS,
+        payload: remappedSensorOptions(data)
+      });
+    }
+  }, [data]);
+
+  if (error) {
+    setOpen(true);
+  }
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
     <UserContext.Provider value={{ state, dispatch }}>
       {children}
+      <Snackbar open={open} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          <Trans>Something went wrong! Sensors are not available.</Trans>
+        </Alert>
+      </Snackbar>
     </UserContext.Provider>
   );
 }

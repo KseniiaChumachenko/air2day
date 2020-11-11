@@ -1,8 +1,22 @@
 import { Sensor } from "../../graphql/generated/graphql";
+import { Moment } from "moment";
+import { ActionTypes, OptionType } from "./constants";
 
-export enum OptionType {
-  sensor = "Sensors",
-  location = "Locations"
+export type DateType = string | Moment;
+
+export type StateType =
+  | {
+      sensors: PlaceType[];
+      locations: PlaceType[];
+      selectedFromDate: DateType;
+      selectedToDate: DateType;
+    }
+  | null
+  | undefined;
+
+export interface Action {
+  type: ActionTypes;
+  payload: StateType | PlaceType[] | DateType;
 }
 
 export type SensorWithType = Sensor & { type: OptionType };
