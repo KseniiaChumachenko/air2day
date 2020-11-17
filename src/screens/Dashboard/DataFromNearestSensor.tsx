@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import moment from "moment";
-import {
-  useDataTableLazyQuery,
-} from "../../graphql/generated/graphql";
+import { useDataTableLazyQuery } from "../../graphql/generated/graphql";
 import {
   Card,
   CardContent,
