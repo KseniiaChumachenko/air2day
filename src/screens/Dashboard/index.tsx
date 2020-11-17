@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Trans } from "@lingui/macro";
 import {
   Card,
@@ -14,6 +14,8 @@ import { ScrollableContainer } from "../../components/ScrollableContainer";
 import { useTabTitle } from "../../hooks/useTabTitle";
 import { useLanguageSetup } from "../../hooks/useLanguageSetup";
 import {
+  AirQualityIndexByLocationsQuery,
+  DashboardDataQuery,
   useAirQualityIndexByLocationsQuery,
   useDashboardDataQuery
 } from "../../graphql/generated/graphql";
@@ -68,50 +70,15 @@ export const Dashboard = () => {
           </Card>
         </Grid>
 
-        <Grid item md={6}>
-          <CardView
-            media={
-              data?.sensorsCount || (
-                <CircularProgress size={40} color={"secondary"} />
-              )
-            }
-            text={<Trans>sensors collecting data for you</Trans>}
-          />
-        </Grid>
-        <Grid item md={6}>
-          <CardView
-            media={
-              data?.providersCount || (
-                <CircularProgress size={40} color={"secondary"} />
-              )
-            }
-            text={
-              <Trans>
-                providers ensuring sensor condition to keep you updated
-              </Trans>
-            }
-          />
-        </Grid>
+        <SensorsCount data={data} />
+        <ProvidersCount data={data} />
         <AboutCurrentLocationCard
           userPosition={userPosition}
           nearestSensor={nearestSensor}
         />
         <DataFromNearestSensor sensorId={nearestSensor?.id} />
-        <Grid item md={6}>
-          <CardView
-            media={
-              airQualityIndexes?.data?.commonAirQualityIndex || (
-                <CircularProgress size={40} color={"secondary"} />
-              )
-            }
-            text={
-              <Trans>
-                is <i>Common air quality index</i> based on information, from
-                the <b>nearest sensor</b>
-              </Trans>
-            }
-          />
-        </Grid>
+
+        <AirQualityIndex data={airQualityIndexes?.data} />
         {/*<Grid item md={6}>*/}
         {/*  <CardView*/}
         {/*    media={*/}
@@ -134,3 +101,51 @@ export const Dashboard = () => {
     </ScrollableContainer>
   );
 };
+
+
+const DefaultDashboardCard = ({
+                                data,
+                                message
+                              }: {
+  data?: number;
+  message: ReactNode;
+}) => (
+    <Grid item md={6}>
+      <CardView
+          media={data || <CircularProgress size={40} color={"secondary"} />}
+          text={message}
+      />
+    </Grid>
+);
+
+const SensorsCount = ({ data }: { data: DashboardDataQuery }) => (
+    <DefaultDashboardCard
+        message={<Trans>sensors collecting data for you</Trans>}
+        data={data?.sensorsCount}
+    />
+);
+
+const ProvidersCount = ({ data }: { data: DashboardDataQuery }) => (
+    <DefaultDashboardCard
+        message={
+          <Trans>providers ensuring sensor condition to keep you updated</Trans>
+        }
+        data={data?.providersCount}
+    />
+);
+
+const AirQualityIndex = ({
+                           data
+                         }: {
+  data: AirQualityIndexByLocationsQuery;
+}) => (
+    <DefaultDashboardCard
+        message={
+          <Trans>
+            is <i>Common air quality index</i> based on information, from the
+            <b>nearest sensor</b>
+          </Trans>
+        }
+        data={data?.commonAirQualityIndex}
+    />
+);
