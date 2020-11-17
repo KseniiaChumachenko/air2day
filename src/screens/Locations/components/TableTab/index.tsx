@@ -104,15 +104,18 @@ const DataTable = ({
               )}
             </TableBody>
           </Table>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 50, 100]}
-            component="div"
-            count={sensorData?.length}
-            rowsPerPage={customRowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
+
+          {sensorData?.length > 0 && (
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 50, 100]}
+              component="div"
+              count={sensorData?.length}
+              rowsPerPage={customRowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          )}
         </>
       )}
     </Paper>

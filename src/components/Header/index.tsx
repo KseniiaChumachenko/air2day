@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     top: 0,
     left: 0,
     backgroundColor: theme.palette.background.paper,
-    zIndex: 2,
+    zIndex: 3,
 
     [theme.breakpoints.down("md")]: {
       flexWrap: "wrap"

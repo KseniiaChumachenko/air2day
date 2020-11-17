@@ -1,7 +1,7 @@
-import { SensorData } from "../../../../graphql/generated/graphql";
-import { SensorDataKey } from "../../SelectionFlow";
 import React, { useMemo } from "react";
+import { SensorData } from "../../../../graphql/generated/graphql";
 import { INITIAL_FILTER_STATE } from "./constants";
+import { SensorDataKey } from "../../model";
 
 export function useFilters(data?: SensorData[]) {
   const [filters, setFilters] = React.useState<

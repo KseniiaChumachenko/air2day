@@ -12,8 +12,8 @@ import {
   Theme,
   Typography
 } from "@material-ui/core";
-import { SensorDataConsumer } from "../../model";
-import { INITIAL_FILTER_STATE, SensorDataKey } from "../../SelectionFlow";
+import { SensorDataConsumer, SensorDataKey } from "../../model";
+import { INITIAL_FILTER_STATE } from "../DataDisplay/constants";
 
 const messages = {
   from: <Trans>From</Trans>,

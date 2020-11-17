@@ -10,3 +10,5 @@ export enum LocationParams {
   locations = "locations",
   dates = "dates"
 }
+
+export type SensorDataKey = keyof SensorData;
