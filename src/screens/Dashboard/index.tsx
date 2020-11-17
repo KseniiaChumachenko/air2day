@@ -102,50 +102,49 @@ export const Dashboard = () => {
   );
 };
 
-
 const DefaultDashboardCard = ({
-                                data,
-                                message
-                              }: {
+  data,
+  message
+}: {
   data?: number;
   message: ReactNode;
 }) => (
-    <Grid item md={6}>
-      <CardView
-          media={data || <CircularProgress size={40} color={"secondary"} />}
-          text={message}
-      />
-    </Grid>
+  <Grid item md={6}>
+    <CardView
+      media={data || <CircularProgress size={40} color={"secondary"} />}
+      text={message}
+    />
+  </Grid>
 );
 
 const SensorsCount = ({ data }: { data: DashboardDataQuery }) => (
-    <DefaultDashboardCard
-        message={<Trans>sensors collecting data for you</Trans>}
-        data={data?.sensorsCount}
-    />
+  <DefaultDashboardCard
+    message={<Trans>sensors collecting data for you</Trans>}
+    data={data?.sensorsCount}
+  />
 );
 
 const ProvidersCount = ({ data }: { data: DashboardDataQuery }) => (
-    <DefaultDashboardCard
-        message={
-          <Trans>providers ensuring sensor condition to keep you updated</Trans>
-        }
-        data={data?.providersCount}
-    />
+  <DefaultDashboardCard
+    message={
+      <Trans>providers ensuring sensor condition to keep you updated</Trans>
+    }
+    data={data?.providersCount}
+  />
 );
 
 const AirQualityIndex = ({
-                           data
-                         }: {
+  data
+}: {
   data: AirQualityIndexByLocationsQuery;
 }) => (
-    <DefaultDashboardCard
-        message={
-          <Trans>
-            is <i>Common air quality index</i> based on information, from the
-            <b>nearest sensor</b>
-          </Trans>
-        }
-        data={data?.commonAirQualityIndex}
-    />
+  <DefaultDashboardCard
+    message={
+      <Trans>
+        is <i>Common air quality index</i> based on information, from the
+        <b>nearest sensor</b>
+      </Trans>
+    }
+    data={data?.commonAirQualityIndex}
+  />
 );
