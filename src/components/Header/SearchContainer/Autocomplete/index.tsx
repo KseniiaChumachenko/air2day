@@ -129,16 +129,6 @@ export const Autocomplete = ({ className }: AutocompleteProps) => {
       renderInput={params => (
         <TextField
           {...params}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position={"end"}>
-                <IconButton>
-                  <SearchRounded />
-                </IconButton>
-              </InputAdornment>
-            ),
-            ...params.InputProps
-          }}
           label={<Trans>Select sensor or enter location</Trans>}
           variant="outlined"
           fullWidth={true}

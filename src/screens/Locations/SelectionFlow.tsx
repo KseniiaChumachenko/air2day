@@ -12,7 +12,7 @@ import ChartTab from "./components/CartsTab";
 import { SensorDataPickers, State } from "./components/SensorDataPickers";
 import { DataFilters } from "./components/DataFilters";
 import { SensorDataConsumer } from "./model";
-import { ExportTab } from "./components/ExportTab";
+import { ExportButton } from "./components/ExportButton";
 
 export type SensorDataKey = keyof SensorData;
 
@@ -175,7 +175,7 @@ export const SelectMenu = ({
             <ChartTab {...tabProps} />
           )}
           {state.tab === TabIds.export && confirmed && (
-            <ExportTab {...tabProps} />
+            <ExportButton {...tabProps} />
           )}
         </>
       )}

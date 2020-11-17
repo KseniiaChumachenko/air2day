@@ -9,7 +9,8 @@ import {
   makeStyles,
   MenuItem,
   Select,
-  Theme
+  Theme,
+  Typography
 } from "@material-ui/core";
 import { SensorDataConsumer } from "../../model";
 import { INITIAL_FILTER_STATE, SensorDataKey } from "../../SelectionFlow";
@@ -24,23 +25,25 @@ const messages = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      [theme.breakpoints.down("sm")]: {
-        height: "50vh"
+    selectorContainer: {
+      marginLeft: 0,
+      padding: theme.spacing(2),
+      minWidth: 160,
+
+      [theme.breakpoints.down("md")]: {
+        padding: 0,
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "flex-start",
+        alignItems: "flex-end"
       }
     },
     select: {
+      minWidth: 80,
       maxWidth: 220,
       margin: theme.spacing(1),
       display: "flex",
       flexGrow: 1
-    },
-    selectorContainer: {
-      marginLeft: 0,
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "flex-start",
-      padding: 0
     },
     clearAllButton: {
       margin: "auto auto 0"
@@ -68,6 +71,9 @@ export const DataFilters = ({
 
   return (
     <div className={classes.selectorContainer}>
+      <Typography variant={"h6"} color={"textPrimary"}>
+        <Trans>Filters: </Trans>
+      </Typography>
       {keysToMap.map((key, index) => {
         const filterItems = [...new Set(sensorData?.map(data => data[key]))]; // ind. values for filter
         return (

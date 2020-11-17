@@ -33,10 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const Locations = () => {
-  const [getSensorData, sensorData] = useDataTableLazyQuery({
-    onError: error => console.log(error)
-  });
-
   const classes = useStyles({});
   // const { data, loading, error } = useSensorsQuery();
   useTabTitle("Locations");
@@ -63,11 +59,7 @@ export const Locations = () => {
         {/*<div className={classes.dataColumn}>*/}
         {/*  <SelectMenu sensorList={data?.sensors} tabId={TabIds.charts} />*/}
         {/*</div>*/}
-        <DataDisplay
-          tabId={TabIds.charts}
-          getSensorData={getSensorData}
-          sensorData={sensorData}
-        />
+        <DataDisplay tabId={TabIds.charts} />
         {/*        </>
         )}*/}
       </Container>
