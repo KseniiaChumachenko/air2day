@@ -5,12 +5,16 @@ import { Container, createStyles, Theme, makeStyles } from "@material-ui/core";
 import { SelectMenu, TabIds } from "./SelectionFlow";
 import { Map } from "./components/Map";
 import { Error } from "src/components/Error";
-import { useSensorsQuery } from "../../graphql/generated/graphql";
+import {
+  useDataTableLazyQuery,
+  useSensorsQuery
+} from "../../graphql/generated/graphql";
 import { ScrollableContainer } from "../../components/ScrollableContainer";
 import { useTabTitle } from "../../hooks/useTabTitle";
 import { useRouterParamsQuery } from "../../hooks/useRouterParamsQuery";
 import { LocationParams } from "./model";
-import { QUERY_PARAMS } from "../../store/SearchData/constants";
+import { QUERY_PARAMS } from "../../store/SearchDataProvider/constants";
+import { DataDisplay } from "./components/DataDisplay";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,34 +33,43 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const Locations = () => {
+  const [getSensorData, sensorData] = useDataTableLazyQuery({
+    onError: error => console.log(error)
+  });
+
   const classes = useStyles({});
-  const { data, loading, error } = useSensorsQuery();
+  // const { data, loading, error } = useSensorsQuery();
   useTabTitle("Locations");
 
-  if (loading) {
-    return (
-      <Skeleton
-        variant={"rect"}
-        width={"100%"}
-        height={"100%"}
-        className={classes.dataColumn}
-      />
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <Skeleton
+  //       variant={"rect"}
+  //       width={"100%"}
+  //       height={"100%"}
+  //       className={classes.dataColumn}
+  //     />
+  //   );
+  // }
 
   return (
     <ScrollableContainer>
       <Container className={classes.container} maxWidth={false}>
-        {error ? (
+        {/*  {error ? (
           <Error message={error.message} />
         ) : (
-          <>
-            <Map />
-            <div className={classes.dataColumn}>
-              <SelectMenu sensorList={data?.sensors} tabId={TabIds.charts} />
-            </div>
-          </>
-        )}
+          <>*/}
+        <Map />
+        {/*<div className={classes.dataColumn}>*/}
+        {/*  <SelectMenu sensorList={data?.sensors} tabId={TabIds.charts} />*/}
+        {/*</div>*/}
+        <DataDisplay
+          tabId={TabIds.charts}
+          getSensorData={getSensorData}
+          sensorData={sensorData}
+        />
+        {/*        </>
+        )}*/}
       </Container>
     </ScrollableContainer>
   );

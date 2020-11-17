@@ -23,8 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     message: {
       textDecoration: "none",
-      color: theme.palette.primary.main,
-      fontFamily: theme.typography.fontFamily
+      color: theme.palette.primary.main
     }
   })
 );

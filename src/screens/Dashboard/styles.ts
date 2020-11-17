@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     title: {
-      color: theme.palette.primary.light,
+      color: theme.palette.primary.main,
       lineHeight: 1.5,
       marginLeft: theme.spacing(1),
       letterSpacing: "0.1em",
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       alignItems: "center",
       marginLeft: theme.spacing(1),
-      color: theme.palette.primary.light
+      color: theme.palette.primary.main
     },
     content: {
       display: "flex",

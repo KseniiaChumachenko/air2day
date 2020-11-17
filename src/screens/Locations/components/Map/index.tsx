@@ -3,9 +3,9 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import GoogleMap from "../../../../components/GoogleApi";
 import { IMarkerProps } from "google-maps-react";
 import { usePositioning } from "../../../../hooks/usePositioning";
-import { useUpdateSearchData } from "../../../../store/SearchData";
-import { useThemingSetup } from "../../../../hooks/useThemingSetup";
-import { OptionType } from "../../../../store/SearchData/constants";
+import { useUpdateSearchData } from "../../../../store/SearchDataProvider";
+import { useTheme } from "../../../../store/ThemeProvider/useTheme";
+import { OptionType } from "../../../../store/SearchDataProvider/constants";
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,7 +22,7 @@ export function Map() {
   const classes = useStyles({});
   const userLocation = usePositioning();
   const { searchData, setLocations } = useUpdateSearchData();
-  const { theme } = useThemingSetup();
+  const { theme } = useTheme();
 
   const { sensors, locations } = useMemo(() => searchData, [searchData]);
 
@@ -45,6 +45,7 @@ export function Map() {
     .concat(filteredLocations)
     .map(sensor => ({
       title: sensor.code,
+      // label: sensor.code,
       icon: {
         path: SensorIcon,
         fillColor: activeSensorColor(sensor.id),
@@ -60,8 +61,6 @@ export function Map() {
         )
     }));
 
-  console.log(markers);
-
   return (
     <div className={classes.container}>
       <GoogleMap
@@ -69,6 +68,7 @@ export function Map() {
           lat: userLocation.coords.latitude,
           lng: userLocation.coords.longitude
         }}
+        zoom={12}
         markers={markers}
       />
     </div>

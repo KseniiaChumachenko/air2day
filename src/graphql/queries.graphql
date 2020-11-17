@@ -19,6 +19,7 @@ query DataTable($from: OffsetDateTime, $to: OffsetDateTime, $sensorId: String) {
     hourAvg
     value
     id
+    sensorIds
   }
 }
 
@@ -60,11 +61,11 @@ query SensorsPosition {
 
 query airQualityIndexByLocations(
   $sensorId: String
-  $latitude: Float
-  $longitude: Float
+#  $latitude: Float
+#  $longitude: Float
 ) {
   commonAirQualityIndex(sensorId: $sensorId)
-  interpolatedCommonAirQualityIndex(latitude: $latitude, longitude: $longitude)
+#  interpolatedCommonAirQualityIndex(latitude: $latitude, longitude: $longitude)
 }
 
 query airPolutionPrediction(

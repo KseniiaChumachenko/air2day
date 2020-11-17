@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import logo from "../assets/Combined_logo.png";
-import { useClearSearchData } from "../../../store/SearchData";
+import { useClearSearchData } from "../../../store/SearchDataProvider";
 
 const useStyles = makeStyles(theme => ({
   root: {

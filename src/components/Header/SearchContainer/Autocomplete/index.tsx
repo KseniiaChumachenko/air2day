@@ -18,9 +18,9 @@ import {
 } from "@material-ui/icons";
 import { Trans } from "@lingui/macro";
 
-import { PlaceType } from "../../../../store/SearchData/model";
-import { OptionType } from "src/store/SearchData/constants";
-import { useUpdateSearchData } from "../../../../store/SearchData";
+import { PlaceType } from "../../../../store/SearchDataProvider/model";
+import { OptionType } from "src/store/SearchDataProvider/constants";
+import { useUpdateSearchData } from "../../../../store/SearchDataProvider";
 
 const autocompleteService: any = { current: null };
 
@@ -109,8 +109,6 @@ export const Autocomplete = ({ className }: AutocompleteProps) => {
       setOptions(prevState => prevState.concat(sensors));
     }
   }, [sensors]);
-
-  console.log(locations);
 
   return options ? (
     <MAutocomplete

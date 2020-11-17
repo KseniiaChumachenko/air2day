@@ -4,7 +4,7 @@ import moment, { Moment } from "moment";
 import { Button, makeStyles } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { Trans } from "@lingui/macro";
-import { useUpdateSearchData } from "src/store/SearchData";
+import { useUpdateSearchData } from "src/store/SearchDataProvider";
 import { Autocomplete } from "./Autocomplete";
 import { LocationParams } from "../../../screens/Locations/model";
 

@@ -55,7 +55,7 @@ export const lightTheme = {
     /////////////////////////////////////
   },
   typography: {
-    fontFamily: "'Open Sans',sans-serif"
+    fontFamily: "'Roboto', 'Roboto Mono', serif"
   }
 };
 

@@ -9,7 +9,7 @@ export const EmptyState = () => {
     <TableRow>
       <TableCell className={classes.emptyState}>
         <Typography className={classes.emptyState} color={"textPrimary"}>
-          <Trans>No data for this time frame occurred!</Trans>
+          <Trans>No data occurred!</Trans>
         </Typography>
       </TableCell>
     </TableRow>

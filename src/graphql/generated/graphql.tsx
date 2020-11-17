@@ -2,7 +2,9 @@ import gql from "graphql-tag";
 import * as ApolloReactCommon from "@apollo/client";
 import * as ApolloReactHooks from "@apollo/client";
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -149,7 +151,7 @@ export type DataTableQuery = { __typename?: "Query" } & {
       Maybe<
         { __typename?: "SensorData" } & Pick<
           SensorData,
-          "from" | "to" | "pollutant" | "hourAvg" | "value" | "id"
+          "from" | "to" | "pollutant" | "hourAvg" | "value" | "id" | "sensorIds"
         >
       >
     >
@@ -208,13 +210,11 @@ export type SensorsPositionQuery = { __typename?: "Query" } & {
 
 export type AirQualityIndexByLocationsQueryVariables = Exact<{
   sensorId?: Maybe<Scalars["String"]>;
-  latitude?: Maybe<Scalars["Float"]>;
-  longitude?: Maybe<Scalars["Float"]>;
 }>;
 
 export type AirQualityIndexByLocationsQuery = { __typename?: "Query" } & Pick<
   Query,
-  "commonAirQualityIndex" | "interpolatedCommonAirQualityIndex"
+  "commonAirQualityIndex"
 >;
 
 export type AirPolutionPredictionQueryVariables = Exact<{
@@ -295,6 +295,7 @@ export const DataTableDocument = gql`
       hourAvg
       value
       id
+      sensorIds
     }
   }
 `;
@@ -491,16 +492,8 @@ export type SensorsPositionQueryResult = ApolloReactCommon.QueryResult<
   SensorsPositionQueryVariables
 >;
 export const AirQualityIndexByLocationsDocument = gql`
-  query airQualityIndexByLocations(
-    $sensorId: String
-    $latitude: Float
-    $longitude: Float
-  ) {
+  query airQualityIndexByLocations($sensorId: String) {
     commonAirQualityIndex(sensorId: $sensorId)
-    interpolatedCommonAirQualityIndex(
-      latitude: $latitude
-      longitude: $longitude
-    )
   }
 `;
 export function useAirQualityIndexByLocationsQuery(

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { createMuiTheme, Theme, useMediaQuery } from "@material-ui/core";
-import { darkTheme, lightTheme } from "../theme";
+import { darkTheme, lightTheme } from "./theme";
 
-export function useThemingSetup(): {
+export function useTheme(): {
   theme: Theme;
   setTheme: React.Dispatch<React.SetStateAction<boolean>>;
 } {

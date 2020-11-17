@@ -25,6 +25,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     coordsContainer: {
       display: "flex"
+    },
+    contentContainer: {
+      display: "flex",
+      flexWrap: "wrap"
+    },
+    locationItemContainer: {
+      maxWidth: "50%"
     }
   })
 );
@@ -47,7 +54,7 @@ function LocationItem({
 }) {
   const classes = useStyles({});
   return (
-    <React.Fragment>
+    <div className={classes.locationItemContainer}>
       <Typography variant={"h6"}>{title}</Typography>
       <ListItem>
         <ListItemIcon>
@@ -83,7 +90,7 @@ function LocationItem({
           }
         />
       </ListItem>
-    </React.Fragment>
+    </div>
   );
 }
 
@@ -99,7 +106,7 @@ export function AboutCurrentLocationCard({
   return (
     <Grid item xs={12}>
       <Card className={classes.root}>
-        <CardContent>
+        <CardContent className={classes.contentContainer}>
           <LocationItem
             title={<Trans>About your current location:</Trans>}
             latitude={userPosition?.coords?.latitude}
