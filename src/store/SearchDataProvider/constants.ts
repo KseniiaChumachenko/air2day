@@ -1,4 +1,6 @@
 import { LocationParams } from "../../screens/Locations/model";
+import { StateType } from "./model";
+import moment from "moment";
 
 export enum OptionType {
   sensor = "Sensors",
@@ -14,3 +16,12 @@ export enum ActionTypes {
 }
 
 export const QUERY_PARAMS = [LocationParams.locations, LocationParams.dates];
+
+export const INITIAL_STATE: StateType = {
+  sensors: [],
+  locations: [],
+  selectedFromDate: moment()
+    .subtract(1, "month")
+    .format(),
+  selectedToDate: moment().format()
+};

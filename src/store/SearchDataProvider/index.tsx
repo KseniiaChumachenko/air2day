@@ -14,7 +14,12 @@ import { Trans } from "@lingui/macro";
 import { useRouterParamsQuery } from "../../hooks/useRouterParamsQuery";
 import { SensorsQuery, useSensorsQuery } from "../../graphql/generated/graphql";
 import { getSensorAddress } from "../../components/GoogleApi/useSensorGeocoding";
-import { QUERY_PARAMS, OptionType, ActionTypes } from "./constants";
+import {
+  QUERY_PARAMS,
+  OptionType,
+  ActionTypes,
+  INITIAL_STATE
+} from "./constants";
 
 const remappedSensorOptions: (data: SensorsQuery) => PlaceType[] = data =>
   data?.sensors.map(option => ({
@@ -42,15 +47,6 @@ function reducer(state: StateType, action: Action): StateType {
       return { ...state, selectedToDate: action.payload as DateType };
   }
 }
-
-const INITIAL_STATE: StateType = {
-  sensors: [],
-  locations: [],
-  selectedFromDate: moment()
-    .subtract(1, "month")
-    .format(),
-  selectedToDate: moment().format()
-};
 
 export const UserContext = createContext<{
   state: StateType;
@@ -134,7 +130,7 @@ export function useUpdateSearchData() {
 export function useClearSearchData() {
   const { searchData, dispatch } = useSearchData();
   const clearSearchData = () =>
-    dispatch({ type: ActionTypes.UPDATE_ALL, payload: INITIAL_STATE });
+    dispatch({ type: ActionTypes.UPDATE_LOCATIONS, payload: [] });
 
   return { searchData, clearSearchData };
 }
