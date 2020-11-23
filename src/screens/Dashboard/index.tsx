@@ -1,6 +1,7 @@
 import React from "react";
 import { Trans } from "@lingui/macro";
 import {
+  Button,
   Card,
   CardContent,
   CircularProgress,
@@ -27,6 +28,7 @@ import { Position } from "../../types/model";
 import { useSensorGeocoding } from "../../components/GoogleApi/useSensorGeocoding";
 import { DefaultDashboardCard } from "./DefaultDashboardCard";
 import useStyles from "./styles";
+import { useHistory } from "react-router-dom";
 
 export const Dashboard = () => {
   const { locale } = useLanguageSetup();
@@ -102,14 +104,28 @@ export const Dashboard = () => {
   );
 };
 
-const SensorsCount = ({ data }: { data: DashboardDataQuery }) => (
-  <DefaultDashboardCard
-    message={<Trans>sensors collecting data for you</Trans>}
-    data={
-      data?.sensorsCount || <CircularProgress size={40} color={"secondary"} />
-    }
-  />
-);
+const SensorsCount = ({ data }: { data: DashboardDataQuery }) => {
+  const history = useHistory();
+  const handleRedirect = () => {
+    history.push("/locations");
+  };
+
+  return (
+    <DefaultDashboardCard
+      message={
+        <>
+          <Trans>sensors collecting data for you</Trans>
+          <Button variant={"text"} onClick={handleRedirect }>
+            View locations
+          </Button>
+        </>
+      }
+      data={
+        data?.sensorsCount || <CircularProgress size={40} color={"secondary"} />
+      }
+    />
+  );
+};
 
 const ProvidersCount = ({ data }: { data: DashboardDataQuery }) => (
   <DefaultDashboardCard

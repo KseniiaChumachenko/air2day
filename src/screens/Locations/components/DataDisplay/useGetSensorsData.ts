@@ -20,13 +20,13 @@ export function useGetSensorsData() {
     [searchData]
   );
 
-  const [data, setData] = useState<SensorsData>();
+  const [data, setData] = useState<SensorsData | undefined>();
   const [error, setError] = useState<ApolloError | undefined>();
 
   // fetch of data from first filter
   const { loading, fetchMore } = useDataTableQuery({
     variables: {
-      sensorId: locations[0].id,
+      sensorId: locations[0]?.id,
       from: moment(selectedFromDate, "YYYY-MM-DDTHH:mm:ss"),
       to: moment(selectedToDate, "YYYY-MM-DDTHH:mm:ss")
     },
