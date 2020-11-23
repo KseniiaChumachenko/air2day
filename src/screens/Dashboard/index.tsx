@@ -115,7 +115,7 @@ const SensorsCount = ({ data }: { data: DashboardDataQuery }) => {
       message={
         <>
           <Trans>sensors collecting data for you</Trans>
-          <Button variant={"text"} onClick={handleRedirect }>
+          <Button variant={"text"} onClick={handleRedirect}>
             View locations
           </Button>
         </>
