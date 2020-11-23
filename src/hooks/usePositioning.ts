@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { now } from "moment";
+import { Position } from "src/types/model";
 
 const Prague: Position = {
   coords: {
@@ -12,7 +13,7 @@ const Prague: Position = {
     heading: null,
     speed: null
   },
-  timestamp: now()
+  timestamp: new Date()
 };
 
 export function usePositioning() {
@@ -22,7 +23,7 @@ export function usePositioning() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         position => {
-          setState(position);
+          setState(position as any);
         },
         () => setState(Prague),
         { enableHighAccuracy: true }

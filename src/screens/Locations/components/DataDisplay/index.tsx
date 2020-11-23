@@ -10,11 +10,8 @@ import {
 import { Trans } from "@lingui/macro";
 import Table from "../TableTab";
 import ChartTab from "../CartsTab";
-import { ExportButton } from "../ExportButton";
-import { DataFilters } from "../DataFilters";
 import { SensorDataConsumer } from "../../model";
 import { useGetSensorsData } from "./useGetSensorsData";
-import { useFilters } from "./useFilters";
 import { TabIds } from "./constants";
 import { Alert } from "@material-ui/lab";
 
@@ -32,18 +29,15 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-/* TODO: remove SelectionFlow.tsx - it's old duplicate  */
-/* TODO: data joined in one array: split fetched items  */
 export const DataDisplay = ({ tabId }: { tabId: string }) => {
   const classes = useStyles();
   const [tab, setTab] = React.useState(tabId);
 
   const { data, loading, error } = useGetSensorsData();
-  const { filteredData, filters, setFilters } = useFilters(data);
 
   const tabProps: SensorDataConsumer = {
-    sensorData: filteredData,
-    loading: loading || !filteredData
+    data,
+    loading
   };
   const handleTabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
     setTab(newValue);
@@ -51,18 +45,6 @@ export const DataDisplay = ({ tabId }: { tabId: string }) => {
 
   return (
     <div className={classes.root}>
-      <div>
-        {data.length > 0 && (
-          <>
-            <DataFilters
-              sensorData={data}
-              activeFilters={filters}
-              setActiveFilter={setFilters}
-            />
-            <ExportButton {...tabProps} />
-          </>
-        )}
-      </div>
       <div className={classes.tabs}>
         <Tabs
           value={tab}

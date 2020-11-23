@@ -3,7 +3,11 @@ import { ApolloError } from "@apollo/client";
 import moment from "moment";
 
 import { useUpdateSearchData } from "../../../../store/SearchDataProvider";
-import { useDataTableQuery } from "../../../../graphql/generated/graphql";
+import {
+  SensorData,
+  useDataTableQuery
+} from "../../../../graphql/generated/graphql";
+import { SensorsData } from "../../model";
 
 /*
  * Data fetch logic
@@ -16,7 +20,7 @@ export function useGetSensorsData() {
     [searchData]
   );
 
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<SensorsData>();
   const [error, setError] = useState<ApolloError | undefined>();
 
   // fetch of data from first filter
@@ -27,7 +31,10 @@ export function useGetSensorsData() {
       to: moment(selectedToDate, "YYYY-MM-DDTHH:mm:ss")
     },
     onCompleted: data1 =>
-      setData(prevState => prevState.concat(data1.sensorData)),
+      setData(prevState => ({
+        ...prevState,
+        [locations[0].code]: data1.sensorData as SensorData[]
+      })),
     onError: error1 => setError(error1)
   });
 
@@ -47,7 +54,10 @@ export function useGetSensorsData() {
               setError(error);
             }
             if (data) {
-              setData(prevState => prevState.concat(data.sensorData));
+              setData(prevState => ({
+                ...prevState,
+                [l.code]: data.sensorData as SensorData[]
+              }));
             }
           });
         }
@@ -56,7 +66,7 @@ export function useGetSensorsData() {
   }, [locations, selectedToDate, selectedFromDate]);
 
   return {
-    data: data,
+    data,
     loading,
     error
   };

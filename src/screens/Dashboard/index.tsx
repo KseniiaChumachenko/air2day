@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { Trans } from "@lingui/macro";
 import {
   Card,
@@ -8,22 +8,25 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { CardView } from "./Card";
-import useStyles from "./styles";
 import { ScrollableContainer } from "../../components/ScrollableContainer";
 import { useTabTitle } from "../../hooks/useTabTitle";
 import { useLanguageSetup } from "../../hooks/useLanguageSetup";
 import {
   AirQualityIndexByLocationsQuery,
   DashboardDataQuery,
+  Sensor,
   useAirQualityIndexByLocationsQuery,
   useDashboardDataQuery
 } from "../../graphql/generated/graphql";
 import { usePositioning } from "../../hooks/usePositioning";
 import { useNearestSensor } from "../../hooks/useNearestSensor";
 import { AirQualityPredictionCard } from "./AirQualityPredictionCard";
-import { AboutCurrentLocationCard } from "./AboutCurrentLocationCard";
-import { DataFromNearestSensor } from "./DataFromNearestSensor";
+import { LocationItem } from "./LocationItem";
+import { useAddressFromCoordinates } from "../../components/GoogleApi/useAddressFromCoordinates";
+import { Position } from "../../types/model";
+import { useSensorGeocoding } from "../../components/GoogleApi/useSensorGeocoding";
+import { DefaultDashboardCard } from "./DefaultDashboardCard";
+import useStyles from "./styles";
 
 export const Dashboard = () => {
   const { locale } = useLanguageSetup();
@@ -72,11 +75,8 @@ export const Dashboard = () => {
 
         <SensorsCount data={data} />
         <ProvidersCount data={data} />
-        <AboutCurrentLocationCard
-          userPosition={userPosition}
-          nearestSensor={nearestSensor}
-        />
-        <DataFromNearestSensor sensorId={nearestSensor?.id} />
+        <AboutCurrentLocation userPosition={userPosition} />
+        <AboutNearestSensor nearestSensor={nearestSensor} />
 
         <AirQualityIndex data={airQualityIndexes?.data} />
         {/*<Grid item md={6}>*/}
@@ -102,25 +102,12 @@ export const Dashboard = () => {
   );
 };
 
-const DefaultDashboardCard = ({
-  data,
-  message
-}: {
-  data?: number;
-  message: ReactNode;
-}) => (
-  <Grid item md={6}>
-    <CardView
-      media={data || <CircularProgress size={40} color={"secondary"} />}
-      text={message}
-    />
-  </Grid>
-);
-
 const SensorsCount = ({ data }: { data: DashboardDataQuery }) => (
   <DefaultDashboardCard
     message={<Trans>sensors collecting data for you</Trans>}
-    data={data?.sensorsCount}
+    data={
+      data?.sensorsCount || <CircularProgress size={40} color={"secondary"} />
+    }
   />
 );
 
@@ -129,9 +116,43 @@ const ProvidersCount = ({ data }: { data: DashboardDataQuery }) => (
     message={
       <Trans>providers ensuring sensor condition to keep you updated</Trans>
     }
-    data={data?.providersCount}
+    data={
+      data?.providersCount || <CircularProgress size={40} color={"secondary"} />
+    }
   />
 );
+
+const AboutCurrentLocation = ({ userPosition }: { userPosition: Position }) => {
+  const userAddress = useAddressFromCoordinates(userPosition?.coords);
+  return (
+    <DefaultDashboardCard
+      message={
+        <LocationItem
+          title={<Trans>About your current location:</Trans>}
+          latitude={userPosition?.coords?.latitude}
+          longitude={userPosition?.coords?.longitude}
+          address={userAddress}
+        />
+      }
+    />
+  );
+};
+
+const AboutNearestSensor = ({ nearestSensor }: { nearestSensor: Sensor }) => {
+  const sensorAddress = useSensorGeocoding(nearestSensor);
+  return (
+    <DefaultDashboardCard
+      message={
+        <LocationItem
+          title={<Trans>About nearest sensor:</Trans>}
+          latitude={nearestSensor?.latitude}
+          longitude={nearestSensor?.longitude}
+          address={sensorAddress}
+        />
+      }
+    />
+  );
+};
 
 const AirQualityIndex = ({
   data
@@ -142,9 +163,13 @@ const AirQualityIndex = ({
     message={
       <Trans>
         is <i>Common air quality index</i> based on information, from the
-        <b>nearest sensor</b>
+        <b>&nbsp;nearest sensor</b>
       </Trans>
     }
-    data={data?.commonAirQualityIndex}
+    data={
+      data?.commonAirQualityIndex || (
+        <CircularProgress size={40} color={"secondary"} />
+      )
+    }
   />
 );

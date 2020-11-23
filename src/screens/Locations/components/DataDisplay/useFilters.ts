@@ -1,17 +1,17 @@
 import React, { useMemo } from "react";
-import { SensorData } from "../../../../graphql/generated/graphql";
 import { INITIAL_FILTER_STATE } from "./constants";
-import { SensorDataKey } from "../../model";
+import { SensorDataKey, SensorsData } from "../../model";
 
-export function useFilters(data?: SensorData[]) {
+export function useFilters(data?: SensorsData) {
   const [filters, setFilters] = React.useState<
     { [K in SensorDataKey]?: string }
   >(INITIAL_FILTER_STATE);
 
-  const filteredData = useMemo(() => {
-    return (
-      data.length > 0 &&
-      data.filter(item => {
+  const sensorIds = data && Object.keys(data);
+
+  const filteredData = sensorIds
+    ?.map((id, index) => ({
+      [sensorIds[index]]: data[id].filter(item => {
         return Object.keys(filters).every(key =>
           filters[key as SensorDataKey]
             ? Object.is(
@@ -21,8 +21,22 @@ export function useFilters(data?: SensorData[]) {
             : true
         );
       })
-    );
-  }, [data, filters]);
+    }))
+    .reduce((previousValue, currentValue) => ({
+      ...previousValue,
+      ...currentValue
+    }));
+
+  // const filteredData = {};
+  //     useMemo(() => {
+  //   return data.filter(item => {
+  //     return Object.keys(filters).every(key =>
+  //       filters[key as SensorDataKey]
+  //         ? Object.is(item[key as SensorDataKey], filters[key as SensorDataKey])
+  //         : true
+  //     );
+  //   });
+  // }, [data, filters]);
 
   return { filteredData, filters, setFilters };
 }

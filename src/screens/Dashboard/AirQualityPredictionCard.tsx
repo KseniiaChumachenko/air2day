@@ -19,6 +19,7 @@ import {
 } from "@material-ui/core";
 import moment from "moment";
 import { Trans } from "@lingui/macro";
+import { Position } from "src/types/model";
 
 const DATE_IN_MONTH = moment()
   .add(1, "months")

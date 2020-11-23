@@ -1,124 +1,47 @@
-import React from "react";
-import moment from "moment";
+import React, { useMemo } from "react";
 import { Trans } from "@lingui/macro";
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow
-} from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
 
 import useStyles from "./styles";
 import { EmptyState } from "./EmptyState";
-import { Loading } from "./Loading";
 import { SensorDataConsumer } from "../../model";
+import { useRemappedData } from "../DataDisplay/useRemappedData";
+import { TableWithPagination } from "./TableWithPagination";
 
-export const TableHeader = () => (
-  <TableHead>
-    <TableRow>
-      <TableCell>
-        <Trans>Date</Trans>
-      </TableCell>
-      <TableCell>
-        <Trans>Time</Trans>
-      </TableCell>
-      <TableCell>
-        <Trans>Pollutant</Trans>
-      </TableCell>
-      <TableCell>
-        <Trans>Per hour average</Trans>
-      </TableCell>
-      <TableCell>
-        <Trans>Value [µg/m³]</Trans>
-      </TableCell>
-    </TableRow>
-  </TableHead>
-);
-
-const DataTable = ({
-  sensorData,
-  loading,
-  rowsPerPage = 10
-}: SensorDataConsumer) => {
+const DataTable = ({ data, loading }: SensorDataConsumer) => {
   const classes = useStyles({});
+  const { remappedData, pollutants, hourAvgs, sensorIds } = useRemappedData(
+    data
+  );
 
-  const [page, setPage] = React.useState(0);
-  const [customRowsPerPage, setRowsPerPage] = React.useState(rowsPerPage);
+  const withData = useMemo(
+    () =>
+      !loading &&
+      pollutants.length > 0 &&
+      Math.max(
+        ...pollutants
+          .map(p => hourAvgs.map(h => remappedData[p][h as any].length))
+          .flat()
+      ),
+    [loading, pollutants, hourAvgs, remappedData]
+  );
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  return (
-    <Paper className={classes.root}>
-      {!loading && !(sensorData?.length > 0) ? (
-        <EmptyState />
-      ) : (
-        <>
-          <Table className={classes.table} stickyHeader={true} size={"small"}>
-            <TableHeader />
-            <TableBody>
-              {loading ? (
-                <Loading />
-              ) : (
-                sensorData?.length > 0 &&
-                sensorData
-                  .slice(
-                    page * customRowsPerPage,
-                    page * customRowsPerPage + customRowsPerPage
-                  )
-                  .map(({ from, to, pollutant, hourAvg, value }, key) => {
-                    const dateStamp =
-                      moment(from).format("DD/MM/YYYY") ===
-                      moment(to).format("DD/MM/YYYY")
-                        ? moment(from).format("DD/MM/YYYY")
-                        : String(
-                            moment(from).format("DD") +
-                              "-" +
-                              moment(to).format("DD/MM/YYYY")
-                          );
-                    return (
-                      <TableRow key={key}>
-                        <TableCell>{dateStamp}</TableCell>
-                        <TableCell>
-                          {moment(from).format("HH:mm") +
-                            "-" +
-                            moment(to).format("HH:mm")}
-                        </TableCell>
-                        <TableCell>{pollutant}</TableCell>
-                        <TableCell>{hourAvg}</TableCell>
-                        <TableCell>{value}</TableCell>
-                      </TableRow>
-                    );
-                  })
-              )}
-            </TableBody>
-          </Table>
-
-          {sensorData?.length > 0 && (
-            <TablePagination
-              rowsPerPageOptions={[10, 25, 50, 100]}
-              component="div"
-              count={sensorData?.length}
-              rowsPerPage={customRowsPerPage}
-              page={page}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-          )}
-        </>
-      )}
-    </Paper>
+  return withData ? (
+    <>
+      {pollutants.map((p, index) => (
+        <Paper className={classes.root} key={index}>
+          <TableWithPagination
+            title={<Trans>{p} pollution</Trans>}
+            loading={loading}
+            data={remappedData[p]}
+            hourAvgs={hourAvgs}
+            sensorIds={sensorIds}
+          />
+        </Paper>
+      ))}
+    </>
+  ) : (
+    <EmptyState />
   );
 };
 

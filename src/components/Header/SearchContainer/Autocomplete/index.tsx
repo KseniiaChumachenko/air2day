@@ -6,16 +6,10 @@ import {
   Grid,
   TextField,
   Typography,
-  InputAdornment,
-  IconButton,
   makeStyles
 } from "@material-ui/core";
 import { Autocomplete as MAutocomplete } from "@material-ui/lab";
-import {
-  LocationOnRounded,
-  MemoryRounded,
-  SearchRounded
-} from "@material-ui/icons";
+import { LocationOnRounded, MemoryRounded } from "@material-ui/icons";
 import { Trans } from "@lingui/macro";
 
 import { PlaceType } from "../../../../store/SearchDataProvider/model";

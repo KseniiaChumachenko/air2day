@@ -15,9 +15,11 @@ export const CardView = ({ text, media }: CardViewProps) => {
 
   return (
     <Card className={classes.root}>
-      <CardContent className={classes.media}>
-        <Typography variant={"h3"}>{media}</Typography>
-      </CardContent>
+      {media && (
+        <CardContent className={classes.media}>
+          <Typography variant={"h3"}>{media}</Typography>
+        </CardContent>
+      )}
       <Divider />
       <CardContent className={classes.content}>
         <Typography>{text}</Typography>

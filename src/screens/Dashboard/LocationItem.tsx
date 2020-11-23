@@ -1,9 +1,6 @@
 import React, { ReactNode } from "react";
 import {
-  Card,
-  CardContent,
   createStyles,
-  Grid,
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -11,37 +8,19 @@ import {
   Theme,
   Typography
 } from "@material-ui/core";
-import { Sensor } from "../../graphql/generated/graphql";
 import { Trans } from "@lingui/macro";
 import { MapRounded, MyLocationRounded } from "@material-ui/icons";
-import { useAddressFromCoordinates } from "../../components/GoogleApi/useAddressFromCoordinates";
 import { Skeleton } from "@material-ui/lab";
-import { useSensorGeocoding } from "../../components/GoogleApi/useSensorGeocoding";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      padding: theme.spacing(2)
-    },
     coordsContainer: {
       display: "flex"
-    },
-    contentContainer: {
-      display: "flex",
-      flexWrap: "wrap"
-    },
-    locationItemContainer: {
-      maxWidth: "50%"
     }
   })
 );
 
-interface AboutCurrentLocationCardProps {
-  userPosition: Position;
-  nearestSensor: Sensor;
-}
-
-function LocationItem({
+export function LocationItem({
   title,
   address,
   latitude,
@@ -54,7 +33,7 @@ function LocationItem({
 }) {
   const classes = useStyles({});
   return (
-    <div className={classes.locationItemContainer}>
+    <div>
       <Typography variant={"h6"}>{title}</Typography>
       <ListItem>
         <ListItemIcon>
@@ -91,36 +70,5 @@ function LocationItem({
         />
       </ListItem>
     </div>
-  );
-}
-
-export function AboutCurrentLocationCard({
-  userPosition,
-  nearestSensor
-}: AboutCurrentLocationCardProps) {
-  const classes = useStyles({});
-
-  const userAddress = useAddressFromCoordinates(userPosition?.coords);
-  const sensorAddress = useSensorGeocoding(nearestSensor);
-
-  return (
-    <Grid item xs={12}>
-      <Card className={classes.root}>
-        <CardContent className={classes.contentContainer}>
-          <LocationItem
-            title={<Trans>About your current location:</Trans>}
-            latitude={userPosition?.coords?.latitude}
-            longitude={userPosition?.coords?.longitude}
-            address={userAddress}
-          />
-          <LocationItem
-            title={<Trans>About nearest sensor:</Trans>}
-            latitude={nearestSensor?.latitude}
-            longitude={nearestSensor?.longitude}
-            address={sensorAddress}
-          />
-        </CardContent>
-      </Card>
-    </Grid>
   );
 }
