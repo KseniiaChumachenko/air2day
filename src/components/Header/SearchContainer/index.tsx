@@ -7,6 +7,7 @@ import { Trans } from "@lingui/macro";
 import { useUpdateSearchData } from "src/store/SearchDataProvider";
 import { Autocomplete } from "./Autocomplete";
 import { LocationParams } from "../../../screens/Locations/model";
+import { redirectQueryComposer } from "../../../utils/redirectQueryComposer";
 
 const formatDate = (date: string | Moment) =>
   moment(date, "YYYY-MM-DDTHH:mm:ss").format("YYYY/MMM/DD");
@@ -47,12 +48,7 @@ export const SearchContainer = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const {
-    searchData,
-    setToDate,
-    setFromDate,
-    setLocations
-  } = useUpdateSearchData();
+  const { searchData, setToDate, setFromDate } = useUpdateSearchData();
 
   const { locations, selectedToDate, selectedFromDate } = useMemo(
     () => searchData,
@@ -71,14 +67,7 @@ export const SearchContainer = () => {
   };
 
   const handleSearch = () =>
-    history.push(
-      `/locations?${LocationParams.locations}="${JSON.stringify(locations)}"&${
-        LocationParams.dates
-      }="${JSON.stringify({
-        selectedFromDate,
-        selectedToDate
-      })}"`
-    );
+    redirectQueryComposer(history, locations, selectedFromDate, selectedToDate);
 
   return (
     <div className={classes.searchContainer}>

@@ -1,8 +1,4 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
-import { LanguageProps } from "src/hooks/useLanguageSetup";
-
-const font = ({ locale }: { locale: LanguageProps }) =>
-  locale.language === "ru" ? "Varela Round" : "Roboto";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,11 +11,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     title: {
-      color: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
       lineHeight: 1.5,
       marginLeft: theme.spacing(1),
       letterSpacing: "0.1em",
-      fontFamily: font,
 
       [theme.breakpoints.down("sm")]: {
         lineHeight: 1,
@@ -30,7 +25,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     subtitle: {
-      fontFamily: font,
       lineHeight: 1.5,
       marginLeft: theme.spacing(8),
       color: theme.palette.secondary.main,
@@ -45,7 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     intro: {
-      fontFamily: font,
       marginTop: theme.spacing(1),
       marginLeft: theme.spacing(12),
       marginRight: theme.spacing(12),
@@ -66,11 +59,15 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       alignItems: "center",
       marginLeft: theme.spacing(1),
-      color: theme.palette.primary.main
+      color: theme.palette.secondary.main
     },
     content: {
       display: "flex",
       alignItems: "center"
+    },
+    cardActions: {
+      flex: 1,
+      justifyContent: "flex-end"
     }
   })
 );

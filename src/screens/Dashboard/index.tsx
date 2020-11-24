@@ -29,10 +29,11 @@ import { useSensorGeocoding } from "../../components/GoogleApi/useSensorGeocodin
 import { DefaultDashboardCard } from "./DefaultDashboardCard";
 import useStyles from "./styles";
 import { useHistory } from "react-router-dom";
+import { useUpdateSearchData } from "../../store/SearchDataProvider";
+import { redirectQueryComposer } from "../../utils/redirectQueryComposer";
 
 export const Dashboard = () => {
-  const { locale } = useLanguageSetup();
-  const classes = useStyles({ locale });
+  const classes = useStyles();
 
   useTabTitle("Dashboard");
 
@@ -113,15 +114,17 @@ const SensorsCount = ({ data }: { data: DashboardDataQuery }) => {
   return (
     <DefaultDashboardCard
       message={
-        <>
+        <Typography>
           <Trans>sensors collecting data for you</Trans>
-          <Button variant={"text"} onClick={handleRedirect}>
-            View locations
-          </Button>
-        </>
+        </Typography>
       }
       data={
         data?.sensorsCount || <CircularProgress size={40} color={"secondary"} />
+      }
+      action={
+        <Button variant={"text"} onClick={handleRedirect}>
+          View locations
+        </Button>
       }
     />
   );
@@ -130,7 +133,9 @@ const SensorsCount = ({ data }: { data: DashboardDataQuery }) => {
 const ProvidersCount = ({ data }: { data: DashboardDataQuery }) => (
   <DefaultDashboardCard
     message={
-      <Trans>providers ensuring sensor condition to keep you updated</Trans>
+      <Typography>
+        <Trans>providers ensuring sensor condition to keep you updated</Trans>
+      </Typography>
     }
     data={
       data?.providersCount || <CircularProgress size={40} color={"secondary"} />
@@ -155,7 +160,25 @@ const AboutCurrentLocation = ({ userPosition }: { userPosition: Position }) => {
 };
 
 const AboutNearestSensor = ({ nearestSensor }: { nearestSensor: Sensor }) => {
+  const history = useHistory();
+  const {
+    searchData: { selectedToDate, selectedFromDate, sensors },
+    setLocations
+  } = useUpdateSearchData();
   const sensorAddress = useSensorGeocoding(nearestSensor);
+
+  const findSensorAsPlaceType =
+    sensors && sensors.find(s => s?.id === nearestSensor?.id);
+
+  const handleClick = () => {
+    setLocations([findSensorAsPlaceType]);
+    redirectQueryComposer(
+      history,
+      [findSensorAsPlaceType],
+      selectedFromDate,
+      selectedToDate
+    );
+  };
   return (
     <DefaultDashboardCard
       message={
@@ -165,6 +188,11 @@ const AboutNearestSensor = ({ nearestSensor }: { nearestSensor: Sensor }) => {
           longitude={nearestSensor?.longitude}
           address={sensorAddress}
         />
+      }
+      action={
+        <Button variant={"text"} onClick={handleClick}>
+          View latest data
+        </Button>
       }
     />
   );
@@ -177,10 +205,12 @@ const AirQualityIndex = ({
 }) => (
   <DefaultDashboardCard
     message={
-      <Trans>
-        is <i>Common air quality index</i> based on information, from the
-        <b>&nbsp;nearest sensor</b>
-      </Trans>
+      <Typography>
+        <Trans>
+          is <i>Common air quality index</i> based on information, from the
+          <b>&nbsp;nearest sensor</b>
+        </Trans>
+      </Typography>
     }
     data={
       data?.commonAirQualityIndex || (

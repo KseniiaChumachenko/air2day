@@ -11,14 +11,7 @@ import {
 import { Trans } from "@lingui/macro";
 import { MapRounded, MyLocationRounded } from "@material-ui/icons";
 import { Skeleton } from "@material-ui/lab";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    coordsContainer: {
-      display: "flex"
-    }
-  })
-);
+import useStyles from "./styles";
 
 export function LocationItem({
   title,
@@ -41,13 +34,13 @@ export function LocationItem({
         </ListItemIcon>
         <ListItemText
           primary={
-            <div className={classes.coordsContainer}>
+            <span className={classes.root}>
               <Trans>
                 <b>Address: </b>
               </Trans>
               &nbsp;
               {address || <Skeleton variant={"text"} width={120} />}
-            </div>
+            </span>
           }
         />
       </ListItem>
@@ -57,7 +50,7 @@ export function LocationItem({
         </ListItemIcon>
         <ListItemText
           primary={
-            <div className={classes.coordsContainer}>
+            <span className={classes.root}>
               <Trans>
                 <b>Coordinates: </b>
               </Trans>
@@ -65,7 +58,7 @@ export function LocationItem({
               {latitude || <Skeleton variant={"text"} width={120} />}
               ,&nbsp;
               {longitude || <Skeleton variant={"text"} width={120} />}
-            </div>
+            </span>
           }
         />
       </ListItem>

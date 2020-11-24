@@ -117,3 +117,18 @@ export const darkTheme = {
     fontFamily: "'Roboto', 'Roboto Mono', serif"
   }
 };
+
+export const analogousColors = [
+  "#22D1EE",
+  "#226BEE",
+  "#3F22EE",
+  "#A522EE",
+  "#EE22D1",
+  "#EE226B",
+  "#3D5AF1",
+  "#7A3DF1",
+  "#D43DF1",
+  "#F13DB4",
+  "#F13D5A",
+  "#F17A3D"
+];
