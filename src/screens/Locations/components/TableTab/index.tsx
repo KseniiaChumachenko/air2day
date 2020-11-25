@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Trans } from "@lingui/macro";
-import { Paper, Typography } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 
 import useStyles from "./styles";
 import { EmptyState } from "./EmptyState";

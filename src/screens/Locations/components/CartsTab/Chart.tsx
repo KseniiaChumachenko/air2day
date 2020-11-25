@@ -15,6 +15,7 @@ import {
   SensorPollutionDataOverHourAvg,
   UseRemappedDataResults
 } from "../../model";
+import { analogousColors } from "../../../../store/ThemeProvider/theme";
 
 interface Props extends UseRemappedDataResults {
   title: ReactNode;
@@ -124,11 +125,7 @@ export const Chart = ({
         data={chartData}
         lineWidth={1}
         pointSize={2}
-        colors={
-          theme.palette.type === "light"
-            ? { scheme: "set1" }
-            : { scheme: "nivo" }
-        }
+        colors={analogousColors}
         margin={{ top: 15, right: 26, bottom: isMobile ? 220 : 140, left: 46 }}
         theme={createTheme(theme)}
         curve={"monotoneX"}

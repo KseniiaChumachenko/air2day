@@ -120,15 +120,15 @@ export const darkTheme = {
 
 export const analogousColors = [
   "#22D1EE",
+  "#F17A3D",
   "#226BEE",
-  "#3F22EE",
-  "#A522EE",
   "#EE22D1",
   "#EE226B",
-  "#3D5AF1",
+  "#A522EE",
+  "#3F22EE",
   "#7A3DF1",
   "#D43DF1",
   "#F13DB4",
   "#F13D5A",
-  "#F17A3D"
+  "#3D5AF1"
 ];

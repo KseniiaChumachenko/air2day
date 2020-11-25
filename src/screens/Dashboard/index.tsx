@@ -11,7 +11,6 @@ import {
 
 import { ScrollableContainer } from "../../components/ScrollableContainer";
 import { useTabTitle } from "../../hooks/useTabTitle";
-import { useLanguageSetup } from "../../hooks/useLanguageSetup";
 import {
   AirQualityIndexByLocationsQuery,
   DashboardDataQuery,

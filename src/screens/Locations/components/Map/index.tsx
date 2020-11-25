@@ -4,8 +4,8 @@ import GoogleMap from "../../../../components/GoogleApi";
 import { IMarkerProps } from "google-maps-react";
 import { usePositioning } from "../../../../hooks/usePositioning";
 import { useUpdateSearchData } from "../../../../store/SearchDataProvider";
-import { useTheme } from "../../../../store/ThemeProvider/useTheme";
 import { OptionType } from "../../../../store/SearchDataProvider/constants";
+import { analogousColors } from "../../../../store/ThemeProvider/theme";
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,7 +22,6 @@ export function Map() {
   const classes = useStyles({});
   const userLocation = usePositioning();
   const { searchData, setLocations } = useUpdateSearchData();
-  const { theme } = useTheme();
 
   const { sensors, locations } = useMemo(() => searchData, [searchData]);
 
@@ -30,10 +29,8 @@ export function Map() {
     const index = searchData.locations.findIndex(s => s.id === sensorId);
     if (index === -1) {
       return "black";
-    } else if (index % 2) {
-      return theme.palette.primary.main;
     } else {
-      return theme.palette.secondary.main;
+      return analogousColors[index];
     }
   };
 

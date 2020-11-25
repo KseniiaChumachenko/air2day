@@ -1,13 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import parse from "autosuggest-highlight/parse";
 import throttle from "lodash/throttle";
-import {
-  Chip,
-  Grid,
-  TextField,
-  Typography,
-  makeStyles
-} from "@material-ui/core";
+import { Grid, TextField, Typography, makeStyles } from "@material-ui/core";
 import { Autocomplete as MAutocomplete } from "@material-ui/lab";
 import { LocationOnRounded, MemoryRounded } from "@material-ui/icons";
 import { Trans } from "@lingui/macro";
@@ -15,6 +9,7 @@ import { Trans } from "@lingui/macro";
 import { PlaceType } from "../../../../store/SearchDataProvider/model";
 import { OptionType } from "src/store/SearchDataProvider/constants";
 import { useUpdateSearchData } from "../../../../store/SearchDataProvider";
+import { ColouredChip } from "../../../ColouredChip";
 
 const autocompleteService: any = { current: null };
 
@@ -130,9 +125,9 @@ export const Autocomplete = ({ className }: AutocompleteProps) => {
       )}
       renderTags={(value, getTagProps) =>
         value.map((option, index) => (
-          <Chip
+          <ColouredChip
             variant="outlined"
-            color={index % 2 ? "primary" : "secondary"}
+            colourIndex={index}
             label={option.code || option.structured_formatting?.main_text}
             {...getTagProps({ index })}
           />

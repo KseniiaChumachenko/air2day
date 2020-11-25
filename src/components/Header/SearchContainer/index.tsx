@@ -6,7 +6,6 @@ import { KeyboardDatePicker } from "@material-ui/pickers";
 import { Trans } from "@lingui/macro";
 import { useUpdateSearchData } from "src/store/SearchDataProvider";
 import { Autocomplete } from "./Autocomplete";
-import { LocationParams } from "../../../screens/Locations/model";
 import { redirectQueryComposer } from "../../../utils/redirectQueryComposer";
 
 const formatDate = (date: string | Moment) =>

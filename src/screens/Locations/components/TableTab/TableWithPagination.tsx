@@ -1,17 +1,12 @@
 import React, { useMemo } from "react";
 import moment from "moment";
 import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TablePagination,
-  TableRow,
-  Typography
+  TableRow
 } from "@material-ui/core";
 import { Trans } from "@lingui/macro";
 
@@ -23,6 +18,7 @@ import {
 } from "../../model";
 import { useUpdateSearchData } from "../../../../store/SearchDataProvider";
 import { Header } from "../Header";
+import { analogousColors } from "../../../../store/ThemeProvider/theme";
 
 const dateFormat = (date: string) => moment(date).format("DD/MM/YYYY");
 const dayFormat = (date: string) => moment(date).format("DD");
@@ -133,7 +129,7 @@ const TableHeader = () => {
           <Trans>Time</Trans>
         </TableCell>
         {locations.map((l, index) => (
-          <TableCell key={index}>
+          <TableCell key={index} style={{ color: analogousColors[index] }}>
             <Trans>{l.code} [µg/m³]</Trans>
           </TableCell>
         ))}
