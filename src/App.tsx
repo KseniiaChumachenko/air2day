@@ -19,6 +19,7 @@ import { SearchDataProvider } from "./store/SearchDataProvider";
 import { AppContainer } from "./components/AppContainer";
 import { Routes } from "./components/Routes";
 import { useGoogleApiScript } from "./components/GoogleApi/useGoogleApiScript";
+import { Cookies } from "./components/Cookies";
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -51,6 +52,7 @@ const App = () => {
                     setLocale={setLocale}
                   />
                   <Routes />
+                  <Cookies />
                 </AppContainer>
               </SearchDataProvider>
             </MuiPickersUtilsProvider>

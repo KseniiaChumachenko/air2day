@@ -6,6 +6,7 @@ import {
   CardContent,
   CircularProgress,
   Grid,
+  Snackbar,
   Typography
 } from "@material-ui/core";
 
@@ -30,13 +31,14 @@ import useStyles from "./styles";
 import { useHistory } from "react-router-dom";
 import { useUpdateSearchData } from "../../store/SearchDataProvider";
 import { redirectQueryComposer } from "../../utils/redirectQueryComposer";
+import { Alert } from "@material-ui/lab";
 
 export const Dashboard = () => {
   const classes = useStyles();
 
   useTabTitle("Dashboard");
 
-  const { data } = useDashboardDataQuery();
+  const { data, error } = useDashboardDataQuery();
 
   const userPosition = usePositioning();
   const nearestSensor = useNearestSensor();
@@ -74,31 +76,39 @@ export const Dashboard = () => {
             </CardContent>
           </Card>
         </Grid>
+        {data && (
+          <>
+            <SensorsCount data={data} />
+            <ProvidersCount data={data} />
+            <AboutCurrentLocation userPosition={userPosition} />
+            <AboutNearestSensor nearestSensor={nearestSensor} />
 
-        <SensorsCount data={data} />
-        <ProvidersCount data={data} />
-        <AboutCurrentLocation userPosition={userPosition} />
-        <AboutNearestSensor nearestSensor={nearestSensor} />
-
-        <AirQualityIndex data={airQualityIndexes?.data} />
-        {/*<Grid item md={6}>*/}
-        {/*  <CardView*/}
-        {/*    media={*/}
-        {/*      airQualityIndexes?.data?.interpolatedCommonAirQualityIndex || (*/}
-        {/*        <CircularProgress size={40} color={"secondary"} />*/}
-        {/*      )*/}
-        {/*    }*/}
-        {/*    text={*/}
-        {/*      <Trans>*/}
-        {/*        is <i>Common air quality index</i> calculated based on your*/}
-        {/*        <b> current location</b>*/}
-        {/*      </Trans>*/}
-        {/*    }*/}
-        {/*  />*/}
-        {/*</Grid>*/}
-        {/*{userPosition?.coords?.latitude && (*/}
-        {/*  <AirQualityPredictionCard userPosition={userPosition} />*/}
-        {/*)}*/}
+            <AirQualityIndex data={airQualityIndexes?.data} />
+            {/*<Grid item md={6}>*/}
+            {/*  <CardView*/}
+            {/*    media={*/}
+            {/*      airQualityIndexes?.data?.interpolatedCommonAirQualityIndex || (*/}
+            {/*        <CircularProgress size={40} color={"secondary"} />*/}
+            {/*      )*/}
+            {/*    }*/}
+            {/*    text={*/}
+            {/*      <Trans>*/}
+            {/*        is <i>Common air quality index</i> calculated based on your*/}
+            {/*        <b> current location</b>*/}
+            {/*      </Trans>*/}
+            {/*    }*/}
+            {/*  />*/}
+            {/*</Grid>*/}
+            {/*{userPosition?.coords?.latitude && (*/}
+            {/*  <AirQualityPredictionCard userPosition={userPosition} />*/}
+            {/*)}*/}
+          </>
+        )}
+        <Snackbar open={!!error}>
+          <Alert severity="error">
+            <Trans>Something went wrong! Data are not available.</Trans>
+          </Alert>
+        </Snackbar>
       </Grid>
     </ScrollableContainer>
   );
