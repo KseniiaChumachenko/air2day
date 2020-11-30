@@ -1,19 +1,8 @@
 import React, { useMemo } from "react";
 import { Trans } from "@lingui/macro";
 import Alert from "@material-ui/lab/Alert";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Link,
-  makeStyles,
-  Snackbar,
-  Theme
-} from "@material-ui/core";
-import { message } from "./message";
+import { Link, makeStyles, Snackbar, Theme } from "@material-ui/core";
+import { PrivacyPolicyDialog } from "./PrivacyPolicyDialog";
 
 const TRUE = "true";
 
@@ -69,19 +58,7 @@ export const Cookies = () => {
         </Alert>
       </Snackbar>
 
-      <Dialog open={openPolicy} onClose={handleClose}>
-        <DialogTitle>
-          <Trans>Privacy Policy</Trans>
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>{message}</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handlePolicyModalClose} color="primary">
-            <Trans>Close</Trans>
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <PrivacyPolicyDialog open={openPolicy} onClose={handlePolicyModalClose} />
     </div>
   );
 };

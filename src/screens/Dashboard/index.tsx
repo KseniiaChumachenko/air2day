@@ -50,7 +50,7 @@ export const Dashboard = () => {
   });
 
   return (
-    <ScrollableContainer>
+    <>
       <Grid container spacing={3} className={classes.container}>
         <Grid item xs={12}>
           <Card>
@@ -110,7 +110,7 @@ export const Dashboard = () => {
           </Alert>
         </Snackbar>
       </Grid>
-    </ScrollableContainer>
+    </>
   );
 };
 

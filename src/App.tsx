@@ -20,6 +20,7 @@ import { AppContainer } from "./components/AppContainer";
 import { Routes } from "./components/Routes";
 import { useGoogleApiScript } from "./components/GoogleApi/useGoogleApiScript";
 import { Cookies } from "./components/Cookies";
+import { Footer } from "./components/Footer";
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -53,6 +54,7 @@ const App = () => {
                   />
                   <Routes />
                   <Cookies />
+                  <Footer />
                 </AppContainer>
               </SearchDataProvider>
             </MuiPickersUtilsProvider>

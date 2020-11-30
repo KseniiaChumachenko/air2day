@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     container: {
+      height: "85%",
       padding: theme.spacing(3)
     },
 
