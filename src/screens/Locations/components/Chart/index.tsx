@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 import moment from "moment";
 import { ResponsiveLine } from "@nivo/line";
-import { ChartData } from "./index";
 import {
   createStyles,
   makeStyles,
@@ -10,18 +9,24 @@ import {
   useMediaQuery,
   useTheme
 } from "@material-ui/core";
-import { Header } from "../Header";
 import {
+  DataCardInfoItemProps,
   SensorPollutionDataOverHourAvg,
   UseRemappedDataResults
 } from "../../model";
 import { analogousColors } from "../../../../store/ThemeProvider/theme";
+import { EU_POLLUTION_LIMITS } from "../../../../constants/EU_POLLUTION_LIMITS";
+import { Trans } from "@lingui/macro";
 
-interface Props extends UseRemappedDataResults {
-  title: ReactNode;
-  axesLeftTitle: ReactNode;
-  axesBottomTitle: ReactNode;
-  data: SensorPollutionDataOverHourAvg;
+export type ChartData = Array<{
+  id: string | number;
+  data: Array<{ x: number | string | Date; y: number | string | Date }>;
+}>;
+
+interface Props extends DataCardInfoItemProps {
+  fromDates: string[];
+  pollutant: string;
+  hourAvg: number;
 }
 
 function createTheme(theme: Theme) {
@@ -62,13 +67,7 @@ function createTheme(theme: Theme) {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      height: 600,
-      paddingBottom: theme.spacing(4),
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(3)
-    },
-    title: {
-      padding: theme.spacing(2)
+      height: 600
     }
   })
 );
@@ -96,16 +95,13 @@ function chartAxes(
 
 export const Chart = ({
   data,
-  hourAvgs,
   sensorIds,
   fromDates,
-  title,
-  axesBottomTitle,
-  axesLeftTitle
+  pollutant,
+  hourAvg
 }: Props) => {
   const theme = useTheme();
   const classes = useStyles({});
-  const [hourAvg, setHourAvg] = React.useState(hourAvgs[0]);
 
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -113,17 +109,16 @@ export const Chart = ({
 
   const chartData = extractData && chartAxes(extractData, sensorIds, fromDates);
 
+  const limitValue = (EU_POLLUTION_LIMITS as any)[pollutant as any] || 10000000;
+
+  const aboveMaxValue = (d: any) =>
+    Math.max(...d.data.map((i: any) => i.data.y)) > limitValue;
+
   return (
-    <Paper className={classes.root}>
-      <Header
-        title={title}
-        setHourAvg={setHourAvg}
-        hourAvg={hourAvg}
-        hourAvgs={hourAvgs}
-      />
+    <div className={classes.root}>
       <ResponsiveLine
         data={chartData}
-        lineWidth={1}
+        lineWidth={2}
         pointSize={2}
         colors={analogousColors}
         margin={{ top: 15, right: 26, bottom: isMobile ? 220 : 140, left: 46 }}
@@ -133,13 +128,13 @@ export const Chart = ({
           type: "time"
         }}
         axisBottom={{
-          legend: axesBottomTitle,
+          legend: <Trans>Timestamp</Trans>,
           tickRotation: -45,
           legendOffset: 90,
           format: "%d/%m/%Y"
         }}
         axisLeft={{
-          legend: axesLeftTitle,
+          legend: <Trans>Value [µg/m³]</Trans>,
           legendOffset: -40
         }}
         legends={[
@@ -171,7 +166,38 @@ export const Chart = ({
         ]}
         enableSlices={"x"}
         useMesh={true}
+        //Gradients
+        enableArea={true}
+        defs={[
+          {
+            id: "gradientC",
+            type: "linearGradient",
+            colors: [
+              { offset: 0, color: "red" },
+              { offset: 15, color: "transparent" },
+              { offset: 100, color: "transparent" }
+            ]
+          },
+          {
+            id: "gradientT",
+            type: "linearGradient",
+            colors: [
+              { offset: 0, color: "transparent" },
+              { offset: 100, color: "transparent" }
+            ]
+          }
+        ]}
+        fill={[
+          {
+            match: d => aboveMaxValue(d),
+            id: "gradientC"
+          },
+          {
+            match: d => !aboveMaxValue(d),
+            id: "gradientT"
+          }
+        ]}
       />
-    </Paper>
+    </div>
   );
 };

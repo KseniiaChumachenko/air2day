@@ -3,33 +3,26 @@ import {
   createStyles,
   makeStyles,
   Snackbar,
-  Tab,
-  Tabs,
   Theme,
   Typography
 } from "@material-ui/core";
 import { Trans } from "@lingui/macro";
 import { Alert } from "@material-ui/lab";
 
-import Table from "../TableTab";
-import ChartTab from "../CartsTab";
-import { SensorDataConsumer } from "../../model";
 import { useGetSensorsData } from "./useGetSensorsData";
-import { TabIds } from "./constants";
 import { useUpdateSearchData } from "../../../../store/SearchDataProvider";
+import { useRemappedData } from "./useRemappedData";
+import { DataCard } from "../DataCard";
+import { LoadingDataCard } from "../DataCard/LoadingDataCard";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: "flex",
       [theme.breakpoints.down("md")]: {
         display: "block"
       }
     },
-    tabs: {
-      width: "100%"
-    },
-    noSensors: {
+    emptyState: {
       margin: theme.spacing(4),
       display: "flex",
       justifyContent: "center"
@@ -37,52 +30,44 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const DataDisplay = ({ tabId }: { tabId: string }) => {
+export const DataDisplay = () => {
   const classes = useStyles();
-  const [tab, setTab] = React.useState(tabId);
 
   const { searchData } = useUpdateSearchData();
   const { locations } = useMemo(() => searchData, [searchData]);
 
   const { data, loading, error } = useGetSensorsData();
 
-  const tabProps: SensorDataConsumer = {
-    data,
-    loading
-  };
-  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-    setTab(newValue);
-  };
+  const {
+    remappedData,
+    pollutants,
+    hourAvgs,
+    fromDates,
+    sensorIds
+  } = useRemappedData(data);
 
-  const isEmptyState = locations?.length === 0;
+  const isEmptyState = locations?.length === 0 || hourAvgs?.length < 1;
 
   return isEmptyState ? (
     <NoSensorsSelected />
   ) : (
     <div className={classes.root}>
-      <div className={classes.tabs}>
-        <Tabs
-          value={tab}
-          onChange={handleTabChange}
-          variant="fullWidth"
-          indicatorColor="primary"
-          textColor="primary"
-        >
-          <Tab
-            label={<Trans>Charts</Trans>}
-            aria-label="Charts"
-            value={TabIds.charts}
+      {loading ? (
+        <LoadingDataCard />
+      ) : (
+        pollutants?.map((p, i) => (
+          <DataCard
+            key={i}
+            pollutant={p}
+            hourAvgs={hourAvgs}
+            fromDates={fromDates}
+            data={remappedData[p]}
+            sensorIds={sensorIds}
           />
-          <Tab
-            label={<Trans>Tables</Trans>}
-            aria-label="Tables"
-            value={TabIds.tables}
-          />
-        </Tabs>
-        {tab === TabIds.charts && <ChartTab {...tabProps} />}
-        {tab === TabIds.tables && <Table {...tabProps} />}
-      </div>
-      <Snackbar open={!!error && !isEmptyState}>
+        ))
+      )}
+
+      <Snackbar open={!!error}>
         <Alert severity="error">
           <Trans>Something went wrong! Sensor data are not available.</Trans>
         </Alert>
@@ -97,9 +82,9 @@ const NoSensorsSelected = () => {
     <Typography
       variant={"h5"}
       color={"textPrimary"}
-      className={classes.noSensors}
+      className={classes.emptyState}
     >
-      <Trans>No sensors selected</Trans>
+      <Trans>No search results available</Trans>
     </Typography>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Theme } from "@material-ui/core";
+import { makeStyles, Paper, Theme } from "@material-ui/core";
 
 import { LanguageProps } from "../../hooks/useLanguageSetup";
 import { SearchContainer } from "./SearchContainer";
@@ -35,7 +35,7 @@ export const Header = ({ locale, setLocale, theme, setTheme }: Props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Paper className={classes.root} square={true}>
       <Logo />
       <Switches
         locale={locale}
@@ -51,6 +51,6 @@ export const Header = ({ locale, setLocale, theme, setTheme }: Props) => {
         theme={theme}
         setTheme={setTheme}
       />
-    </div>
+    </Paper>
   );
 };

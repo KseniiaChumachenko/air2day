@@ -1,47 +1,39 @@
 import React, { useMemo } from "react";
-import moment from "moment";
 import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TablePagination,
-  TableRow
+  TableRow,
+  useTheme
 } from "@material-ui/core";
 import { Trans } from "@lingui/macro";
 
-import { Loading } from "./Loading";
 import useStyles from "./styles";
-import {
-  SensorPollutionDataOverHourAvg,
-  UseRemappedDataResults
-} from "../../model";
+import { DataCardInfoItemProps } from "../../model";
 import { useUpdateSearchData } from "../../../../store/SearchDataProvider";
-import { Header } from "../Header";
 import { analogousColors } from "../../../../store/ThemeProvider/theme";
+import { EU_POLLUTION_LIMITS } from "../../../../constants/EU_POLLUTION_LIMITS";
+import {
+  dateFormat,
+  dayFormat,
+  timeFormat
+} from "../../../../utils/dateTimeHelpers";
 
-const dateFormat = (date: string) => moment(date).format("DD/MM/YYYY");
-const dayFormat = (date: string) => moment(date).format("DD");
-const timeFormat = (date: string) => moment(date).format("HH:mm");
-
-interface TableWithPaginationProps extends UseRemappedDataResults {
-  title: React.ReactNode;
-  loading?: boolean;
-  data: SensorPollutionDataOverHourAvg;
+interface TableWithPaginationProps extends DataCardInfoItemProps {
   rowsPerPage?: number;
 }
 
 export const TableWithPagination = ({
-  title,
-  loading,
   data,
-  hourAvgs,
+  hourAvg,
   sensorIds,
-  rowsPerPage = 10
+  rowsPerPage = 15,
+  pollutant
 }: TableWithPaginationProps) => {
   const [page, setPage] = React.useState(0);
   const [customRowsPerPage, setRowsPerPage] = React.useState(rowsPerPage);
-  const [hourAvg, setHourAvg] = React.useState(hourAvgs[0]);
 
   const classes = useStyles({});
 
@@ -59,21 +51,14 @@ export const TableWithPagination = ({
     setPage(0);
   };
 
+  const limitValue = (EU_POLLUTION_LIMITS as any)[pollutant as any] || 10000000;
+
   return (
     <>
-      <Header
-        title={title}
-        setHourAvg={setHourAvg}
-        hourAvg={hourAvg}
-        hourAvgs={hourAvgs}
-      />
       <Table className={classes.table} stickyHeader={true} size={"small"}>
         <TableHeader />
         <TableBody>
-          {loading ? (
-            <Loading />
-          ) : (
-            dataLength > 0 &&
+          {dataLength > 0 &&
             tableData
               .slice(
                 page * customRowsPerPage,
@@ -91,18 +76,21 @@ export const TableWithPagination = ({
                       {timeFormat(item.from) + "-" + timeFormat(item.to)}
                     </TableCell>
                     {sensorIds.map((s, index) => (
-                      <TableCell key={index}>{item[s]}</TableCell>
+                      <ColoredTableCell
+                        isDangerous={item[s] > limitValue}
+                        key={index}
+                        value={item[s]}
+                      />
                     ))}
                   </TableRow>
                 );
-              })
-          )}
+              })}
         </TableBody>
       </Table>
 
       {dataLength > 0 && (
         <TablePagination
-          rowsPerPageOptions={[10, 25, 50, 100]}
+          rowsPerPageOptions={[15, 25, 50, 100]}
           component="div"
           count={dataLength}
           rowsPerPage={customRowsPerPage}
@@ -135,5 +123,24 @@ const TableHeader = () => {
         ))}
       </TableRow>
     </TableHead>
+  );
+};
+
+const ColoredTableCell = ({
+  value,
+  isDangerous
+}: {
+  value: React.ReactNode;
+  isDangerous: boolean;
+}) => {
+  const theme = useTheme();
+  const color = useMemo(
+    () => (isDangerous ? theme.palette.error.main : theme.palette.text.primary),
+    [theme, isDangerous]
+  );
+  return (
+    <TableCell style={{ color }}>
+      <strong>{value}</strong>
+    </TableCell>
   );
 };

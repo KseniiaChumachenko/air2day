@@ -4,7 +4,6 @@ import { Map } from "./components/Map";
 import { ScrollableContainer } from "../../components/ScrollableContainer";
 import { useTabTitle } from "../../hooks/useTabTitle";
 import { DataDisplay } from "./components/DataDisplay";
-import { TabIds } from "./components/DataDisplay/constants";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +28,7 @@ export const Locations = () => {
     <ScrollableContainer>
       <Container className={classes.container} maxWidth={false}>
         <Map />
-        <DataDisplay tabId={TabIds.charts} />
+        <DataDisplay />
       </Container>
     </ScrollableContainer>
   );

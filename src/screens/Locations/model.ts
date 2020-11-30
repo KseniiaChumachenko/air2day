@@ -1,17 +1,9 @@
 import { SensorData } from "src/graphql/generated/graphql";
 
-export interface SensorDataConsumer {
-  data: SensorsData;
-  loading?: boolean;
-  rowsPerPage?: number;
-}
-
 export enum LocationParams {
   locations = "locations",
   dates = "dates"
 }
-
-export type SensorDataKey = keyof SensorData;
 
 export interface SensorsData {
   [key: string]: SensorData[];
@@ -43,4 +35,11 @@ export interface UseRemappedDataResults {
   hourAvgs?: number[];
   pollutants?: string[];
   sensorIds?: string[];
+}
+
+export interface DataCardInfoItemProps
+  extends Pick<UseRemappedDataResults, "sensorIds" | "hourAvgs"> {
+  data: SensorPollutionDataOverHourAvg;
+  hourAvg: number;
+  pollutant: string;
 }
