@@ -2,13 +2,19 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    gridWrapper: {
+      minHeight: "80%"
+    },
     root: {
       display: "flex"
     },
 
-    container: {
-      height: "85%",
-      padding: theme.spacing(3)
+    introCardContainer: {
+      display: "flex",
+      justifyContent: "space-between"
+    },
+    mainIllustration: {
+      margin: -16
     },
 
     title: {
@@ -46,6 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: 1.5,
       letterSpacing: "0.05em",
       textAlign: "justify",
+      maxWidth: 650,
 
       [theme.breakpoints.down("sm")]: {
         marginTop: theme.spacing(1),
@@ -54,6 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
         marginRight: "auto"
       }
     },
+
     media: {
       textAlign: "center",
       display: "flex",
@@ -64,7 +72,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       display: "flex",
-      alignItems: "center"
+      alignItems: "center",
+      paddingBottom: "16px !important"
     },
     cardActions: {
       flex: 1,

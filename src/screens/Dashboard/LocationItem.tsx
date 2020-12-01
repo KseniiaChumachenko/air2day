@@ -1,11 +1,8 @@
 import React, { ReactNode } from "react";
 import {
-  createStyles,
   ListItem,
   ListItemIcon,
   ListItemText,
-  makeStyles,
-  Theme,
   Typography
 } from "@material-ui/core";
 import { Trans } from "@lingui/macro";

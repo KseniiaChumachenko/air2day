@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import GoogleMap from "../../../../components/GoogleApi";
 import { IMarkerProps } from "google-maps-react";

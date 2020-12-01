@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: "8vh",
-      width: "100%",
       padding: theme.spacing(2),
       display: "flex"
     },

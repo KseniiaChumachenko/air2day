@@ -6,6 +6,7 @@ import {
   CardContent,
   CircularProgress,
   Grid,
+  Hidden,
   Snackbar,
   Typography
 } from "@material-ui/core";
@@ -32,6 +33,7 @@ import { useHistory } from "react-router-dom";
 import { useUpdateSearchData } from "../../store/SearchDataProvider";
 import { redirectQueryComposer } from "../../utils/redirectQueryComposer";
 import { Alert } from "@material-ui/lab";
+import { MainIllustration } from "./MainIllustration";
 
 export const Dashboard = () => {
   const classes = useStyles();
@@ -50,10 +52,15 @@ export const Dashboard = () => {
   });
 
   return (
-    <>
-      <Grid container spacing={3} className={classes.container}>
+    <div className={classes.gridWrapper}>
+      <Grid container spacing={0}>
         <Grid item xs={12}>
-          <Card>
+          <Card
+            variant={"outlined"}
+            square={true}
+            elevation={0}
+            className={classes.introCardContainer}
+          >
             <CardContent>
               <Typography variant={"h4"} className={classes.title}>
                 <Trans>Find & understand</Trans>
@@ -67,13 +74,34 @@ export const Dashboard = () => {
                 color={"textSecondary"}
               >
                 <Trans>
-                  We're compensating the lack of fine monitoring of air
-                  pollution and informing people about current and forthcoming
-                  state of air quality empowering them to live healthier lives
-                  and create more sustainable business.
+                  Combatting the emission of pollutants through effective
+                  reduction measures in order to avoid, prevent, or reduce at a
+                  local, national, and international levels is crucial to
+                  protect human health and the environment. However, combatting
+                  emissions of pollutants is no small feat and the task itself
+                  comes with a set of challenges - such as the current lack of
+                  fine monitoring, as well as deficiency in the available
+                  information on the risks pollutants pose.
+                  <br />
+                  <br />
+                  Therefore, a comprehensive overview of the available data on
+                  the ambient air quality is a crucial tool for citizens to
+                  establish a better understanding of the state of the air they
+                  are breathing and the ways in which pollution affects their
+                  health.
+                  <br />
+                  <br />
+                  Herein, this comprehensive overview can contribute to
+                  combatting the emissions of pollutants on all levels of
+                  society by give the ability for citizens become more informed
+                  consumers who encourage sustainable business, and more
+                  informed voters who ask more of their representatives.
                 </Trans>
               </Typography>
             </CardContent>
+            <Hidden mdDown={true}>
+              <MainIllustration className={classes.mainIllustration} />
+            </Hidden>
           </Card>
         </Grid>
         {data && (
@@ -110,7 +138,7 @@ export const Dashboard = () => {
           </Alert>
         </Snackbar>
       </Grid>
-    </>
+    </div>
   );
 };
 
