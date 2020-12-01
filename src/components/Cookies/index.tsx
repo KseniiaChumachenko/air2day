@@ -45,7 +45,7 @@ export const Cookies = () => {
       >
         <Alert onClose={handleClose} severity="warning">
           <Trans>
-            By continue browsing or closing this warning, you accept the
+            By continuing to browse or closing this warning, you accept the
           </Trans>
           &nbsp;
           <Link href="#" onClick={handlePrivacyPolicyClick} color={"inherit"}>
