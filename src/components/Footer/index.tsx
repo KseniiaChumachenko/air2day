@@ -15,11 +15,11 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       height: "8vh",
       padding: theme.spacing(2),
-      display: "flex"
+      display: "flex",
+      alignItems: "center"
     },
     footerItem: {
-      marginLeft: theme.spacing(2),
-      alignSelf: "center"
+      marginLeft: theme.spacing(2)
     }
   })
 );

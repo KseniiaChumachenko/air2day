@@ -59,13 +59,15 @@ query SensorsPosition {
   }
 }
 
-query airQualityIndexByLocations(
-  $sensorId: String
-#  $latitude: Float
-#  $longitude: Float
-) {
+query commonAirQualityIndex($sensorId: String) {
   commonAirQualityIndex(sensorId: $sensorId)
-#  interpolatedCommonAirQualityIndex(latitude: $latitude, longitude: $longitude)
+}
+
+query airQualityIndexByLocations($sensorId: String) #  $latitude: Float
+#  $longitude: Float
+{
+  commonAirQualityIndex(sensorId: $sensorId)
+  #  interpolatedCommonAirQualityIndex(latitude: $latitude, longitude: $longitude)
 }
 
 query airPolutionPrediction(

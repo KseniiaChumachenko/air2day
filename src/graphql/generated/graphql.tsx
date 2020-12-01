@@ -208,6 +208,15 @@ export type SensorsPositionQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type CommonAirQualityIndexQueryVariables = Exact<{
+  sensorId?: Maybe<Scalars["String"]>;
+}>;
+
+export type CommonAirQualityIndexQuery = { __typename?: "Query" } & Pick<
+  Query,
+  "commonAirQualityIndex"
+>;
+
 export type AirQualityIndexByLocationsQueryVariables = Exact<{
   sensorId?: Maybe<Scalars["String"]>;
 }>;
@@ -490,6 +499,43 @@ export type SensorsPositionLazyQueryHookResult = ReturnType<
 export type SensorsPositionQueryResult = ApolloReactCommon.QueryResult<
   SensorsPositionQuery,
   SensorsPositionQueryVariables
+>;
+export const CommonAirQualityIndexDocument = gql`
+  query commonAirQualityIndex($sensorId: String) {
+    commonAirQualityIndex(sensorId: $sensorId)
+  }
+`;
+export function useCommonAirQualityIndexQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    CommonAirQualityIndexQuery,
+    CommonAirQualityIndexQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    CommonAirQualityIndexQuery,
+    CommonAirQualityIndexQueryVariables
+  >(CommonAirQualityIndexDocument, baseOptions);
+}
+export function useCommonAirQualityIndexLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    CommonAirQualityIndexQuery,
+    CommonAirQualityIndexQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    CommonAirQualityIndexQuery,
+    CommonAirQualityIndexQueryVariables
+  >(CommonAirQualityIndexDocument, baseOptions);
+}
+export type CommonAirQualityIndexQueryHookResult = ReturnType<
+  typeof useCommonAirQualityIndexQuery
+>;
+export type CommonAirQualityIndexLazyQueryHookResult = ReturnType<
+  typeof useCommonAirQualityIndexLazyQuery
+>;
+export type CommonAirQualityIndexQueryResult = ApolloReactCommon.QueryResult<
+  CommonAirQualityIndexQuery,
+  CommonAirQualityIndexQueryVariables
 >;
 export const AirQualityIndexByLocationsDocument = gql`
   query airQualityIndexByLocations($sensorId: String) {

@@ -33,8 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export const DataDisplay = () => {
   const classes = useStyles();
 
-  const { searchData } = useUpdateSearchData();
-  const { locations } = useMemo(() => searchData, [searchData]);
+  const {
+    searchData: { locations }
+  } = useUpdateSearchData();
 
   const { data, loading, error } = useGetSensorsData();
 

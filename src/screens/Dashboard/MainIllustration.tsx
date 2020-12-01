@@ -1,9 +1,11 @@
 import React from "react";
+import { useTheme } from "@material-ui/core";
 
 /*
  * Illustration source: https://www.flaticon.com/free-icon/air-pollution_1899124
  * */
 export const MainIllustration = ({ className }: { className?: string }) => {
+  const theme = useTheme();
   return (
     <div className={className}>
       <svg
@@ -18,7 +20,7 @@ export const MainIllustration = ({ className }: { className?: string }) => {
         />
         <path
           d="m3 62v-3.29187a4 4 0 0 1 2.51444-3.71391l7.48556-2.99422h8l7.48556 2.99423a4 4 0 0 1 2.51444 3.7139v3.29187"
-          fill="#ffa742"
+          fill={theme.palette.primary.main}
         />
         <path d="m21 48v4a4 4 0 0 1 -4 4 4 4 0 0 1 -4-4v-4z" fill="#ebcca4" />
         <path d="m28 25v13a11 11 0 0 1 -22 0v-13z" fill="#f8d7ad" />

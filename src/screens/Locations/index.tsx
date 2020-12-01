@@ -3,6 +3,7 @@ import { Container, createStyles, Theme, makeStyles } from "@material-ui/core";
 import { Map } from "./components/Map";
 import { useTabTitle } from "../../hooks/useTabTitle";
 import { DataDisplay } from "./components/DataDisplay";
+import { AQIndexesWidget } from "./components/AQIndexesWidget";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,6 +28,7 @@ export const Locations = () => {
   return (
     <Container className={classes.container} maxWidth={false}>
       <Map />
+      <AQIndexesWidget />
       <DataDisplay />
     </Container>
   );

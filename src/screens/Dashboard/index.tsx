@@ -244,7 +244,7 @@ const AirQualityIndex = ({
     message={
       <Typography>
         <Trans>
-          is <i>Common air quality index</i> based on information, from the
+          is <i>Common Air Quality Index</i> based on information, from the
           <b>&nbsp;nearest sensor</b>
         </Trans>
       </Typography>

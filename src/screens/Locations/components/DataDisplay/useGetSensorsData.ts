@@ -14,11 +14,9 @@ import { SensorsData } from "../../model";
  * Due to imperfection of API and Apollo Client requests had to be separated and mapped */
 export function useGetSensorsData() {
   // retrieves selected sensors from search field
-  const { searchData } = useUpdateSearchData();
-  const { locations, selectedFromDate, selectedToDate } = useMemo(
-    () => searchData,
-    [searchData]
-  );
+  const {
+    searchData: { locations, selectedFromDate, selectedToDate }
+  } = useUpdateSearchData();
 
   const [data, setData] = useState<SensorsData | undefined>();
   const [error, setError] = useState<ApolloError | undefined>();
