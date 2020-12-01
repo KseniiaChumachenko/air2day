@@ -21,12 +21,13 @@ const SensorIcon =
 export function Map() {
   const classes = useStyles({});
   const userLocation = usePositioning();
-  const { searchData, setLocations } = useUpdateSearchData();
-
-  const { sensors, locations } = useMemo(() => searchData, [searchData]);
+  const {
+    searchData: { sensors, locations },
+    setLocations
+  } = useUpdateSearchData();
 
   const activeSensorColor = (sensorId: string) => {
-    const index = searchData.locations.findIndex(s => s.id === sensorId);
+    const index = locations.findIndex(s => s.id === sensorId);
     if (index === -1) {
       return "black";
     } else {
@@ -52,8 +53,8 @@ export function Map() {
       position: { lat: sensor.latitude, lng: sensor.longitude },
       onClick: () =>
         setLocations(
-          locations.includes(sensor)
-            ? locations.filter(l => l.id === sensor.id)
+          !!locations.find(l => l.id === sensor.id)
+            ? locations.filter(l => l.id !== sensor.id)
             : [...locations, sensor]
         )
     }));
