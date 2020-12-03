@@ -1,6 +1,7 @@
 ## Air2Day
 
 Webapplication created in order to represent data about air pollution in big cities. 
+For Czech Technical University.
 
 ##### Technical stack:
 - React 17 (Typescript)
@@ -12,7 +13,7 @@ Webapplication created in order to represent data about air pollution in big cit
 
 ## Available Scripts
 
-#####First enrich an environment with following variables:
+##### First enrich an environment with following variables:
 ```
 NODE_ENV - either "development" or "production"
 API_URI - example: "http://localhost:8080/air2day-devel/api"
