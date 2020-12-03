@@ -1,42 +1,87 @@
-query ChartRepresentation($from: OffsetDateTime, $to: OffsetDateTime, $sensorId: String) {
-    sensorData(from: $from, to: $to, sensorId: $sensorId) {
-        from
-        pollutant
-        value
-        id
-    }
+query ChartRepresentation(
+  $from: OffsetDateTime
+  $to: OffsetDateTime
+  $sensorId: String
+) {
+  sensorData(from: $from, to: $to, sensorId: $sensorId) {
+    from
+    pollutant
+    value
+    id
+  }
 }
 
 query DataTable($from: OffsetDateTime, $to: OffsetDateTime, $sensorId: String) {
-    sensorData(from: $from, to: $to, sensorId: $sensorId) {
-        from
-        to
-        pollutant
-        hourAvg
-        value
-        id
-    }
+  sensorData(from: $from, to: $to, sensorId: $sensorId) {
+    from
+    to
+    pollutant
+    hourAvg
+    value
+    id
+    sensorIds
+  }
 }
 
 query SensorInfo($id: String) {
-    sensor(id: $id) {
-        code
-        altitude
-        latitude
-        longitude
-        web
-    }
+  sensor(id: $id) {
+    code
+    altitude
+    latitude
+    longitude
+    web
+  }
 }
 
 query Sensors {
-    sensors {
-        code
-        altitude
-        latitude
-        longitude
-        altitude
-        web
-        id
-    }
+  sensors {
+    code
+    altitude
+    latitude
+    longitude
+    altitude
+    web
+    id
+  }
 }
 
+query DashboardData {
+  sensorsCount
+  providersCount
+}
+
+query SensorsPosition {
+  sensors {
+    id
+    code
+    latitude
+    longitude
+  }
+}
+
+query commonAirQualityIndex($sensorId: String) {
+  commonAirQualityIndex(sensorId: $sensorId)
+}
+
+query airQualityIndexByLocations($sensorId: String) #  $latitude: Float
+#  $longitude: Float
+{
+  commonAirQualityIndex(sensorId: $sensorId)
+  #  interpolatedCommonAirQualityIndex(latitude: $latitude, longitude: $longitude)
+}
+
+query airPolutionPrediction(
+  $latitude: Float
+  $longitude: Float
+  $time: OffsetDateTime
+) {
+  interpolateData(latitude: $latitude, longitude: $longitude, time: $time) {
+    from
+    hourAvg
+    id
+    pollutant
+    sensorIds
+    to
+    value
+  }
+}

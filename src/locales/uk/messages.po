@@ -152,14 +152,14 @@ msgstr ""
 #~ msgid "{0}"
 #~ msgstr ""
 
-#: src/screens/Locations/components/CartsTab/Chart.tsx:64
+#: src/screens/Locations/components/CartsTab/index.tsx:64
 #~ msgid "{axesBottomTitle}"
 #~ msgstr ""
 
-#: src/screens/Locations/components/CartsTab/Chart.tsx:69
+#: src/screens/Locations/components/CartsTab/index.tsx:69
 #~ msgid "{axesLeftTitle}"
 #~ msgstr ""
 
-#: src/screens/Locations/components/CartsTab/Chart.tsx:57
+#: src/screens/Locations/components/CartsTab/index.tsx:57
 #~ msgid "{title}"
 #~ msgstr ""

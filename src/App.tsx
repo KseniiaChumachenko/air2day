@@ -1,8 +1,7 @@
 import "regenerator-runtime/runtime";
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { I18nProvider } from "@lingui/react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import {
@@ -13,44 +12,31 @@ import {
 } from "@apollo/client";
 import { ThemeProvider } from "@material-ui/styles";
 
-import { Locations } from "src/screens/Locations";
-import { Landing } from "src/screens/Landing";
-
-import { useThemingSetup } from "./hooks/useThemingSetup";
+import { useTheme } from "./store/ThemeProvider/useTheme";
 import { useLanguageSetup } from "./hooks/useLanguageSetup";
-import { Navigation } from "./components/Navigation";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      [theme.breakpoints.up("sm")]: {
-        display: "flex"
-      },
-      display: "block",
-      height: "100vh",
-      overflow: "hidden",
-      background: theme.palette.background.default
-    },
-    content: {
-      flexGrow: 1
-    }
-  })
-);
+import { Header } from "./components/Header";
+import { SearchDataProvider } from "./store/SearchDataProvider";
+import { AppContainer } from "./components/AppContainer";
+import { Routes } from "./components/Routes";
+import { useGoogleApiScript } from "./components/GoogleApi/useGoogleApiScript";
+import { Cookies } from "./components/Cookies";
+import { Footer } from "./components/Footer";
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: `/api/graphql`,
+    uri: `/graphql`,
     headers: {
-      authorization: `fb4c1cd7-e219-48ef-be8f-5e31f125e64f`
+      authorization: process.env.AUTH_TOKEN
     }
   }),
   cache: new InMemoryCache()
 });
 
 const App = () => {
-  const classes = useStyles({});
-  const { theme, setTheme } = useThemingSetup();
+  const { theme, setTheme } = useTheme();
   const { i18n, locale, setLocale } = useLanguageSetup();
+
+  useGoogleApiScript();
 
   return (
     <I18nProvider i18n={i18n} language={locale.language}>
@@ -58,18 +44,19 @@ const App = () => {
         <BrowserRouter>
           <ThemeProvider theme={theme}>
             <MuiPickersUtilsProvider utils={MomentUtils}>
-              <div className={classes.root}>
-                <Navigation
-                  theme={theme}
-                  setTheme={setTheme}
-                  locale={locale}
-                  setLocale={setLocale}
-                />
-                <main className={classes.content}>
-                  <Route exact path="/" component={Landing} />
-                  <Route path={"/locations/:tabId"} component={Locations} />
-                </main>
-              </div>
+              <SearchDataProvider>
+                <AppContainer>
+                  <Header
+                    theme={theme}
+                    setTheme={setTheme}
+                    locale={locale}
+                    setLocale={setLocale}
+                  />
+                  <Routes />
+                  <Cookies />
+                  <Footer />
+                </AppContainer>
+              </SearchDataProvider>
             </MuiPickersUtilsProvider>
           </ThemeProvider>
         </BrowserRouter>

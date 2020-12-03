@@ -11,6 +11,7 @@
     "experimentalDecorators": true,
     "removeComments": false, // prevent tsc from removing webpack magic comments
     "importsNotUsedAsValues": "preserve",
+    "no-unused-declaration": true,
 
     "strict": true,
     "preserveConstEnums": true,
