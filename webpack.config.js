@@ -35,47 +35,6 @@ module.exports = (/* env = {} */) => {
     module: {
       rules: [
         {
-          test: /\.svg$/i,
-
-          oneOf: [
-            {
-              resourceQuery: /inline/,
-              use: [
-                {
-                  loader: "raw-loader"
-                },
-                {
-                  loader: "svgo-loader",
-                  options: {
-                    plugins: [
-                      { removeScriptElement: true },
-                      { removeViewBox: false },
-                      { removeDimensions: true },
-                      { removeAttr: "id" }
-                    ]
-                  }
-                }
-              ]
-            },
-            {
-              use: [
-                {
-                  loader: "file-loader",
-                  options: {
-                    outputPath: "assets/images"
-                  }
-                },
-                {
-                  loader: "svgo-loader",
-                  options: {
-                    plugins: [{ removeScriptElement: true }]
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
           test: /\.(js|jsx|ts|tsx)$/,
           use: "babel-loader"
         },
@@ -87,7 +46,7 @@ module.exports = (/* env = {} */) => {
         },
 
         {
-          test: /\.(png|jpe?g|gif)$/i,
+          test: /\.(png|jpe?g)$/i,
           use: [
             {
               loader: "file-loader"
@@ -113,7 +72,7 @@ module.exports = (/* env = {} */) => {
       new webpack.optimize.MinChunkSizePlugin({
         minChunkSize: 20000
       }),
-      new CopyWebpackPlugin([{ from: "public" }])
+      new CopyWebpackPlugin({ patterns: [{ from: "public" }] })
     ],
 
     devServer: {
