@@ -10,7 +10,6 @@ Webapplication created in order to represent data about air pollution in big cit
 - Babel
 - 20 lines of express app to serve React build 
 
-
 ## Available Scripts
 
 #####First enrich an environment with following variables:
@@ -28,7 +27,7 @@ GOOGLE_API_KEY - example "AIzaSyCMq7ChRIjtPzz_QNpiHShMY0dfmpkL8rs"
 
 Install packages of dependencies listed in package.json
 
-### `yarn run`
+### `yarn dev`
 
 Runs the app in the development mode, i.e. webpack-dev-server.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -39,6 +38,7 @@ You will also see any lint errors in the console.
 ### `yarn build`
 
 Builds the app for production to the build folder.<br>
+
 App is ready to be deployed.
 
 ### `yarn start`
@@ -46,3 +46,7 @@ App is ready to be deployed.
 Runs express server with needed API proxy and serves build created by `build` script.
 Application will run on port specified by PORT environmental variable, otherwise fallback to port 8080 will be used.<br>
 Open [http://localhost:8080](http://localhost:8080) to view it in the browser. 
+
+### `yarn start`
+
+Repo extended with express, script will run server with build of React app.
